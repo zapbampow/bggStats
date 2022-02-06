@@ -33,6 +33,9 @@ const exampleData = {
                         // objecttype: 'thing', 
                         objectid: '2425'
                     },
+                    comments: {
+                        _text: ""
+                    },
                     // subtypes: { 
                     //     subtype: { 
                     //         _attributes: { 
@@ -94,8 +97,11 @@ export type BGGPlay = {
         location: string;
     };
     item: BGGItem;
+    comments?: {
+        _text: string;
+    }
     players: {
-        player: BGGPlayer[];
+        player: BGGPlayerData[] | BGGPlayerData;
     }
 }
 
@@ -117,10 +123,10 @@ type BGGSubtypes = {
 };
 
 type BGGPlayer = {
-    player: BGGPlayerData[];
+    player: BGGPlayerData[] | BGGPlayerData;
 };
 
-type BGGPlayerData = {
+export type BGGPlayerData = {
     _attributes: {
         username: string;
         userid: string;

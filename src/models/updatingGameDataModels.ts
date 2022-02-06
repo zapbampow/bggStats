@@ -1,12 +1,13 @@
 export type PlayerModel = {
-    username?: string;
+    username?: string | null;
+    userId?: number | null;
     name: string;
-    score?: string;
+    score?: number | null;
     win?: boolean;
     new?: boolean;
-    startposition?: string;
-    color?: string;
-    rating?: string;
+    startposition?: number | null;
+    color?: string | null;
+    rating?: number | null;
 }
 
 export type GameData = {
@@ -16,10 +17,10 @@ export type GameData = {
     gameName: string;
     date: string;
     quantity?: number;
-    location?: string;
-    length?: number;
+    location?: string | null;
+    length?: number | null;
     incomplete?: boolean;
-    comments?: string;
+    comments?: string | null;
     noWinStats?: boolean;
 }
 

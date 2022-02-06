@@ -1,7 +1,7 @@
 {
-  "name": "node-typescript-boilerplate",
+  "name": "boardgamegeek-player-record-stats",
   "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "description": "Interacts with a user's BoardGameGeek record of their plays to allow them to answer questions of how many, which, who, and when regarding their recorded plays.",
   "engines": {
     "node": ">= 16.13 <17"
   },
