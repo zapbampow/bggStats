@@ -14,6 +14,17 @@
 - refactor count functions (filter by criteria, then add up quantity fields)
 - Think through how to build a flexible querying model that can answers many types of questions
 
+## Getting and storing data
+1. Check for the newest play record in IndexDB
+2. (a) If there is no record, got get all the user's records.
+2. (b) If there is a record, get all records from the day after their latest record.
+3. In either case, store them in IndexDB
+
+- Note: After some research I think Web Workers probably isn't worth the effort for a v1. If I find that things are slow, then I can move functionality over incrementally and test whether it actually improves things.
+
+
+
+
 ##### Things to consider for getting all of a user's play data
 - you only get 100 results per request
 - total plays and page are included in result, so you'll need to handle a bunch of requests and build up a final object
