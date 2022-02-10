@@ -1,5 +1,40 @@
 # BoardGameGeek Player Record Stats
 
+## Options for data
+1. I need to use IndexedDB so that this can be front end only because it will be cheaper (or free) to deploy.
+2. My initial thought was to create a simple model for the game data, which I've done, and use the dexie library for simple adding a querying of data. But querying nested objects isn't (easily) possible for dexie and that's how I've designed the data.
+3. I could move to a relational db, but that will definitely cost more because I won't be able to control storage
+4. I could simply store all play data as json and convert back and forth for storage and analysis.
+5. I could create multiple stores for players and play info.
+6. I could save data in a different format with players as the base. Something like below. Queries would then always have 'where recorderUserId === current value' and include grouping by playId once they are returned or something like that. This would have a lot of duplicate data, but I guess my original idea did too.
+
+```
+{
+  id: playid + date + playerid
+  username?: string | null;
+  userId?: number | null;
+  name: string;
+  score?: number | null;
+  win?: 0 | 1;
+  new?: 0 | ;
+  startposition?: number | null;
+  color?: string | null;
+  rating?: number | null;
+  recorderUserId?: number;
+  playId: number;
+  gameId: number;
+  gameName: string;
+  date: string;
+  quantity?: number;
+  location?: string | null;
+  length?: number | null;
+  incomplete?: 0| 1;
+  comments?: string | null;
+  noWinStats?: 0 | 1; 
+}
+```
+  
+
 ## Todo
 - figure out IndexDB (https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 - Create base stats and reference functions

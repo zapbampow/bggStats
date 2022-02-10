@@ -92,8 +92,8 @@ export type BGGPlay = {
         date: string;
         quantity: string;
         length: string;
-        incomplete: string;
-        nowinstats: string;
+        incomplete: "0" | "1";
+        nowinstats: "0" | "1";
         location: string;
     };
     item: BGGItem;

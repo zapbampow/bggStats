@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import { xml2js } from 'xml-js'
 import flattenBGGPlayData from "./utils/flattenBGGPlayData";
+import superFlattenPlays from './utils/superFlattenPlays'
 
 // import { totalPlayed, withTeresaOnly, onlyWithWholeFamily } from "./stats";
 // import csvtojson from 'csvtojson';
@@ -30,7 +31,7 @@ const getBGGData = async (username:string) => {
         const xmlData = await res.text()
         const json = xml2js(xmlData, {ignoreComment: true, alwaysChildren: true, compact: true});
         
-        flattenBGGPlayData(json)
+        superFlattenPlays(json)
         
     } catch(err) {
         console.log(err)
