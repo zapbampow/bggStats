@@ -4,8 +4,13 @@ import { SuperFlatGameData, GameData, Player } from "../models/superFlatGameData
 // Converts the data that has come in from BGG into a format that will be a lot easier to work with
 export default function flattenBGGPlayData(data:BGGData) {
     const userid = parseInt(data.plays._attributes.userid);
-    const flattenedPlays:SuperFlatGameData[] = data.plays.play.map(item => superFlattenSinglePlay(item, userid))
-    console.log("flattenedPlays: ", JSON.stringify(flattenedPlays))
+    const flattenedPlays:SuperFlatGameData[] = data.plays.play
+        .map(
+            item => superFlattenSinglePlay(item, userid)
+        )
+        .reduce(
+            (cur, acc) => [...cur, ...acc], []
+        )
     return flattenedPlays;
 }
 
@@ -31,7 +36,7 @@ function superFlattenSinglePlay(data:BGGPlay, userid: number):SuperFlatGameData 
         noWinStats: parseInt(nowinstats, 10) > 0 ? 1 : 0,
     }
 
-    const playerPlays:SuperFlatGameData = players.map(player => {
+    const playerPlays:SuperFlatGameData[] = players.map(player => {
         return {
             id: `${play.playId}${player.name.replace(/\s+/g, '')}${player.userId ?? ""}`,
             ...player,
