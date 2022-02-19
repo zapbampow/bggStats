@@ -4,6 +4,7 @@ dist
 dist-ssr
 *.local
 .env
+.package-lock.json
 
 # Logs
 logs

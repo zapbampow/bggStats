@@ -27,14 +27,14 @@ function superFlattenSinglePlay(
   const players: Player[] = convertPlayers(data?.players?.player);
 
   const play: GameData = {
-    playId: parseInt(id),
-    gameId: parseInt(objectid),
+    playId: parseInt(id, 10),
+    gameId: parseInt(objectid, 10),
     recorderUserId: userid,
     gameName: name,
     date: date,
-    quantity: parseInt(quantity) || 1,
+    quantity: parseInt(quantity, 10) || 1,
     location: location || null,
-    length: parseInt(length) || null,
+    length: parseInt(length, 10) || null,
     incomplete: parseInt(incomplete, 10) > 0 ? 1 : 0,
     comments: comments || null,
     noWinStats: parseInt(nowinstats, 10) > 0 ? 1 : 0,
@@ -59,15 +59,15 @@ function convertPlayers(data: BGGPlayerData[] | BGGPlayerData = []): Player[] {
   if (dataIsArray) {
     const players: Player[] = data.map(({ _attributes }) => {
       return {
-        username: _attributes.username || null,
-        userId: parseInt(_attributes.userid) || null,
+        username: _attributes.username || 0,
+        userId: parseInt(_attributes.userid, 10) || 0,
         name: _attributes.name || "",
-        score: parseInt(_attributes.username) || null,
-        win: parseInt(_attributes?.win) > 0 ? 1 : 0,
-        new: parseInt(_attributes.new) > 0 ? 1 : 0,
-        startposition: parseInt(_attributes.startposition) || null,
-        color: _attributes.color || null,
-        rating: parseInt(_attributes.rating) || null,
+        score: parseInt(_attributes.username, 10) || 0,
+        win: parseInt(_attributes?.win, 10) > 0 ? 1 : 0,
+        new: parseInt(_attributes.new, 10) > 0 ? 1 : 0,
+        startposition: parseInt(_attributes.startposition, 10) || 0,
+        color: _attributes.color || "",
+        rating: parseInt(_attributes.rating, 10) || 0,
       };
     });
 
@@ -75,15 +75,15 @@ function convertPlayers(data: BGGPlayerData[] | BGGPlayerData = []): Player[] {
   } else {
     return [
       {
-        username: data._attributes.username || null,
-        userId: parseInt(data._attributes.userid) || null,
+        username: data._attributes.username || "",
+        userId: parseInt(data._attributes.userid, 10) || 0,
         name: data._attributes.name || "",
-        score: parseInt(data._attributes.username) || null,
-        win: parseInt(data._attributes.win) > 0 ? 1 : 0,
-        new: parseInt(data._attributes.new) > 0 ? 1 : 0,
-        startposition: parseInt(data._attributes.startposition) || null,
-        color: data._attributes.color || null,
-        rating: parseInt(data._attributes.rating) || null,
+        score: parseInt(data._attributes.username, 10) || 0,
+        win: parseInt(data._attributes.win, 10) > 0 ? 1 : 0,
+        new: parseInt(data._attributes.new, 10) > 0 ? 1 : 0,
+        startposition: parseInt(data._attributes.startposition, 10) || 0,
+        color: data._attributes.color || "",
+        rating: parseInt(data._attributes.rating, 10) || 0,
       },
     ];
   }
