@@ -70,17 +70,17 @@ export async function getRemainingPlayData(username: string, pages: number) {
     );
     console.log("remaining: ", remaining);
 
-    const data = convertXmlToJsObject(remaining[4].value);
-    console.log("data: ", data);
-    const playsArray = superFlattenPlays(data);
-    console.log("playsArray: ", playsArray);
+    // const data = convertXmlToJsObject(remaining[4].value);
+    // console.log("data: ", data);
+    // const playsArray = superFlattenPlays(data);
+    // console.log("playsArray: ", playsArray);
 
-    // const values = remaining.map((item) => {
-    //   const data = convertXmlToJsObject(item.value);
-    //   const playsArray = superFlattenPlays(data);
-    //   return playsArray;
-    // });
-    // console.log(values);
+    const values = remaining.map((item) => {
+      const data = convertXmlToJsObject(item.value);
+      const playsArray = superFlattenPlays(data);
+      return playsArray;
+    });
+    console.log(values);
   } catch (err) {
     throw new Error(err);
   }
