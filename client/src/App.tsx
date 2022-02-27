@@ -3,13 +3,24 @@ import { useEffect } from "react";
 import "./App.css";
 import { SomeComponent } from "./components/SomeComponent";
 import { db } from "./data/db";
-import { getUserPlayData } from "./services/bggService";
+import {
+  getInitialPlayData,
+  getRemainingPlayData,
+  getUserPlayData,
+} from "./services/bggService";
 import { bulkAddPlays } from "./services/dbService";
 
 function App() {
   const data = async () => {
     const playData = await getUserPlayData("jpseasia");
-    const addedPlays = await bulkAddPlays(playData);
+    // const addedPlays = await bulkAddPlays(playData);
+
+    const initialData = await getInitialPlayData("jpseasia");
+    console.log("initialData: ", initialData);
+    const remainingData = await getRemainingPlayData(
+      "jpseasia",
+      initialData.pages
+    );
   };
 
   useEffect(() => {

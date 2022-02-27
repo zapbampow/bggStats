@@ -42,3 +42,11 @@ export function xmlToJson(xml) {
   }
   return obj;
 }
+
+export function convertXmlToJsObject(xmlData) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xmlData, "application/xml");
+
+  const data = xmlToJson(doc);
+  return data;
+}

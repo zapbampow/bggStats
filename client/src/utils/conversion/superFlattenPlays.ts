@@ -7,7 +7,7 @@ import {
 
 // Converts the data that has come in from BGG into a format that will be a lot easier to work with
 export function superFlattenPlays(data: BGGData) {
-  const userid = parseInt(data.plays._attributes.userid);
+  const userid = parseInt(data.plays?._attributes?.userid);
   const flattenedPlays: SuperFlatGameData[] = data.plays.play
     .map((item) => superFlattenSinglePlay(item, userid))
     .reduce((cur, acc) => [...cur, ...acc], []);
@@ -20,8 +20,8 @@ function superFlattenSinglePlay(
   userid: number
 ): SuperFlatGameData {
   const { id, date, quantity, length, incomplete, nowinstats, location } =
-    data._attributes;
-  const { name, objectid } = data.item._attributes;
+    data?._attributes;
+  const { name, objectid } = data.item?._attributes;
   const comments = data?.comments?._text || "";
 
   const players: Player[] = convertPlayers(data?.players?.player);
@@ -54,6 +54,22 @@ function superFlattenSinglePlay(
 }
 
 function convertPlayers(data: BGGPlayerData[] | BGGPlayerData = []): Player[] {
+  if ((data = [])) {
+    return [
+      {
+        username: "",
+        userId: 0,
+        name: "",
+        score: 0,
+        win: 0,
+        new: 0,
+        startposition: 0,
+        color: "",
+        rating: 0,
+      },
+    ];
+  }
+
   const dataIsArray = Array.isArray(data);
 
   if (dataIsArray) {
