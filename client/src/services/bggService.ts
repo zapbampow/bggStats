@@ -75,12 +75,14 @@ export async function getRemainingPlayData(username: string, pages: number) {
     // const playsArray = superFlattenPlays(data);
     // console.log("playsArray: ", playsArray);
 
-    const values = remaining.map((item) => {
-      const data = convertXmlToJsObject(item.value);
-      const playsArray = superFlattenPlays(data);
-      return playsArray;
-    });
-    console.log(values);
+    const values = remaining
+      .map((item) => {
+        const data = convertXmlToJsObject(item.value);
+        const playsArray = superFlattenPlays(data);
+        return playsArray;
+      })
+      .flat();
+    return values;
   } catch (err) {
     throw new Error(err);
   }

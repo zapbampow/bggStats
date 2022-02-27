@@ -1,5 +1,5 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./App.css";
 import { SomeComponent } from "./components/SomeComponent";
 import { db } from "./data/db";
@@ -11,21 +11,19 @@ import {
 import { bulkAddPlays } from "./services/dbService";
 
 function App() {
-  const data = async () => {
-    const playData = await getUserPlayData("jpseasia");
-    // const addedPlays = await bulkAddPlays(playData);
+  const usernameRef = useRef();
 
-    const initialData = await getInitialPlayData("jpseasia");
+  const getPlayData = async () => {
+    const username = usernameRef?.current?.value;
+    console.log("username: ", username);
+    // TODO: check if username exists first
+
+    // Then do the following
+    const initialData = await getInitialPlayData(username);
     console.log("initialData: ", initialData);
-    const remainingData = await getRemainingPlayData(
-      "jpseasia",
-      initialData.pages
-    );
+    const allData = await getRemainingPlayData(username, initialData.pages);
+    await bulkAddPlays(allData);
   };
-
-  useEffect(() => {
-    data();
-  }, []);
 
   const asherPlays = useLiveQuery(async () => {
     return await db.plays.where("name").equals("Asher").toArray();
@@ -34,6 +32,12 @@ function App() {
   return (
     <div className="App">
       <h3>Asher Play Dates</h3>
+
+      <div>
+        <input ref={usernameRef} type="text" placeholder="username" />
+        <button onClick={getPlayData}>Get Play Data</button>
+      </div>
+
       <div>
         {asherPlays?.map((play) => {
           return <div key={play.id}>{play.date}</div>;
