@@ -7,6 +7,7 @@ import {
   getInitialPlayData,
   getRemainingPlayData,
   getUserPlayData,
+  getAllPlayData,
 } from "./services/bggService";
 import { bulkAddPlays } from "./services/dbService";
 
@@ -18,11 +19,9 @@ function App() {
     console.log("username: ", username);
     // TODO: check if username exists first
 
-    // Then do the following
-    const initialData = await getInitialPlayData(username);
-    console.log("initialData: ", initialData);
-    const allData = await getRemainingPlayData(username, initialData.pages);
-    await bulkAddPlays(allData);
+    const allData = await getAllPlayData(username);
+    // console.log("allData: ", allData)
+    // await bulkAddPlays(allData);
   };
 
   const asherPlays = useLiveQuery(async () => {
@@ -35,6 +34,7 @@ function App() {
 
       <div>
         <input ref={usernameRef} type="text" placeholder="username" />
+        {/* TODO: Disable this button while waiting for data so it doesn't slam bgg multiple times */}
         <button onClick={getPlayData}>Get Play Data</button>
       </div>
 
