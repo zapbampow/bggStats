@@ -56,10 +56,16 @@ export async function getInitialPlayData(username: string) {
   }
 }
 
-export async function getRemainingPlayData(username: string, pages: number) {
+export async function getRemainingPlayData(
+  username: string,
+  pages: number,
+  setPercentDone?: (x: number) => void
+) {
   try {
+    // Create array from 1 to pages
     const pageArray = Array.from({ length: pages }, (_, i) => i + 1);
 
+    // Create array of promises to get page data
     const allPages: any[] = pageArray
       .map((page) => {
         const xmlData = fetchXmlPlayData(username, page);
@@ -67,6 +73,7 @@ export async function getRemainingPlayData(username: string, pages: number) {
       })
       .filter((x) => x);
 
+    // Group pages into arrays by chunkSize
     const chunkSize = 20;
     const numberOfChunks = Math.ceil(pages / chunkSize);
     const numberOfChunksArray = Array.from(
@@ -77,8 +84,9 @@ export async function getRemainingPlayData(username: string, pages: number) {
       allPages.slice(i * chunkSize, (i + 1) * chunkSize)
     );
 
-    console.log("chunkedPages: ", chunkedPages);
+    // console.log("chunkedPages: ", chunkedPages);
 
+    // Loop through chunks of pages on a timer in order to not blow through BGG limits
     let playXMLData = new Promise((resolve, reject) => {
       let xmldata = [];
 
@@ -86,12 +94,17 @@ export async function getRemainingPlayData(username: string, pages: number) {
         setTimeout(async () => {
           const settled = await Promise.allSettled(chunkedPages[i]);
           const data = settled.map((value) => value);
-          console.log("data: ", data);
+          // console.log("data: ", data);
 
-          // set up a hook for seeing this day
-          console.log("percent done: ", ((i + 1) / chunkedPages.length) * 100);
+          // Update percent done after each chunk of data is retrieved
+          if (setPercentDone !== undefined) {
+            const percentDone: number = ((i + 1) / chunkedPages.length) * 100;
+            setPercentDone(percentDone);
+          }
+
           xmldata = [...xmldata, ...data];
 
+          // Resolve the promise after last chunk is retrieved
           if (i === chunkedPages.length - 1) {
             resolve(xmldata);
           }
@@ -100,8 +113,8 @@ export async function getRemainingPlayData(username: string, pages: number) {
     });
 
     const someData = await playXMLData;
-    console.log("someData: ", someData);
-
+    // console.log("someData: ", someData);
+    return someData;
     // const data = convertXmlToJsObject(remaining);
     // console.log("data: ", data);
     // const playsArray = superFlattenPlays(data);
