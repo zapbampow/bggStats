@@ -14,23 +14,16 @@ import usePlayData from "./hooks/usePlayData";
 
 function App() {
   const [username, setUsername] = useState(null);
-  const { playData, percentDone } = usePlayData(username);
+  const { playData, percentDone, error } = usePlayData(username);
   const usernameRef = useRef();
-
-  // const getPlayData = async () => {
-  //   const username = usernameRef?.current?.value;
-  //   console.log("username: ", username);
-  //   setUsername(username)
-  //   // TODO: check if username exists first
-
-  //   // const allData = await getAllPlayData(username);
-  //   // console.log("allData: ", allData)
-  //   // await bulkAddPlays(allData);
-  // };
 
   useEffect(() => {
     console.log("playData: ", playData);
   }, [playData]);
+
+  useEffect(() => {
+    console.log("error: ", error);
+  }, [error]);
 
   const asherPlays = useLiveQuery(async () => {
     return await db.plays.where("name").equals("Asher").toArray();
@@ -46,16 +39,12 @@ function App() {
         <button onClick={() => setUsername(usernameRef?.current?.value)}>
           Get Play Data
         </button>
+
+        {error && <div className="text-red-500">{error}</div>}
       </div>
 
       <div>
         <h4>Percent Done: {percentDone}</h4>
-      </div>
-
-      <div>
-        {/* {asherPlays?.map((play) => {
-          return <div key={play.id}>{play.date}</div>;
-        })} */}
       </div>
     </div>
   );
