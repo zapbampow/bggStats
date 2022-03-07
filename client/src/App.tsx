@@ -5,14 +5,20 @@ import { SomeComponent } from "./components/SomeComponent";
 import { db } from "./data/db";
 import { bulkAddPlays } from "./services/dbService";
 import usePlayData from "./hooks/usePlayData";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
   const [username, setUsername] = useState(null);
   const { playData, percentDone, error } = usePlayData(username);
+  const [data, setData] = useLocalStorage("data", "[]");
   const usernameRef = useRef();
 
   useEffect(() => {
-    console.log("playData: ", playData);
+    if (playData != [] && playData !== null && playData !== undefined) {
+      console.log("playData: ", playData);
+      const json = JSON.stringify(playData);
+      setData(json);
+    }
   }, [playData]);
 
   useEffect(() => {
@@ -25,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Asher Play Dates</h3>
+      <h3>Get Play Data</h3>
 
       <div>
         <input ref={usernameRef} type="text" placeholder="username" />
