@@ -180,3 +180,31 @@ function convertPlayers(
     ];
   }
 }
+
+export async function getUserInfo(username: string) {
+  if (username) {
+    const query = `https://boardgamegeek.com/xmlapi2/user?name=${username}`;
+    // const res = await tenaciousFetch(query, fetchConfig);
+    const originalFetch = window.fetch;
+    const fetch = fetchRetry(originalFetch);
+    const res = await fetch(query, {
+      retries: 7,
+      retryDelay: function (attempt, error, response) {
+        return Math.pow(8, attempt) * 1000; // 1000, 2000, 4000
+      },
+    });
+    const xmlData = await res.text();
+
+    const { user } = convertXmlToJsObject(xmlData);
+
+    return {
+      userId: user._attributes.id,
+      username: user._attributes.name,
+      name: `${user.firstname._attributes.value} ${user.lastname._attributes.value}`,
+      yearRegistered: parseInt(user.yearregistered._attributes.value),
+      stateOrProvince: `${user.stateorprovince._attributes.value}`,
+      country: `${user.country._attributes.value}`,
+      avatarLink: `${user.avatarlink._attributes.value}`,
+    };
+  }
+}

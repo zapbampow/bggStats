@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "remix";
+import { getUserInfo } from "~/services/bggService";
 import { countByPlayerName, countWinsByPlayer } from "~/utils/analysis";
 import usePlayData from "../../../hooks/usePlayData";
 import { db, bulkAddPlays } from "../../../services/db";
@@ -25,6 +26,7 @@ function Plays() {
 
   useEffect(() => {
     getAccumulatedData(130233);
+    getUserInfo(username).then((res) => console.log(res));
 
     const data = undefined;
     if (data) {

@@ -1,3 +1,13 @@
+# Todo
+
+- [ ] Get user data in loader on user page
+- [ ] Map dexie where operators to functions
+- [ ] Create filter methods
+
+
+
+
+
 # Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
