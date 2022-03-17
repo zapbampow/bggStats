@@ -1,7 +1,6 @@
 # Todo
 
-- [x] Make getPlayDateWithExpontialBackingOff arguments an object
-- [ ] Get user data in loader on user page
+- [ ] Handle errors on username/plays
 - [ ] Map dexie where operators to functions
 - [ ] Create filter methods
 - [ ] Change route from /plays/$username to $username/plays

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-import usePlayData from "../../../hooks/bgg/usePlayData";
+import usePlayData from "../../hooks/bgg/usePlayData";
 import {
   getAllPlayerNames,
   getAllUserNames,
   getAllLocations,
-} from "../../../utils/analysis/accumulations";
-import { useBggUser } from "~/hooks/bgg/useBggUser";
+} from "../../utils/analysis/accumulations";
+import { useBggUser } from "../../hooks/bgg/useBggUser";
 
 function Plays() {
   const user = useBggUser()
