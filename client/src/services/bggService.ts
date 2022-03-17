@@ -49,12 +49,14 @@ export async function getInitialPlayData(username: string) {
   }
 }
 
-export const getPlayDataWithExponentialBackingOff = async (
+export const getPlayDataWithExponentialBackingOff = async (options:{
   username: string,
   pages: number,
   setPercentDone: (x: number) => void
-) => {
+}) => {
   try {
+    const {username, pages, setPercentDone} = options;
+    
     // Create array from 1 to pages
     const pageArray = Array.from({ length: pages }, (_, i) => i + 1);
 

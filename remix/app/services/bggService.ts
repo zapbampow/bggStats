@@ -5,6 +5,7 @@ import { xmlToJson, convertXmlToJsObject } from "../utils/conversion/xmlToJson";
 import fetchRetry from "fetch-retry";
 import { BGGData, BGGPlay, BGGPlayerData } from "~/models/bgg/incomingBggData";
 import { PlayDataModel, PlayerModel } from "~/models/bgg/gameDataModels";
+import { UserInfo } from "~/models/bgg/userInfo";
 
 // TODO: Refactor to get all data once the first query lets the app know how many plays there actually are
 // Possibly add a custom hook that includes returning the progress for getting data
@@ -18,10 +19,17 @@ const fetchConfig = {
     console.log({ retriesLeft, retryDelay, response }),
 };
 
-export async function fetchXmlPlayData(username: string, page?: number) {
+type FetchOptions = {
+  username: string;
+  page?: number;
+  startdate?: string;
+}
+
+export async function fetchXmlPlayData(options: FetchOptions) {
   try {
-    const pageQuery = page ? `&page=${page}` : "";
-    const query = `https://boardgamegeek.com/xmlapi2/plays?username=${username}${pageQuery}`;
+    const pageQuery = options.page ? `&page=${options.page}` : "";
+    const startdate = options.startdate ? `&mindate=${options.startdate}` : "";
+    const query = `https://boardgamegeek.com/xmlapi2/plays?username=${options.username}${startdate}${pageQuery}`;
     // const res = await tenaciousFetch(query, fetchConfig);
     const originalFetch = window.fetch;
     const fetch = fetchRetry(originalFetch);
@@ -41,7 +49,7 @@ export async function fetchXmlPlayData(username: string, page?: number) {
 
 export async function getInitialPlayData(username: string) {
   try {
-    const xmlData = await fetchXmlPlayData(username);
+    const xmlData = await fetchXmlPlayData({username});
     const data = convertXmlToJsObject(xmlData);
 
     const plays = superFlattenPlays(data);
@@ -61,19 +69,22 @@ export async function getInitialPlayData(username: string) {
   }
 }
 
-export const getPlayDataWithExponentialBackingOff = async (
+export const getPlayDataWithExponentialBackingOff = async (options: {
   username: string,
   pages: number,
-  setPercentDone: (x: number) => void
-) => {
+  startdate?:string,
+  setPercentDone: (x: number) => void,
+}) => {
   try {
+    const {username, pages, startdate, setPercentDone} = options;
+
     // Create array from 1 to pages
     const pageArray = Array.from({ length: pages }, (_, i) => i + 1);
 
     // Create array of promises to get page data
     const allPages: any[] = pageArray
       .map((page) => {
-        const xmlData = fetchXmlPlayData(username, page);
+        const xmlData = fetchXmlPlayData({username, page, startdate});
         return xmlData;
       })
       .filter((x) => x);
@@ -181,7 +192,7 @@ function convertPlayers(
   }
 }
 
-export async function getUserInfo(username: string) {
+export async function getUserInfo(username: string):UserInfo {
   if (username) {
     const query = `https://boardgamegeek.com/xmlapi2/user?name=${username}`;
     // const res = await tenaciousFetch(query, fetchConfig);
@@ -198,7 +209,7 @@ export async function getUserInfo(username: string) {
     const { user } = convertXmlToJsObject(xmlData);
 
     return {
-      userId: user._attributes.id,
+      userId: parseInt(user._attributes.id),
       username: user._attributes.name,
       name: `${user.firstname._attributes.value} ${user.lastname._attributes.value}`,
       yearRegistered: parseInt(user.yearregistered._attributes.value),
@@ -206,5 +217,27 @@ export async function getUserInfo(username: string) {
       country: `${user.country._attributes.value}`,
       avatarLink: `${user.avatarlink._attributes.value}`,
     };
+  }
+}
+
+export async function getLatestPlaysInfo(username: string, date: string) {
+  try {
+    const xmlData = await fetchXmlPlayData({username, startdate: date});
+    const data = convertXmlToJsObject(xmlData);
+
+    const plays = superFlattenPlays(data);
+    const pages = Math.ceil(parseInt(data.plays._attributes.total, 10) / 100);
+
+    console.log("pages: ", pages);
+
+    return {
+      plays,
+      pages,
+    };
+
+    // return plays;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
   }
 }

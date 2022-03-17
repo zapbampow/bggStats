@@ -1,26 +1,63 @@
 import { useEffect, useState } from "react";
+import { PlayDataModel } from "~/models/bgg/gameDataModels";
+import { UserInfo } from "~/models/bgg/userInfo";
+import { bulkAddPlays } from "~/services/db";
+import { getLatestPlayDate } from "~/services/idbService";
 import {
   getInitialPlayData,
   getPlayDataWithExponentialBackingOff,
+  getLatestPlaysInfo
 } from "../services/bggService";
+import { useBggUser } from './useBggUser'
 
-function usePlayData(username: string) {
-  const [playData, setPlayData] = useState([]);
+/**
+ * This is a hook to encapsulate the getting and storing of data into indexedDB.
+ * 
+ * Whatit  should do?
+ * 1. Check for existing data in IndexedDB
+ * 2. Check whether there is new data to add from BGG.
+ * 3. Add new data to the db
+ * 4. Return percentRetrieved, function to manually update, errors
+ * 
+ * What it isn't going to do?
+ * 1. Return all the data
+ */
+
+function usePlayData() {
+  const user = useBggUser();
   const [percentDone, setPercentDone] = useState(0);
   const [error, setError] = useState(null);
 
-  const handleFetching = async () => {
+  const handleFetching = async (user:UserInfo) => {
     try {
-      const initialData = await getInitialPlayData(username);
-      const allPlayData = await getPlayDataWithExponentialBackingOff(
-        username,
-        initialData.pages,
-        setPercentDone
-      );
-      setPlayData(allPlayData);
-      setError(null);
+      if(!user) {
+        throw Error("We cannot fetch user play data unless a user is set.")
+      }
+
+      const latestPlayDate = await getLatestPlayDate(user.userId);
+
+      if(latestPlayDate) {
+        const latestPlaysInfo = await getLatestPlaysInfo(user.username, latestPlayDate);
+        const latestPlays = await getPlayDataWithExponentialBackingOff({
+          username: user.username,
+          pages: latestPlaysInfo.pages,
+          startdate: latestPlayDate,
+          setPercentDone
+        })
+        bulkAddPlays(latestPlays)
+        setError(null)
+
+      } else {
+        const initialData = await getInitialPlayData(user.username);
+        const allPlayData = await getPlayDataWithExponentialBackingOff({
+          username: user.username,
+          pages: initialData.pages,
+          setPercentDone
+        });
+        bulkAddPlays(allPlayData);
+        setError(null);
+      }
     } catch (err) {
-      setPlayData([]);
       setPercentDone(0);
       setError(err.message);
       throw Error(err);
@@ -28,20 +65,19 @@ function usePlayData(username: string) {
   };
 
   const handleNoUsername = () => {
-    setPlayData([]);
     setPercentDone(0);
     setError(null);
   };
 
   useEffect(() => {
-    if (username) {
-      handleFetching();
+    if (user) {
+      handleFetching(user);
     }
-  }, [username]);
+  }, [user]);
 
   return {
-    playData,
     percentDone,
+    manuallyUpdate: () => handleFetching(user),
     error,
   };
 }

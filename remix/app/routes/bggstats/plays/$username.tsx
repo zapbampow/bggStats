@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams } from "remix";
+import React, { useEffect, useState } from "react";
+import { LoaderFunction, useLoaderData, useParams } from "remix";
 import { getUserInfo } from "~/services/bggService";
 import { countByPlayerName, countWinsByPlayer } from "~/utils/analysis";
 import usePlayData from "../../../hooks/usePlayData";
@@ -9,49 +9,44 @@ import {
   getAllUserNames,
   getAllLocations,
 } from "../../../utils/analysis/accumulations";
+import { getLatestPlayDate } from '../../../services/idbService';
+import { useBggUser } from "~/hooks/useBggUser";
 
 function Plays() {
-  const { username } = useParams();
-  // const { playData, percentDone, error } = usePlayData(username);
+  const user = useBggUser()
+  const [accData, setAccData] = useState()
+
+
+  const { manuallyUpdate, percentDone, error } = usePlayData();
 
   const getAccumulatedData = async (recordingUserId: number) => {
     const playerNames = await getAllPlayerNames(recordingUserId);
     const usernames = await getAllUserNames(recordingUserId);
     const locations = await getAllLocations(recordingUserId);
 
-    console.log("playerNames: ", playerNames);
-    console.log("usernames: ", usernames);
-    console.log("locations: ", locations);
+    setAccData({
+      numPlayers: playerNames.length,
+      numUsernames: usernames.length,
+      numLocations: locations.length
+    })
   };
 
+
   useEffect(() => {
-    getAccumulatedData(130233);
-    getUserInfo(username).then((res) => console.log(res));
-
-    const data = undefined;
-    if (data) {
-      console.log(data);
-      // const data = await getUpdatedPlayData();
-      // get latest play by play id
-      // get data from latest date
-      // filter out plays with playId <= latest playId
-      // parse local storage json and add retrieved plays
-      // return all plays as json
-      // set to local storage, overwriting old data
-    } else {
-      // const data = await getAlldata()
-      // set to local storage
+    if(user) { 
+      getAccumulatedData(130233);
     }
-  }, [username]);
+  }, [user]);
 
-  // useEffect(() => {
-  //   console.log("playData: ", playData);
-  //   bulkAddPlays(playData);
-  // }, [playData]);
 
   return (
     <div>
-      <h1>Query {username}'s PlayData</h1>
+      <h1>Query {user?.username}'s PlayData</h1>
+      <div>Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}</div>
+      <div>Number of playerNames: {accData?.numPlayers}</div>
+      <div>Number of usernames: {accData?.numUsernames}</div>
+      <div>Number of locations: {accData?.numLocations}</div>
+      <button onClick={manuallyUpdate}>Manually Update</button>
     </div>
   );
 }

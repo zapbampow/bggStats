@@ -12,10 +12,10 @@ function usePlayData(username: string) {
   const handleFetching = async () => {
     try {
       const initialData = await getInitialPlayData(username);
-      const allPlayData = await getPlayDataWithExponentialBackingOff(
+      const allPlayData = await getPlayDataWithExponentialBackingOff({
         username,
-        initialData.pages,
-        setPercentDone
+        pages: initialData.pages,
+        setPercentDone}
       );
       setPlayData(allPlayData);
       setError(null);
