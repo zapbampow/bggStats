@@ -32,18 +32,3 @@ export interface Player {
 export interface SuperFlatGameData extends GameData, Player {
   id: string; // playid + name + playeruserid ;
 }
-
-// {
-//   recorderUserId: number;
-//   playId: number;
-//   gameId: number;
-//   gameName: string;
-//   date: string;
-//   quantity: number;
-//   location: string;
-//   length: number;
-//   incomplete: 0 | 1;
-//   comments: string;
-//   noWinStats: 0 | 1; ... 9 more ...;
-//   id: string;
-// }

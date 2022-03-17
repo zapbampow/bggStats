@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { LoaderFunction, useLoaderData, useParams } from "remix";
-import { getUserInfo } from "~/services/bggService";
-import { countByPlayerName, countWinsByPlayer } from "~/utils/analysis";
-import usePlayData from "../../../hooks/usePlayData";
-import { db, bulkAddPlays } from "../../../services/db";
+import { useEffect, useState } from "react";
+
+import usePlayData from "../../../hooks/bgg/usePlayData";
 import {
   getAllPlayerNames,
   getAllUserNames,
   getAllLocations,
 } from "../../../utils/analysis/accumulations";
-import { getLatestPlayDate } from '../../../services/idbService';
-import { useBggUser } from "~/hooks/useBggUser";
+import { useBggUser } from "~/hooks/bgg/useBggUser";
 
 function Plays() {
   const user = useBggUser()

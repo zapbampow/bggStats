@@ -2,7 +2,7 @@ import Dexie, { Table } from "dexie";
 import { PlayDataModel } from "../models/bgg/gameDataModels";
 
 export class BggStats extends Dexie {
-  // 'friends' is added by dexie when declaring the stores()
+  // 'plays' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
   plays!: Table<PlayDataModel>;
 

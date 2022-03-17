@@ -1,23 +1,10 @@
 // import convert from "xml-js";
-import { superFlattenPlays } from "../utils/conversion/superFlattenPlays";
-import { xmlToJson, convertXmlToJsObject } from "../utils/conversion/xmlToJson";
+import { convertXmlToJsObject } from "../utils/conversion/xmlToJson";
 // import tenaciousFetch from "tenacious-fetch";
 import fetchRetry from "fetch-retry";
 import { BGGData, BGGPlay, BGGPlayerData } from "~/models/bgg/incomingBggData";
 import { PlayDataModel, PlayerModel } from "~/models/bgg/gameDataModels";
 import { UserInfo } from "~/models/bgg/userInfo";
-
-// TODO: Refactor to get all data once the first query lets the app know how many plays there actually are
-// Possibly add a custom hook that includes returning the progress for getting data
-const fetchConfig = {
-  retries: 6,
-  retryStatus: [429],
-  // retryDelay: 1000,
-  factor: 8,
-  timeout: 35000,
-  onRetry: ({ retriesLeft, retryDelay, response }) =>
-    console.log({ retriesLeft, retryDelay, response }),
-};
 
 type FetchOptions = {
   username: string;
@@ -30,7 +17,6 @@ export async function fetchXmlPlayData(options: FetchOptions) {
     const pageQuery = options.page ? `&page=${options.page}` : "";
     const startdate = options.startdate ? `&mindate=${options.startdate}` : "";
     const query = `https://boardgamegeek.com/xmlapi2/plays?username=${options.username}${startdate}${pageQuery}`;
-    // const res = await tenaciousFetch(query, fetchConfig);
     const originalFetch = window.fetch;
     const fetch = fetchRetry(originalFetch);
     const res = await fetch(query, {
@@ -52,17 +38,14 @@ export async function getInitialPlayData(username: string) {
     const xmlData = await fetchXmlPlayData({username});
     const data = convertXmlToJsObject(xmlData);
 
-    const plays = superFlattenPlays(data);
     const pages = Math.ceil(parseInt(data.plays._attributes.total, 10) / 100);
 
     console.log("pages: ", pages);
 
     return {
-      plays,
       pages,
     };
 
-    // return plays;
   } catch (err) {
     console.log(err);
     throw new Error(err);
@@ -100,7 +83,6 @@ export const getPlayDataWithExponentialBackingOff = async (options: {
     }
     const end = performance.now();
     console.log("time to get data: ", (end - start) / 1000 + "seconds");
-    // console.log("collectedXML: ", collectedXML);
 
     // Convert and flatten play data
     const convertedData = collectedXML?.map((page) => {
@@ -195,7 +177,6 @@ function convertPlayers(
 export async function getUserInfo(username: string):UserInfo {
   if (username) {
     const query = `https://boardgamegeek.com/xmlapi2/user?name=${username}`;
-    // const res = await tenaciousFetch(query, fetchConfig);
     const originalFetch = window.fetch;
     const fetch = fetchRetry(originalFetch);
     const res = await fetch(query, {
@@ -225,13 +206,9 @@ export async function getLatestPlaysInfo(username: string, date: string) {
     const xmlData = await fetchXmlPlayData({username, startdate: date});
     const data = convertXmlToJsObject(xmlData);
 
-    const plays = superFlattenPlays(data);
     const pages = Math.ceil(parseInt(data.plays._attributes.total, 10) / 100);
 
-    console.log("pages: ", pages);
-
     return {
-      plays,
       pages,
     };
 
