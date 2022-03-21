@@ -1,6 +1,9 @@
 import Dexie, { Table } from "dexie";
 import { PlayDataModel } from "../models/bgg/gameDataModels";
 
+// Update if/when new stores are added. Used in idbService for IDBCollection method chaining stuff.
+export type StoreName = 'plays';
+
 export class BggStats extends Dexie {
   // 'plays' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
@@ -16,6 +19,7 @@ export class BggStats extends Dexie {
 }
 
 export const db = new BggStats();
+
 
 export const bulkAddPlays = async (data: PlayDataModel[]) => {
   try {

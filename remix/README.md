@@ -1,9 +1,21 @@
 # Todo
 
-- [ ] Handle errors on username/plays
+- [ ] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
+  - [ ] Only try to add plays whose play id is higher than the most recent
+  - [ ] Don't try to even get new data is today is the last day
+  - [ ] Add a button to manually try to get new data for cases where someone wants to update with today's data
 - [ ] Map dexie where operators to functions
+  - [ ] Setup class with chainable methods
+  - [ ] Simple: Count plays (where username === username)
+  - [ ] More complicated: Count plays where gamename === someName (where username === username)
+  Q: Can I .where(something).equal(something).where(otherThing).equal(otherThing)
+- [ ] Handle errors on username/plays
 - [ ] Create filter methods
 - [ ] Change route from /plays/$username to $username/plays
+
+
+## What this app doesn't do
+- Keep everything totally in sync. If you go back and update data that's already stored in the app, then it won't know about those updates. It only goes and gets your newest plays.
 
 
 
