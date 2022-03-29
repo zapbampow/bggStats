@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { UserInfo } from "~/models/bgg/userInfo";
 import { bulkAddPlays } from "~/services/db";
-import { getLatestPlayDate } from "~/services/idbService";
+import { getLatestPlayData } from "~/services/idbService";
 import {
   getInitialPlayData,
   getPlayDataWithExponentialBackingOff,
@@ -34,9 +34,9 @@ function usePlayData() {
         throw Error("We cannot fetch user play data unless a user is set.")
       }
 
-      const latestPlayDate = await getLatestPlayDate(user.userId);
+      const {latestPlayDate, latestPlayId } = await getLatestPlayData(user.userId);
 
-      if(latestPlayDate) {
+      if(latestPlayDate && latestPlayId) {
         const latestPlaysInfo = await getLatestPlaysInfo(user.username, latestPlayDate);
         const latestPlays = await getPlayDataWithExponentialBackingOff({
           username: user.username,
@@ -44,7 +44,8 @@ function usePlayData() {
           startdate: latestPlayDate,
           setPercentDone
         })
-        bulkAddPlays(latestPlays)
+        const unrecordedPlays = latestPlays.filter(play => play.playId > latestPlayId)
+        bulkAddPlays(unrecordedPlays)
         setError(null)
 
       } else {

@@ -1,14 +1,17 @@
 import { db, StoreName } from "./db";
 import { Table, IndexableType, Collection } from 'dexie'
 
-export const getLatestPlayDate = async (userId: number) => {
+export const getLatestPlayData = async (userId: number) => {
     
     const latestPlay = await db.plays
         .where("recordingUserId")
         .equals(userId)
         .last()
   
-    return latestPlay?.date
+    return {
+      latestPlayDate: latestPlay?.date,
+      latestPlayId: latestPlay?.playId
+    }
   };
 
 // export const getPlaysFromDate = async (userId: number, date: string) => {

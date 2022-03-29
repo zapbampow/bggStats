@@ -30,13 +30,13 @@ function Plays() {
 
  const getTestQuery = async (userId: number, date: string) => {
    const test = await testQuery(userId, date)
-   console.log('test plays', test);
+  //  console.log('test plays', test);
  }
 
  const test2 = async (userId:number) => {
    const plays = store('plays', userId);
    let saturday = await plays.where('date', 'equals', '2022-03-19')
-   console.log('saturday', await saturday?.toArray())
+  //  console.log('saturday', await saturday?.toArray())
    return await saturday?.toArray();
  }
 

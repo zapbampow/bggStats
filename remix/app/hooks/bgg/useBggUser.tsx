@@ -10,7 +10,6 @@ export function useBggUser() {
 
     const handleUserName = async (username: string) => {
         const userInfo = await getUserInfo(username)
-        console.log('userInfo', userInfo)
         setUser(userInfo)
     }
 

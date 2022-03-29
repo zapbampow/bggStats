@@ -1,8 +1,7 @@
 # Todo
 
-- [ ] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
-  - [ ] Only try to add plays whose play id is higher than the most recent
-  - [ ] Don't try to even get new data is today is the last day
+- [x] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
+  - [x] Only try to add plays whose play id is higher than the most recent
   - [ ] Add a button to manually try to get new data for cases where someone wants to update with today's data
 - [ ] Map dexie where operators to functions
   - [ ] Setup class with chainable methods
