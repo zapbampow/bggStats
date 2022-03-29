@@ -9,9 +9,15 @@ import {
 import { useBggUser } from "../../hooks/bgg/useBggUser";
 import { testQuery, store } from "../../services/idbService"
 
+type AccDataType = {
+  numPlayers: number;
+  numUsernames: number;
+  numLocations: number;
+}
+
 function Plays() {
   const user = useBggUser()
-  const [accData, setAccData] = useState()
+  const [accData, setAccData] = useState<AccDataType>()
 
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
@@ -57,7 +63,6 @@ function Plays() {
       <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div>
-      <button onClick={manuallyUpdate}>Manually Update</button>
     </div>
   );
 }
