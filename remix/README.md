@@ -6,14 +6,53 @@
   - [ ] Setup class with chainable methods
   - [ ] Simple: Count plays (where username === username)
   - [ ] More complicated: Count plays where gamename === someName (where username === username)
-  Q: Can I .where(something).equal(something).where(otherThing).equal(otherThing)
 - [ ] Handle errors on username/plays
 - [ ] Create filter methods
-- [ ] Change route from /plays/$username to $username/plays
+- [x] Change route from /plays/$username to $username/plays
+- [ ] Add meta to pages
+- [ ] Add settings
+  - [ ] data used display
+  - [ ] clear data by user
+  - [ ] clear all data button
+- [ ] Generate a list of players that includes names, ids, and usernames from all the stored data
+  - [ ] { id: number; name: string; username: string }
+  - [ ] use this to display list of possible players in player select
 
 
 ## What this app doesn't do
 - Keep everything totally in sync. If you go back and update data that's already stored in the app, then it won't know about those updates. It only goes and gets your newest plays.
+
+
+## Questions
+### Core Questions
+- How many
+- What
+- Who
+- When
+
+### 'How many' filters
+#### Top level 
+- I played
+- I recorded (you can record a game without playing in it)
+- afterDate
+- beforeDate
+- betweenDates
+- onDate
+
+#### Game Filters
+- gameName
+- location
+- length
+- incomplete
+- with player(s)
+- player won
+
+#### Player filters
+- withPlayers([{ name: string;, id: number; username: string }])
+- withOnlyPlayerNames
+- withPlayerIds
+- withOnlyPlayerIds
+- playersWon
 
 
 
