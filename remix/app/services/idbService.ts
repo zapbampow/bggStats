@@ -52,6 +52,32 @@ class IDBCollection {
     return this.filtered.count()
   }
 
+  gameName(gameName:string) {
+    this.filtered = this.collection.filter(item => item.gameName === gameName);
+    return this.filtered;
+  }
+
+  gameNames(gameNames:string[]) {
+    this.filtered = this.collection.filter(item => gameNames.includes(item.gameName));
+    return this.filtered;
+  }
+
+  location(location:string) {
+    this.filtered = this.collection.filter(item => item.location === location);
+    return this.filtered;
+  }
+
+  locations(locations:string[]) {
+    this.filtered = this.collection.filter(item => locations.includes(item.location));
+    return this.filtered;
+  }
+
+  withPlayer(player:string) {
+    // this.filtered = this.collection.filter(item => item.player === player);
+    // return this.filtered;
+  }
+
+
   // TODO: complete initial test of where/andWhere AND handleOperator
   // TODO: type value to be the actual options, including arrays
   where(keyName:string, operator:OperatorType, value: any) {
