@@ -59,11 +59,11 @@ function Plays() {
 
  const testPipeWithArgs = async () => { 
   const plays = await getInitialPlayData(user.userId);
-  console.log('plays', plays)
+  // console.log('plays', plays)
   const pipe = pipeWithArgs(plays, {
     gameName: 'Puerto Rico',
   })
-  console.log('pipe', pipe);
+  // console.log('pipe', pipe);
  }
 
 
@@ -79,15 +79,19 @@ function Plays() {
 
   return (
     <div className="p-4">
-      <h1>Query {user?.username}'s PlayData</h1>
+      <h1 className="text-4xl text-lime-500 mb-4">Query {user?.username}'s PlayData</h1>
       <div>Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}</div>
       <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div>
 
       <div className="grid-cols-3">
-        <ul>{playerNames.map((name, index) => <li key={name}>{name}</li>)}</ul>
-        <ul>{locations.map((name, inded) => <li key={name}>{name}</li>)}</ul>
+        <select name="playerNames">
+          {playerNames.map((name, index) => <option key={name} value={name}>{name}</option>)}
+        </select>
+        <select name="locations">
+          {locations.map((name, inded) => <option key={name} value={name}>{name}</option>)}
+        </select>
       </div>
     </div>
   );

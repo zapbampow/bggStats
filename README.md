@@ -1,3 +1,10 @@
+### Todo Next
+- Keep working on filtering functions
+- Add front end ways to filter
+
+### Run from top folder
+`npm run remix-dev`
+
 # BoardGameGeek Player Record Stats
 
 ## Options for data
