@@ -1,6 +1,26 @@
 ### Todo Next
+- update useBggUser to make sure it checks indexeddb for user before hitting bgg api
 - Keep working on filtering functions
-- Add front end ways to filter
+- refactor filtering object to filtering array of objects
+  ```
+  const filters = [
+    {
+      order: 1000,
+      type: count,
+      value: "location",
+    },
+    {
+      order: 1,
+      type: gameName,
+      value: "Puerto Rico",
+    },
+    etc
+  ]
+
+  // sort filters by order, then run through them using functional method
+  ```
+- Start testing front end ways to build filters
+  - build filter
 
 ### Run from top folder
 `npm run remix-dev`
