@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { PlayDataModel } from "~/models/bgg/gameDataModels";
+import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 
 /**
  * How it works:
@@ -8,6 +8,7 @@ import { PlayDataModel } from "~/models/bgg/gameDataModels";
  *
  * TODO: create a wrapper function that takes in userId and filters, then runs bother getInitialPlayData and pipeWithFilters
  * TODO: How do I ensure filters happen in the right order? In particular, it needs to do things like count and list locations/player/gameNames/etc last
+ * TODO: For filters, come up with pattern for including all/any/only when that makes sense. Maybe abstract it so it is less code.
  */
 
 type Plays = PlayDataModel[];
@@ -57,6 +58,11 @@ const argFunctionPairs = {
   // FILTERS
   gameName: gameName,
   location: location,
+  withAllPlayerNames: withAllPlayerNames,
+  withOnlyPlayerNames: withOnlyPlayerNames,
+  withAnyPlayerNames: withAnyPlayerNames,
+  wherePlayerNamesWon: wherePlayerNamesWon,
+  whereSinglePlayerNameWon: whereSinglePlayerNameWon,
   // withPlayer: withPlayer,
   // withPlayers: withPlayers,
 };
@@ -65,17 +71,6 @@ const pipe = (initialPlays: Plays, ...fns: Function[]) =>
   fns.reduce((acc, cur) => {
     return cur(acc);
   }, initialPlays);
-
-// export function pipeWithArgs(plays: Plays, args: ArgsType) {
-//   let keysAndValues = [];
-//   for (const [key, value] of Object.entries(args)) {
-//     keysAndValues.push([key, value]);
-//   }
-//   return pipe(
-//     plays,
-//     ...keysAndValues.map(([key, value]) => argFunctionPairs[key](value))
-//   );
-// }
 
 export function pipeWithArgs2(plays: Plays, args: FilterArgsType[]) {
   console.log(args);
@@ -135,3 +130,60 @@ function gameName(gameName: string) {
 function location(location: string) {
   return (plays: Plays) => plays.filter((item) => item.location === location);
 }
+
+function withOnlyPlayerNames(names: string[]) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      const orderedNames = names.slice().sort();
+      const orderedPlayerNames = play.players
+        .map((player) => player.name)
+        .sort();
+      return orderedNames.every((name, i) => name === orderedPlayerNames[i]);
+    });
+}
+
+function withAllPlayerNames(names: string[]) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      const playerNames = play.players.map((player) => player.name);
+      return names.every((name) => playerNames.includes(name));
+    });
+}
+
+function withAnyPlayerNames(names: string[]) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      return play.players.filter((player) => {
+        return names.includes(player.name);
+      });
+    });
+}
+
+function whereSinglePlayerNameWon(name: string) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      const namePlayedAndWon = play.players.some(
+        (player) => player.name === name && player.win
+      );
+      const onlyOneWinner =
+        play.players.reduce((acc, cur) => {
+          return acc + (cur.win ? 1 : 0);
+        }, 0) === 1;
+
+      return namePlayedAndWon && onlyOneWinner;
+    });
+}
+
+function wherePlayerNamesWon(names: string[]) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      const everyNameWon = names.every((name) => {
+        return play.players.some(
+          (player) => player.win && player.name === name
+        );
+      });
+      return everyNameWon;
+    });
+}
+
+// whereplayerwon, wherePlayersWon

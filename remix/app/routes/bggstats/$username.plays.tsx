@@ -69,18 +69,18 @@ function Plays() {
     const filters = [
       {
         order: 1,
-        filter: "gameName",
-        arg: "Puerto Rico",
+        filter: "withAllPlayerNames",
+        arg: ["Clayton Ingalls", "Teresa"],
       },
       {
         order: 2,
-        filter: "locations",
-        arg: "",
+        filter: "wherePlayerNamesWon",
+        arg: ["Clayton Ingalls", "Teresa"],
       },
       // {
       //   order: 1000,
       //   filter: "count",
-      //   arg: "locations",
+      //   arg: "plays",
       // },
     ];
 
