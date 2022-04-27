@@ -31,10 +31,27 @@ export const getInitialPlayData = async (userId: number) => {
  * RUNS PIPE ON IndexDB DATA USING ARGS LIKE WE I WANT TO USE THEM IN BGGSTATS
  */
 
+type FilterName =
+  | "count"
+  | "listGameNames"
+  | "listLocations"
+  | "listPlayerNames"
+  | "gameName"
+  | "location"
+  | "withOnlyPlayerNames"
+  | "withAllPlayerNames"
+  | "withAnyPlayerNames"
+  | "whereSinglePlayerNameWon"
+  | "wherePlayerNamesWon"
+  | "onDate"
+  | "beforeDate"
+  | "afterDate"
+  | "betweenDates";
+
 type FilterArgsType = {
   order: number;
   // figure out how to generate a union type of functions in argfunctionpairs
-  filter: string;
+  filter: FilterName;
   // the arg type will change as I build more filters that can take different arguments
   // Maybe join all arg types for functions
   arg: string | string[];
@@ -51,9 +68,9 @@ export type ArgsType = {
 const argFunctionPairs = {
   // AGGREGATES
   count: count,
-  locations: locations,
-  // gameNames: gameNames,
-  // players: players,
+  listLocations: listLocations,
+  listGameNames: listGameNames,
+  listPlayerNames: listPlayerNames,
 
   // FILTERS
   gameName: gameName,
@@ -63,8 +80,10 @@ const argFunctionPairs = {
   withAnyPlayerNames: withAnyPlayerNames,
   wherePlayerNamesWon: wherePlayerNamesWon,
   whereSinglePlayerNameWon: whereSinglePlayerNameWon,
-  // withPlayer: withPlayer,
-  // withPlayers: withPlayers,
+  onDate: onDate,
+  beforeDate: beforeDate,
+  afterDate: afterDate,
+  betweenDates: betweenDates,
 };
 
 const pipe = (initialPlays: Plays, ...fns: Function[]) =>
@@ -87,8 +106,16 @@ export async function filter(userId: number, filters: FilterArgsType[]) {
   return pipe;
 }
 
+const getNameOfUser = (play: PlayDataModel) => {
+  const userId = play.recordingUserId;
+  const nameOfUser = play.players.find(
+    (player) => player.userId === userId
+  )?.name;
+  return nameOfUser;
+};
+
 // AGGREGATE functions
-type CountArgsType = "plays" | "locations" | "games";
+type CountArgsType = "plays" | "locations" | "games" | "people" | "days";
 
 function count(arg: CountArgsType) {
   return (plays: Plays) => {
@@ -107,16 +134,62 @@ function count(arg: CountArgsType) {
         .filter((location) => location !== null).length;
     }
 
+    // GAME NAMES
+    if (arg === "games") {
+      const allGameNames = plays.filter((play) => play.gameName);
+      const differentGames = Array.from(new Set(allGameNames));
+      return differentGames.length;
+    }
+
+    if (arg === "people") {
+      const nameOfUser = getNameOfUser(plays[0]);
+      const allPlayerNames = plays
+        .map((play) =>
+          play.players
+            .map((player) => player.name)
+            .filter((name) => name !== nameOfUser)
+        )
+        .flat();
+      const differentPlayers = Array.from(new Set(allPlayerNames));
+      return differentPlayers.length;
+    }
+
+    if (arg === "days") {
+      const allDates = plays.map((play) => play.date);
+      const differentDates = Array.from(new Set(allDates));
+      console.log("differentDates", differentDates);
+      return differentDates.length;
+    }
+
     return 0;
   };
 }
 
-function locations() {
+function listGameNames() {
+  return (plays: Plays) => {
+    const everyGameName = plays.map((play) => play.gameName);
+    return Array.from(new Set(everyGameName));
+  };
+}
+
+function listLocations() {
   return (plays: Plays) => {
     const everyLocation = plays
       .filter((play) => play?.location?.length > 0)
       .map((play) => play.location);
     return Array.from(new Set(everyLocation));
+  };
+}
+
+function listPlayerNames() {
+  return (plays: Plays) => {
+    const everyPlayerName = plays
+      .map((play) => {
+        const playerNames = play.players.map((player) => player.name);
+        return playerNames;
+      })
+      .flat();
+    return Array.from(new Set(everyPlayerName));
   };
 }
 
@@ -131,6 +204,7 @@ function location(location: string) {
   return (plays: Plays) => plays.filter((item) => item.location === location);
 }
 
+// PLAYER NAMES
 function withOnlyPlayerNames(names: string[]) {
   return (plays: Plays) =>
     plays.filter((play) => {
@@ -159,6 +233,7 @@ function withAnyPlayerNames(names: string[]) {
     });
 }
 
+// WINNING PLAYERS
 function whereSinglePlayerNameWon(name: string) {
   return (plays: Plays) =>
     plays.filter((play) => {
@@ -186,4 +261,31 @@ function wherePlayerNamesWon(names: string[]) {
     });
 }
 
-// whereplayerwon, wherePlayersWon
+// DATES
+function onDate(date: string) {
+  return (plays: Plays) => plays.filter((play) => play.date === date);
+}
+
+function beforeDate(date: string) {
+  return (plays: Plays) => {
+    return plays.filter((play) => {
+      return play.date < date;
+    });
+  };
+}
+
+function afterDate(date: string) {
+  return (plays: Plays) => {
+    return plays.filter((play) => {
+      return play.date > date;
+    });
+  };
+}
+
+function betweenDates(startDate: string, endDate: string) {
+  return (plays: Plays) => {
+    return plays.filter((play) => {
+      return play.date >= startDate && play.date <= endDate;
+    });
+  };
+}
