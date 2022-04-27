@@ -9,7 +9,7 @@ import {
 import { useBggUser } from "../../hooks/bgg/useBggUser";
 import { testQuery, store } from "../../services/idbService";
 
-import { filter } from "../../services/queryService";
+import filter from "../../services/queryService";
 
 type AccDataType = {
   numPlayers: number;
@@ -67,21 +67,25 @@ function Plays() {
 
   const testP2 = async () => {
     const filters = [
-      {
-        order: 1,
-        filter: "withAllPlayerNames",
-        arg: ["Clayton Ingalls", "Teresa"],
-      },
-      {
-        order: 2,
-        filter: "wherePlayerNamesWon",
-        arg: ["Clayton Ingalls", "Teresa"],
-      },
+      // {
+      //   order: 1,
+      //   filter: "withAllPlayerNames",
+      //   arg: ["Clayton Ingalls", "Teresa", "Autumn"],
+      // },
       // {
       //   order: 1000,
-      //   filter: "count",
-      //   arg: "plays",
+      //   filter: "listPlayerNames",
       // },
+      {
+        order: 1,
+        filter: "gameName",
+        arg: "Sonar",
+      },
+      {
+        order: 1000,
+        filter: "count",
+        arg: "days",
+      },
     ];
 
     console.log("filters", filters);
