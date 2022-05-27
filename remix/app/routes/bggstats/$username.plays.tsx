@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import type { LinksFunction } from "remix";
+import styles from "~/styles/bggStats/username.css";
 
 import usePlayData from "../../hooks/bgg/usePlayData";
 import {
@@ -10,6 +12,14 @@ import { useBggUser } from "../../hooks/bgg/useBggUser";
 import { testQuery, store } from "../../services/idbService";
 
 import filter from "../../services/queryService";
+
+import Aggregator from "../../components/bggStats/Aggregator";
+
+import { PlayFilterProvider } from "~/contexts/bggStats/playFilterContext";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: styles }];
+};
 
 type AccDataType = {
   numPlayers: number;
@@ -88,8 +98,6 @@ function Plays() {
       },
     ];
 
-    console.log("filters", filters);
-
     const pipe = await filter(user.userId, filters);
 
     console.log("pipe", pipe);
@@ -106,34 +114,40 @@ function Plays() {
   }, [user]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-4xl text-lime-500 mb-4">
-        Query {user?.username}'s PlayData
-      </h1>
-      <div>
-        Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
-      </div>
-      <div>Number of playerNames: {accData?.numPlayers}</div>
-      <div>Number of usernames: {accData?.numUsernames}</div>
-      <div>Number of locations: {accData?.numLocations}</div>
+    <PlayFilterProvider>
+      <div className="min-h-screen p-4 bgGradient">
+        <h1 className="text-4xl text-lime-500 mb-4">
+          Query {user?.username}'s PlayData
+        </h1>
+        <div>
+          Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
+        </div>
+        <div>Number of playerNames: {accData?.numPlayers}</div>
+        <div>Number of usernames: {accData?.numUsernames}</div>
+        <div>Number of locations: {accData?.numLocations}</div>
 
-      <div className="grid-cols-3">
-        <select name="playerNames">
-          {playerNames.map((name, index) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
-        <select name="locations">
-          {locations.map((name, inded) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <div className="grid-cols-3">
+          <select name="playerNames">
+            {playerNames.map((name, index) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
+          <select name="locations">
+            {locations.map((name, inded) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mt-20">
+          <Aggregator />
+        </div>
       </div>
-    </div>
+    </PlayFilterProvider>
   );
 }
 

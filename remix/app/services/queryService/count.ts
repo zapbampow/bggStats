@@ -44,7 +44,6 @@ export function count(arg: CountArgsType) {
     if (arg === "days") {
       const allDates = plays.map((play) => play.date);
       const differentDates = Array.from(new Set(allDates));
-      console.log("differentDates", differentDates);
       return differentDates.length;
     }
 
