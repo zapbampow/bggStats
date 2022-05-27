@@ -1,22 +1,18 @@
 # Todo
-
-- [x] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
-  - [x] Only try to add plays whose play id is higher than the most recent
-- [ ] Map dexie where operators to functions
-  - [ ] Setup class with chainable methods
-  - [ ] Simple: Count plays (where username === username)
-  - [ ] More complicated: Count plays where gamename === someName (where username === username)
+- [ ] Add play filtering context basically just for the filtering object. Update the object with each selection
 - [ ] Handle errors on username/plays
-- [ ] Create filter methods
-- [x] Change route from /plays/$username to $username/plays
 - [ ] Add meta to pages
 - [ ] Add settings
   - [ ] data used display
   - [ ] clear data by user
   - [ ] clear all data button
-- [ ] Generate a list of players that includes names, ids, and usernames from all the stored data
-  - [ ] { id: number; name: string; username: string }
-  - [ ] use this to display list of possible players in player select
+- [x] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
+  - [x] Only try to add plays whose play id is higher than the most recent
+- [x] Create filter methods
+- [x] Change route from /plays/$username to $username/plays
+- [x] Generate a list of players that includes names, ids, and usernames from all the stored data
+  - [x] { id: number; name: string; username: string }
+  - [x] use this to display list of possible players in player select
 
 
 ## What this app doesn't do
