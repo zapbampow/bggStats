@@ -3,14 +3,61 @@ import type { FilterType } from "../../services/queryService/types";
 
 type PlayFilterProviderProps = { children: React.ReactNode };
 
+type ActionType = {
+  type: "add" | "remove" | "update" | "upsert" | "updateAccumulatorArg";
+  filter: FilterType;
+};
+
+const filterReducer = (state: FilterType[], action: ActionType) => {
+  switch (action.type) {
+    case "add":
+      return [...state, action.filter];
+    case "remove":
+      return state.filter((f) => f.order !== action.filter.order);
+    case "update":
+      const newState = state.map((filter: FilterType) => {
+        if (filter.order === action.filter.order) {
+          return action.filter;
+        }
+        return filter;
+      });
+      return newState;
+    case "upsert":
+      const needToUpdate = state.find((f) => f.order === action.filter.order);
+
+      if (needToUpdate) {
+        const newState = state.map((filter: FilterType) => {
+          if (filter.order === action.filter.order) {
+            return action.filter;
+          }
+          return filter;
+        });
+        return newState;
+      } else {
+        return [...state, action.filter];
+      }
+    case "updateAccumulatorArg":
+      // TODO: update accumulator arg
+      // accumulator filters will get their filter and arg from different drop downs
+      return state;
+
+    default:
+      throw new Error("Unknown action type");
+  }
+};
+
 const PlayFilterContext = React.createContext<
   | { filters: FilterType[]; setFilters: (filters: FilterType[]) => void }
   | undefined
 >(undefined);
 
 function PlayFilterProvider({ children }: PlayFilterProviderProps) {
-  const [filters, setFilters] = React.useState([]);
-  const value = { filters, setFilters };
+  const [state, dispatch] = React.useReducer(filterReducer, []);
+  const value = { state, dispatch };
+
+  React.useEffect((): void => {
+    console.log("state", state);
+  }, [state]);
 
   return (
     <PlayFilterContext.Provider value={value}>

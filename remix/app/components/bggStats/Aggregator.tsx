@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 
@@ -18,10 +18,21 @@ export default function Aggregator() {
     value: string;
   } | null>();
 
-  const { setFilters } = usePlayFilterContext();
+  const { state, dispatch } = usePlayFilterContext();
+
+  const handleChange = (selection: { label: string; value: string }) => {
+    setSelectedValue(selection);
+
+    // update how this is handling arg
+    dispatch({
+      type: "upsert",
+      filter: { order: 0, filter: selection.value, arg: null },
+    });
+    console.log(selection);
+  };
 
   return (
-    <Listbox value={selectedValue} onChange={setSelectedValue}>
+    <Listbox value={selectedValue} onChange={handleChange}>
       {({ open }) => (
         <>
           <Listbox.Button
@@ -37,7 +48,7 @@ export default function Aggregator() {
           >
             {options.map((option) => {
               return (
-                <Listbox.Option key={option.value} value={option}>
+                <Listbox.Option key={option.value} value={option} as={Fragment}>
                   {({ active, selected }) => (
                     <li
                       className={`${
