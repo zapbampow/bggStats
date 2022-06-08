@@ -36,13 +36,9 @@ const filterReducer = (state: FilterType[], action: Action) => {
       } else {
         return [...state, action.filter];
       }
-    case "updateAccumulatorArg":
-      // TODO: update accumulator arg
-      // accumulator filters will get their filter and arg from different drop downs
-      return state;
 
     default:
-      throw new Error("Unknown action type");
+      throw new Error("Unknown action type of " + action.type);
   }
 };
 
