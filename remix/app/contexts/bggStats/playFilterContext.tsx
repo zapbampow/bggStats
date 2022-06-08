@@ -2,13 +2,13 @@ import * as React from "react";
 import type { FilterType } from "../../services/queryService/types";
 
 type PlayFilterProviderProps = { children: React.ReactNode };
-
-type ActionType = {
+type Action = {
   type: "add" | "remove" | "update" | "upsert" | "updateAccumulatorArg";
   filter: FilterType;
 };
+type Dispatch = (action: Action) => void;
 
-const filterReducer = (state: FilterType[], action: ActionType) => {
+const filterReducer = (state: FilterType[], action: Action) => {
   switch (action.type) {
     case "add":
       return [...state, action.filter];
@@ -47,8 +47,7 @@ const filterReducer = (state: FilterType[], action: ActionType) => {
 };
 
 const PlayFilterContext = React.createContext<
-  | { filters: FilterType[]; setFilters: (filters: FilterType[]) => void }
-  | undefined
+  { state: FilterType[]; dispatch: Dispatch } | undefined
 >(undefined);
 
 function PlayFilterProvider({ children }: PlayFilterProviderProps) {
