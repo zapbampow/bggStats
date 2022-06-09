@@ -144,7 +144,9 @@ function Plays() {
         </div>
 
         <div className="mt-20">
-          <Aggregator />
+          <div className="flex">
+            <Aggregator />
+          </div>
         </div>
       </div>
     </PlayFilterProvider>

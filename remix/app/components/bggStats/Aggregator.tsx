@@ -33,7 +33,7 @@ export default function Aggregator() {
     // update how this is handling arg
     dispatch({
       type: "upsert",
-      filter: { order: "accumulator", filter: selection.value, arg: null },
+      filter: { order: "aggregator", filter: selection.value, arg: null },
     });
     console.log(selection);
   };
@@ -44,7 +44,7 @@ export default function Aggregator() {
     dispatch({
       type: "upsert",
       filter: {
-        order: "accumulator",
+        order: "aggregator",
         filter: selectedValue.value,
         arg: selection.value,
       },
@@ -62,45 +62,8 @@ export default function Aggregator() {
 
   return (
     <>
-      <Listbox value={selectedValue} onChange={handleChange}>
-        {({ open }) => (
-          <>
-            <Listbox.Button
-              className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
-                open ? openStyles : "border-transparent"
-              }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
-            >
-              {selectedValue?.label || "Select a question"}
-            </Listbox.Button>
-            <Listbox.Options
-              className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
-            >
-              {options.map((option) => {
-                return (
-                  <Listbox.Option
-                    key={option.value}
-                    value={option}
-                    as={Fragment}
-                  >
-                    {({ active, selected }) => (
-                      <li
-                        className={`${
-                          selected ? "font-bold" : ""
-                        } hover:cursor-pointer`}
-                      >
-                        {option.label}
-                      </li>
-                    )}
-                  </Listbox.Option>
-                );
-              })}
-            </Listbox.Options>
-          </>
-        )}
-      </Listbox>
-
-      {selectedValue?.value ? (
-        <Listbox value={aggArg} onChange={handleArgChange}>
+      <div>
+        <Listbox value={selectedValue} onChange={handleChange}>
           {({ open }) => (
             <>
               <Listbox.Button
@@ -108,13 +71,12 @@ export default function Aggregator() {
                   open ? openStyles : "border-transparent"
                 }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
               >
-                {aggArg?.label || "of what?"}
+                {selectedValue?.label || "Select a question"}
               </Listbox.Button>
-
               <Listbox.Options
                 className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
               >
-                {filterTree[selectedValue.value].filters.map((option) => {
+                {options.map((option) => {
                   return (
                     <Listbox.Option
                       key={option.value}
@@ -137,6 +99,47 @@ export default function Aggregator() {
             </>
           )}
         </Listbox>
+      </div>
+
+      {selectedValue?.value ? (
+        <div>
+          <Listbox value={aggArg} onChange={handleArgChange}>
+            {({ open }) => (
+              <>
+                <Listbox.Button
+                  className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
+                    open ? openStyles : "border-transparent"
+                  }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
+                >
+                  {aggArg?.label || "of what?"}
+                </Listbox.Button>
+                <Listbox.Options
+                  className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
+                >
+                  {filterTree[selectedValue.value].filters.map((option) => {
+                    return (
+                      <Listbox.Option
+                        key={option.value}
+                        value={option}
+                        as={Fragment}
+                      >
+                        {({ active, selected }) => (
+                          <li
+                            className={`${
+                              selected ? "font-bold" : ""
+                            } hover:cursor-pointer`}
+                          >
+                            {option.label}
+                          </li>
+                        )}
+                      </Listbox.Option>
+                    );
+                  })}
+                </Listbox.Options>
+              </>
+            )}
+          </Listbox>
+        </div>
       ) : null}
     </>
   );
