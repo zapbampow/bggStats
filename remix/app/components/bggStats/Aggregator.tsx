@@ -2,6 +2,7 @@ import { useState, Fragment, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import filterTree from "../../utils/filterTree";
+import { baseStyles, openStyles } from "./styles";
 
 const options = [
   { value: "count", label: "How many" },
@@ -10,8 +11,6 @@ const options = [
   { value: "listDates", label: "When" },
   { value: "listLocations", label: "Where" },
 ];
-const baseStyles = "px-6 py-2 rounded-lg text-slate-700";
-const openStyles = "bg-slate-500/25 shadow-lg shadow-slate-500/10 bg-blur-md";
 
 export default function Aggregator() {
   const [selectedValue, setSelectedValue] = useState<{
@@ -27,7 +26,6 @@ export default function Aggregator() {
   const { state, dispatch } = usePlayFilterContext();
 
   const handleChange = (selection: { label: string; value: string }) => {
-    console.log("selection", selection);
     setSelectedValue(selection);
 
     // update how this is handling arg
@@ -35,7 +33,6 @@ export default function Aggregator() {
       type: "upsert",
       filter: { order: "aggregator", filter: selection.value, arg: null },
     });
-    console.log(selection);
   };
 
   const handleArgChange = (selection: { label: string; value: string }) => {
@@ -50,15 +47,6 @@ export default function Aggregator() {
       },
     });
   };
-
-  useEffect(() => {
-    console.log("selectedValue", selectedValue);
-    // console.log("filterTree", filterTree);
-    console.log(
-      "filterTree[selectedValue.value]",
-      filterTree[selectedValue.value]
-    );
-  }, [selectedValue.value, selectedValue.label]);
 
   return (
     <>

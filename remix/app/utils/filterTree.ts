@@ -8,11 +8,19 @@ const filterTree = {
       { value: "days", label: "days did I play games" },
     ],
     where: [
-      "of", // game name
-      "at", // location
-      "with", // players
-      "with only", // players
-      "winner was", // players and won,
+      { value: "gameName", label: "of" },
+      { value: "gameNames", label: "of these games:" },
+      { value: "location", label: "at" },
+      { value: "withAllPlayerNames", label: "with" },
+      { value: "withOnlyPlayerNames", label: "with only" },
+      { value: "withAnyPlayerNames", label: "with any of" },
+      { value: "whereSinglePlayerNameWon", label: "where the winner was" },
+      { value: "wherePlayerNamesWon", label: "where the winners were" },
+      // "of", // game name
+      // "at", // location
+      // "with", // players
+      // "with only", // players
+      // "winner was", // players and won,
       // possible filters, but not for v1
       // 'that I completed', // incomplete
       // "that I didn't complete", // incomplete
@@ -23,7 +31,13 @@ const filterTree = {
       // "where player rated game",  // rating
       // "where player color was", // color
     ],
-    time: ["for all time", "before", "after", "between", "on"],
+    time: [
+      { value: "onDate", label: "on" },
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+      { value: "all", label: "for all time" },
+    ],
   },
 };
 

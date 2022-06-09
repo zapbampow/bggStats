@@ -16,6 +16,7 @@ import filter from "../../services/queryService";
 import Aggregator from "../../components/bggStats/Aggregator";
 
 import { PlayFilterProvider } from "~/contexts/bggStats/playFilterContext";
+import AddFilterButton from "~/components/bggStats/AddFilterButton";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -32,6 +33,7 @@ function Plays() {
   const [accData, setAccData] = useState<AccDataType>();
   const [locations, setLocations] = useState<string[]>([]);
   const [playerNames, setPlayerNames] = useState<string[]>([]);
+  const [filterButtons, setFilterButtons] = useState<string[]>([]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
 
@@ -39,9 +41,6 @@ function Plays() {
     const playerNames = await getAllPlayerNames(recordingUserId);
     const usernames = await getAllUserNames(recordingUserId);
     const locations = await getAllLocations(recordingUserId);
-
-    // console.log('playerNames', playerNames)
-    // console.log('locations', locations)
 
     setAccData({
       numPlayers: playerNames.length,
@@ -52,19 +51,23 @@ function Plays() {
     setPlayerNames(playerNames);
   };
 
-  const getTestQuery = async (userId: number, date: string) => {
-    const test = await testQuery(userId, date);
-    console.log("test plays", test);
+  const addFilterButton = () => {
+    console.log("should add a button");
   };
 
-  const test2 = async (userId: number) => {
-    const plays = store("plays", userId);
-    let filtered = plays.gameName("The Settlers of Catan");
-    return false;
-    //  let saturday = await plays.where('date', 'equals', '2022-03-19')
-    //  console.log('saturday', await saturday?.toArray())
-    //  return await saturday?.toArray();
-  };
+  // const getTestQuery = async (userId: number, date: string) => {
+  //   const test = await testQuery(userId, date);
+  //   console.log("test plays", test);
+  // };
+
+  // const test2 = async (userId: number) => {
+  //   const plays = store("plays", userId);
+  //   let filtered = plays.gameName("The Settlers of Catan");
+  //   return false;
+  //   //  let saturday = await plays.where('date', 'equals', '2022-03-19')
+  //   //  console.log('saturday', await saturday?.toArray())
+  //   //  return await saturday?.toArray();
+  // };
 
   // const testPipeWithArgs = async () => {
   //   const plays = await getInitialPlayData(user.userId);
@@ -75,33 +78,33 @@ function Plays() {
   //   // console.log('pipe', pipe);
   // };
 
-  const testP2 = async () => {
-    const filters = [
-      // {
-      //   order: 1,
-      //   filter: "withAllPlayerNames",
-      //   arg: ["Clayton Ingalls", "Teresa", "Autumn"],
-      // },
-      // {
-      //   order: 1000,
-      //   filter: "listPlayerNames",
-      // },
-      {
-        order: 1,
-        filter: "gameName",
-        arg: "Sonar",
-      },
-      {
-        order: 1000,
-        filter: "count",
-        arg: "days",
-      },
-    ];
+  // const testP2 = async () => {
+  //   const filters = [
+  //     // {
+  //     //   order: 1,
+  //     //   filter: "withAllPlayerNames",
+  //     //   arg: ["Clayton Ingalls", "Teresa", "Autumn"],
+  //     // },
+  //     // {
+  //     //   order: 1000,
+  //     //   filter: "listPlayerNames",
+  //     // },
+  //     {
+  //       order: 1,
+  //       filter: "gameName",
+  //       arg: "Sonar",
+  //     },
+  //     {
+  //       order: 1000,
+  //       filter: "count",
+  //       arg: "days",
+  //     },
+  //   ];
 
-    const pipe = await filter(user.userId, filters);
+  //   const pipe = await filter(user.userId, filters);
 
-    console.log("pipe", pipe);
-  };
+  //   console.log("pipe", pipe);
+  // };
 
   useEffect(() => {
     if (user) {
@@ -109,7 +112,7 @@ function Plays() {
       // getTestQuery(user.userId, '2022-03-01')
       // test2(user.userId)
       // testPipeWithArgs();
-      testP2();
+      // testP2();
     }
   }, [user]);
 
@@ -146,6 +149,8 @@ function Plays() {
         <div className="mt-20">
           <div className="flex">
             <Aggregator />
+            {}
+            <AddFilterButton addFilterButton={addFilterButton} />
           </div>
         </div>
       </div>
