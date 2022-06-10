@@ -7,10 +7,18 @@ const filterTree = {
       { value: "people", label: "people did I play with" },
       { value: "days", label: "days did I play games" },
     ],
-    where: [
+    "game name": [
       { value: "gameName", label: "of" },
       { value: "gameNames", label: "of these games:" },
-      { value: "location", label: "at" },
+    ],
+    time: [
+      { value: "onDate", label: "on" },
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+      { value: "all", label: "for all time" },
+    ],
+    players: [
       { value: "withAllPlayerNames", label: "with" },
       { value: "withOnlyPlayerNames", label: "with only" },
       { value: "withAnyPlayerNames", label: "with any of" },
@@ -31,13 +39,7 @@ const filterTree = {
       // "where player rated game",  // rating
       // "where player color was", // color
     ],
-    time: [
-      { value: "onDate", label: "on" },
-      { value: "betweenDates", label: "between" },
-      { value: "afterDate", label: "after" },
-      { value: "beforeDate", label: "before" },
-      { value: "all", label: "for all time" },
-    ],
+    location: [{ value: "location", label: "at" }],
   },
 };
 

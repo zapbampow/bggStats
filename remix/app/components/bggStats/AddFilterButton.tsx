@@ -3,6 +3,7 @@ import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import filterTree from "../../utils/filterTree";
 import { baseStyles, openStyles } from "./styles";
+import type { SelectionType } from "./types";
 
 /**
  * Look at the aggregator in context
@@ -18,6 +19,8 @@ import { baseStyles, openStyles } from "./styles";
  * - a single date picker component for most date filters
  * - a multi date picker component for filtering between dates
  * You also need to handle the 'all time' option for the date filters by not adding it to context state
+ *
+ * Additionally, you probably need to create an object that connects individual filters to the selection components they are associated with
  */
 
 type Props = {
@@ -27,19 +30,14 @@ type Props = {
 export default function AddFilterButton({ addFilterButton }: Props) {
   const { state, dispatch } = usePlayFilterContext();
 
-  const [selectedValue, setSelectedValue] = useState<{
-    label: string;
-    value: string;
-  }>({ label: "", value: "" });
+  const [selectedValue, setSelectedValue] = useState<SelectionType>({
+    label: "",
+    value: "",
+  });
 
-  const [options, setOptions] = useState<
-    {
-      label: string;
-      value: string;
-    }[]
-  >([]);
+  const [options, setOptions] = useState<SelectionType[]>([]);
 
-  const handleChange = () => {
+  const handleChange = (selectedValue: SelectionType) => {
     console.log("selection", selectedValue);
   };
 
@@ -48,12 +46,17 @@ export default function AddFilterButton({ addFilterButton }: Props) {
     console.log("aggregator", aggregator?.filter);
     if (aggregator?.filter) {
       const tree = filterTree[aggregator.filter];
-      console.log("tree", tree);
       const { filters, ...filterOptions } = tree;
-      console.log("filterOptions", filterOptions);
-      // const tree = filterTree[aggregator.filter];
+      console.log("filters", filters);
+      const filtersArray = convertFiltersToArray(filterOptions);
+
+      setOptions(filtersArray);
     }
   }, [state]);
+
+  useEffect(() => {
+    console.log(options);
+  }, [options]);
 
   return (
     <div>
@@ -70,24 +73,37 @@ export default function AddFilterButton({ addFilterButton }: Props) {
             <Listbox.Options
               className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
             >
-              {options.map((option) => {
-                return (
-                  <Listbox.Option
-                    key={option.value}
-                    value={option}
-                    as={Fragment}
-                  >
-                    {({ active, selected }) => (
-                      <li
-                        className={`${
-                          selected ? "font-bold" : ""
-                        } hover:cursor-pointer`}
-                      >
-                        {option.label}
-                      </li>
-                    )}
-                  </Listbox.Option>
-                );
+              {options.map((option, i) => {
+                if (option.value === "heading") {
+                  return (
+                    <div
+                      key={`option.label-${i}`}
+                      className={`uppercase text-slate-500 text-xs font-semibold ${
+                        i !== 0 ? "mt-2" : ""
+                      }`}
+                    >
+                      {option.label}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <Listbox.Option
+                      key={option.value}
+                      value={option}
+                      as={Fragment}
+                    >
+                      {({ active, selected }) => (
+                        <li
+                          className={`px-2 ${
+                            selected ? "font-bold" : ""
+                          } hover:cursor-pointer`}
+                        >
+                          {option.label}
+                        </li>
+                      )}
+                    </Listbox.Option>
+                  );
+                }
               })}
             </Listbox.Options>
           </>
@@ -96,3 +112,17 @@ export default function AddFilterButton({ addFilterButton }: Props) {
     </div>
   );
 }
+
+const convertFiltersToArray = (filters: any) => {
+  console.log("filters", filters);
+  return Object.entries(filters)
+    .map((filterGroup) => {
+      const heading = { value: "heading", label: filterGroup[0] };
+      const options = [...filterGroup[1]];
+      console.log("filterGroup[1]", filterGroup[1]);
+      return [heading, ...options];
+    })
+    .reduce((acc, cur) => {
+      return [...acc, ...cur];
+    }, []);
+};

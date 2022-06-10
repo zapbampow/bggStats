@@ -3,6 +3,7 @@ import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import filterTree from "../../utils/filterTree";
 import { baseStyles, openStyles } from "./styles";
+import type { SelectionType } from "./types";
 
 const options = [
   { value: "count", label: "How many" },
@@ -13,19 +14,16 @@ const options = [
 ];
 
 export default function Aggregator() {
-  const [selectedValue, setSelectedValue] = useState<{
-    label: string;
-    value: string;
-  }>({ label: "", value: "" });
+  const [selectedValue, setSelectedValue] = useState<SelectionType>({
+    label: "",
+    value: "",
+  });
 
-  const [aggArg, setAggArg] = useState<{
-    label: string;
-    value: string;
-  }>({ label: "", value: "" });
+  const [aggArg, setAggArg] = useState<SelectionType>({ label: "", value: "" });
 
   const { state, dispatch } = usePlayFilterContext();
 
-  const handleChange = (selection: { label: string; value: string }) => {
+  const handleChange = (selection: SelectionType) => {
     setSelectedValue(selection);
 
     // update how this is handling arg
@@ -35,7 +33,7 @@ export default function Aggregator() {
     });
   };
 
-  const handleArgChange = (selection: { label: string; value: string }) => {
+  const handleArgChange = (selection: SelectionType) => {
     setAggArg(selection);
 
     dispatch({
