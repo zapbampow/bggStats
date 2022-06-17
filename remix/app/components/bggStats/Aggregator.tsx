@@ -7,10 +7,10 @@ import type { SelectionType } from "./types";
 
 const options = [
   { value: "count", label: "How many" },
-  { value: "listPlayerNames", label: "Who" },
-  { value: "listGameNames", label: "What" },
-  { value: "listDates", label: "When" },
-  { value: "listLocations", label: "Where" },
+  { value: "listPlayerNames", label: "With whom did I play games" },
+  { value: "listGameNames", label: "What games did I play" },
+  { value: "listDates", label: "When did I play games" },
+  { value: "listLocations", label: "Where did I play games" },
 ];
 
 export default function Aggregator() {
@@ -22,6 +22,10 @@ export default function Aggregator() {
   const [aggArg, setAggArg] = useState<SelectionType>({ label: "", value: "" });
 
   const { state, dispatch } = usePlayFilterContext();
+
+  useEffect(() => {
+    console.log("state", state);
+  }, [state]);
 
   const handleChange = (selection: SelectionType) => {
     setSelectedValue(selection);
@@ -87,7 +91,8 @@ export default function Aggregator() {
         </Listbox>
       </div>
 
-      {selectedValue?.value ? (
+      {selectedValue?.value &&
+      filterTree[selectedValue.value].filters.length > 0 ? (
         <div>
           <Listbox value={aggArg} onChange={handleArgChange}>
             {({ open }) => (

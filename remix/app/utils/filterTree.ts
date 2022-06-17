@@ -41,6 +41,75 @@ const filterTree = {
     ],
     location: [{ value: "location", label: "at" }],
   },
+  listPlayerNames: {
+    filters: [],
+    "game name": [
+      { value: "gameName", label: "of" },
+      { value: "gameNames", label: "of these games:" },
+    ],
+    time: [
+      { value: "onDate", label: "on" },
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+      { value: "all", label: "for all time" },
+    ],
+    location: [{ value: "location", label: "at" }],
+  },
+  listGameNames: {
+    filters: [],
+    time: [
+      { value: "onDate", label: "on" },
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+      { value: "all", label: "for all time" },
+    ],
+    location: [{ value: "location", label: "at" }],
+    players: [
+      { value: "withAllPlayerNames", label: "with" },
+      { value: "withOnlyPlayerNames", label: "with only" },
+      { value: "withAnyPlayerNames", label: "with any of" },
+      { value: "whereSinglePlayerNameWon", label: "where the winner was" },
+      { value: "wherePlayerNamesWon", label: "where the winners were" },
+    ],
+  },
+  listDates: {
+    filters: [],
+    "game name": [
+      { value: "gameName", label: "of" },
+      { value: "gameNames", label: "of these games:" },
+    ],
+    players: [
+      { value: "withAllPlayerNames", label: "with" },
+      { value: "withOnlyPlayerNames", label: "with only" },
+      { value: "withAnyPlayerNames", label: "with any of" },
+      { value: "whereSinglePlayerNameWon", label: "where the winner was" },
+      { value: "wherePlayerNamesWon", label: "where the winners were" },
+    ],
+    location: [{ value: "location", label: "at" }],
+  },
+  listLocations: {
+    filters: [],
+    "game name": [
+      { value: "gameName", label: "of" },
+      { value: "gameNames", label: "of these games:" },
+    ],
+    players: [
+      { value: "withAllPlayerNames", label: "with" },
+      { value: "withOnlyPlayerNames", label: "with only" },
+      { value: "withAnyPlayerNames", label: "with any of" },
+      { value: "whereSinglePlayerNameWon", label: "where the winner was" },
+      { value: "wherePlayerNamesWon", label: "where the winners were" },
+    ],
+    time: [
+      { value: "onDate", label: "on" },
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+      { value: "all", label: "for all time" },
+    ],
+  },
 };
 
 export default filterTree;

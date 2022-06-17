@@ -16,6 +16,8 @@ import type { SelectionType } from "./types";
  * You need to probably create some components to handle some of the options
  * - a generic single select component
  * - a generic multi select component
+ * - a generic combobox
+ * - a generic multi select combobox
  * - a single date picker component for most date filters
  * - a multi date picker component for filtering between dates
  * You also need to handle the 'all time' option for the date filters by not adding it to context state
@@ -37,8 +39,9 @@ export default function AddFilterButton({ addFilterButton }: Props) {
 
   const [options, setOptions] = useState<SelectionType[]>([]);
 
-  const handleChange = (selectedValue: SelectionType) => {
-    console.log("selection", selectedValue);
+  const handleChange = (selection: SelectionType) => {
+    console.log("selection", selection);
+    setSelectedValue(selection);
   };
 
   useEffect(() => {
