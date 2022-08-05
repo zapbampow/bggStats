@@ -2,7 +2,13 @@ import { useState, Fragment, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import filterTree from "../../utils/filterTree";
-import { baseStyles, openStyles } from "./styles";
+import {
+  baseStyles,
+  openMenuStyles,
+  openButtonStyles,
+  hoverStyles,
+  itemHoverStyles,
+} from "./styles";
 import type { SelectionType } from "./types";
 
 const options = [
@@ -52,19 +58,21 @@ export default function Aggregator() {
 
   return (
     <>
-      <div>
+      <div className="relative">
         <Listbox value={selectedValue} onChange={handleChange}>
           {({ open }) => (
             <>
               <Listbox.Button
-                className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
-                  open ? openStyles : "border-transparent"
-                }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
+                className={`${baseStyles} relative font-semibold transition duration-700  ${
+                  open ? openButtonStyles : "border-transparent"
+                }  
+                ${hoverStyles}
+                `}
               >
                 {selectedValue?.label || "Select a question"}
               </Listbox.Button>
               <Listbox.Options
-                className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
+                className={`mt-1 max-w-max ${baseStyles} ${openMenuStyles}`}
               >
                 {options.map((option) => {
                   return (
@@ -77,7 +85,7 @@ export default function Aggregator() {
                         <li
                           className={`${
                             selected ? "font-bold" : ""
-                          } hover:cursor-pointer`}
+                          } hover:cursor-pointer ${itemHoverStyles}`}
                         >
                           {option.label}
                         </li>
@@ -96,16 +104,18 @@ export default function Aggregator() {
         <div>
           <Listbox value={aggArg} onChange={handleArgChange}>
             {({ open }) => (
-              <>
+              <div>
                 <Listbox.Button
-                  className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
-                    open ? openStyles : "border-transparent"
-                  }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
+                  className={`${baseStyles} relative font-semibold transition duration-700  ${
+                    open ? openButtonStyles : "border-transparent"
+                  }  
+                ${hoverStyles}
+                `}
                 >
                   {aggArg?.label || "of what?"}
                 </Listbox.Button>
                 <Listbox.Options
-                  className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
+                  className={`mt-1 max-w-max ${baseStyles} ${openMenuStyles}`}
                 >
                   {filterTree[selectedValue.value].filters.map((option) => {
                     return (
@@ -116,9 +126,10 @@ export default function Aggregator() {
                       >
                         {({ active, selected }) => (
                           <li
-                            className={`${
-                              selected ? "font-bold" : ""
-                            } hover:cursor-pointer`}
+                            className={`
+                              hover:cursor-pointer ${itemHoverStyles} 
+                              ${selected ? "font-bold" : ""} 
+                            `}
                           >
                             {option.label}
                           </li>
@@ -127,7 +138,7 @@ export default function Aggregator() {
                     );
                   })}
                 </Listbox.Options>
-              </>
+              </div>
             )}
           </Listbox>
         </div>

@@ -2,7 +2,12 @@ import { useState, Fragment, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import filterTree from "../../utils/filterTree";
-import { baseStyles, openStyles } from "./styles";
+import {
+  baseStyles,
+  openButtonStyles,
+  openMenuStyles,
+  hoverStyles,
+} from "./styles";
 import type { SelectionType } from "./types";
 
 /**
@@ -68,13 +73,13 @@ export default function AddFilterButton({ addFilterButton }: Props) {
           <>
             <Listbox.Button
               className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
-                open ? openStyles : "border-transparent"
+                open ? openButtonStyles : "border-transparent"
               }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
             >
               +
             </Listbox.Button>
             <Listbox.Options
-              className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openStyles}`}
+              className={`mt-1 max-w-max shadow-lg hover:shadow-slate-500/10 ${baseStyles} ${openMenuStyles}`}
             >
               {options.map((option, i) => {
                 if (option.value === "heading") {

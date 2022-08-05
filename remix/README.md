@@ -1,5 +1,12 @@
+Additional Aggregator Logic
+- when a making a selection, clear all other filters because the filter tree will be different
+- This should include when updating a 'how many' filter 
+- It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
+- 
+
 # Todo
-- [ ] Add play filtering context basically just for the filtering object. Update the object with each selection
+- [ ] Componentize dropdown button and list for reuse
+- [x] Add play filtering context basically just for the filtering object. Update the object with each selection
 - [ ] Handle errors on username/plays
 - [ ] Add meta to pages
 - [ ] Add settings
@@ -14,6 +21,8 @@
   - [x] { id: number; name: string; username: string }
   - [x] use this to display list of possible players in player select
 
+## Design
+- try out a glassmorphism design with floating meeples in the background.
 
 ## What this app doesn't do
 - Keep everything totally in sync. If you go back and update data that's already stored in the app, then it won't know about those updates. It only goes and gets your newest plays.
