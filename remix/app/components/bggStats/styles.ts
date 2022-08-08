@@ -11,7 +11,7 @@ export const openButtonStyles = `
 `;
 
 export const openMenuStyles = `
-  bg-slate-500/25 shadow-lg shadow-slate-500/10 bg-blur-md absolute w-max
+  bg-slate-50/25 shadow-lg shadow-slate-500/10 bg-blur-md absolute w-max
 `;
 
 export const itemHoverStyles = `

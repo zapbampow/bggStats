@@ -45,26 +45,26 @@ export default function AddFilterButton({ addFilterButton }: Props) {
   const [options, setOptions] = useState<SelectionType[]>([]);
 
   const handleChange = (selection: SelectionType) => {
-    console.log("selection", selection);
+    // console.log("selection", selection);
     setSelectedValue(selection);
   };
 
   useEffect(() => {
     const aggregator = state.find((f) => f.order === "aggregator");
-    console.log("aggregator", aggregator?.filter);
+    // console.log("aggregator", aggregator?.filter);
     if (aggregator?.filter) {
       const tree = filterTree[aggregator.filter];
       const { filters, ...filterOptions } = tree;
-      console.log("filters", filters);
+      // console.log("filters", filters);
       const filtersArray = convertFiltersToArray(filterOptions);
 
       setOptions(filtersArray);
     }
   }, [state]);
 
-  useEffect(() => {
-    console.log(options);
-  }, [options]);
+  // useEffect(() => {
+  //   console.log(options);
+  // }, [options]);
 
   return (
     <div>
@@ -122,12 +122,12 @@ export default function AddFilterButton({ addFilterButton }: Props) {
 }
 
 const convertFiltersToArray = (filters: any) => {
-  console.log("filters", filters);
+  // console.log("filters", filters);
   return Object.entries(filters)
     .map((filterGroup) => {
       const heading = { value: "heading", label: filterGroup[0] };
       const options = [...filterGroup[1]];
-      console.log("filterGroup[1]", filterGroup[1]);
+      // console.log("filterGroup[1]", filterGroup[1]);
       return [heading, ...options];
     })
     .reduce((acc, cur) => {

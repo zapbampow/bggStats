@@ -50,9 +50,9 @@ function PlayFilterProvider({ children }: PlayFilterProviderProps) {
   const [state, dispatch] = React.useReducer(filterReducer, []);
   const value = { state, dispatch };
 
-  React.useEffect((): void => {
-    console.log("state", state);
-  }, [state]);
+  // React.useEffect((): void => {
+  //   console.log("state", state);
+  // }, [state]);
 
   return (
     <PlayFilterContext.Provider value={value}>
