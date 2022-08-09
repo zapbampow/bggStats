@@ -5,7 +5,11 @@ Additional Aggregator Logic
 - 
 
 # Todo
-- [ ] Componentize dropdown button and list for reuse
+- [ ] Add initial button when selecting option from +. Decide how you want to do this. Look at UsernamePlays comments for thoughts on options.
+- [ ] Componentize combo box
+- [ ] Add filter button when selecting 'how many', 'games', 'of' and use the combo box. This should provide a pattern for adding any other combo box
+- [ ] Componentize multiselect box, multiselect combo, date selector, 
+- [x] Componentize dropdown button and list for reuse
 - [x] Add play filtering context basically just for the filtering object. Update the object with each selection
 - [ ] Handle errors on username/plays
 - [ ] Add meta to pages

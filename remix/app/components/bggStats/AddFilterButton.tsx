@@ -32,9 +32,10 @@ import type { SelectionType } from "./types";
 
 type Props = {
   addFilterButton: () => void;
+  display: boolean;
 };
 
-export default function AddFilterButton({ addFilterButton }: Props) {
+export default function AddFilterButton({ addFilterButton, display }: Props) {
   const { state, dispatch } = usePlayFilterContext();
 
   const [selectedValue, setSelectedValue] = useState<SelectionType>({
@@ -45,8 +46,12 @@ export default function AddFilterButton({ addFilterButton }: Props) {
   const [options, setOptions] = useState<SelectionType[]>([]);
 
   const handleChange = (selection: SelectionType) => {
-    // console.log("selection", selection);
     setSelectedValue(selection);
+
+    addFilterButton(selection);
+    // connect selection to filterTree
+    // add component based on filter
+    // use component to add filter to context
   };
 
   useEffect(() => {
@@ -67,7 +72,7 @@ export default function AddFilterButton({ addFilterButton }: Props) {
   // }, [options]);
 
   return (
-    <div>
+    <div className={`${display ? "" : "hidden"}`}>
       <Listbox value={selectedValue} onChange={handleChange}>
         {({ open }) => (
           <>

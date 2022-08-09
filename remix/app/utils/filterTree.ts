@@ -8,6 +8,7 @@ const filterTree = {
       { value: "days", label: "days did I play games" },
     ],
     "game name": [
+      // ↑↑↑ using string for key because it's used for the section heading in the add menu button select options
       { value: "gameName", label: "of" },
       { value: "gameNames", label: "of these games:" },
     ],
