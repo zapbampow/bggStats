@@ -31,7 +31,7 @@ import type { SelectionType } from "./types";
  */
 
 type Props = {
-  addFilterButton: () => void;
+  addFilterButton: (selection: SelectionType) => void;
   display: boolean;
 };
 

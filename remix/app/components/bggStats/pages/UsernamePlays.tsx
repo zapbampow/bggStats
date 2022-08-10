@@ -7,6 +7,7 @@ import {
   getAllPlayerNames,
   getAllUserNames,
   getAllLocations,
+  getAllGameNames,
 } from "~/utils/analysis/accumulations";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
@@ -16,13 +17,22 @@ import { testQuery, store } from "~/services/idbService";
 import filter from "~/services/queryService";
 
 import Aggregator from "~/components/bggStats/Aggregator";
+import FilterToComponent from "~/components/bggStats/FilterToComponent";
 
 import { PlayFilterProvider } from "~/contexts/bggStats/playFilterContext";
 import AddFilterButton from "~/components/bggStats/AddFilterButton";
 import type { SelectionType } from "../types";
+import dayjs from "dayjs";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
+};
+
+type FilterButtonData = {
+  key: string;
+  label: string;
+  value: string;
+  component: React.Component;
 };
 
 type AccDataType = {
@@ -36,7 +46,7 @@ export default function UsernamePlays() {
   const [accData, setAccData] = useState<AccDataType>();
   const [locations, setLocations] = useState<string[]>([]);
   const [playerNames, setPlayerNames] = useState<string[]>([]);
-  const [filterButtons, setFilterButtons] = useState<string[]>([]);
+  const [filterButtons, setFilterButtons] = useState<FilterButtonData[]>([]);
 
   const { state, dispatch } = usePlayFilterContext();
 
@@ -50,6 +60,8 @@ export default function UsernamePlays() {
     const playerNames = await getAllPlayerNames(recordingUserId);
     const usernames = await getAllUserNames(recordingUserId);
     const locations = await getAllLocations(recordingUserId);
+    const gameNames = await getAllGameNames(recordingUserId);
+    // console.log("gameNames", { gameNames, amount: gameNames.length });
 
     setAccData({
       numPlayers: playerNames.length,
@@ -129,10 +141,17 @@ export default function UsernamePlays() {
 
   //   console.log("pipe", pipe);
   // };
+  function timestamp() {
+    return dayjs();
+  }
 
   useEffect(() => {
     if (user) {
+      // const start = timestamp();
       // getAccumulatedData(user.userId);
+      // const end = timestamp();
+      // const length = start.diff(end);
+      // console.log("length", length);
       // getTestQuery(user.userId, '2022-03-01')
       // test2(user.userId)
       // testPipeWithArgs();
@@ -161,7 +180,7 @@ export default function UsernamePlays() {
           ))}
         </select>
         <select name="locations">
-          {locations.map((name, inded) => (
+          {locations.map((name, index) => (
             <option key={name} value={name}>
               {name}
             </option>
@@ -172,7 +191,16 @@ export default function UsernamePlays() {
       <div className="mt-20">
         <div className="flex">
           <Aggregator />
-          {// add more to context }
+          {/* {filterButtons.map((btn: FilterButtonData) => {
+            return (
+              <FilterToComponent
+                key={btn.key}
+                filterLabel={btn.label}
+                props={{}}
+              />
+            );
+          })} */}
+          {/* add more to context  */}
           <AddFilterButton
             addFilterButton={addFilterButton}
             display={shouldShowAddFilterButton()}
