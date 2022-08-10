@@ -56,3 +56,15 @@ export const getAllLocations = async (recordingUserId: number) => {
 
   return uniqueLocations;
 };
+
+export const getAllGameNames = async (recordingUserId: number) => {
+  const gameNames: string[] = [];
+  await db.plays
+    .filter((play) => play.recordingUserId === recordingUserId)
+    .each((play) => {
+      play?.gameName && gameNames.push(play.gameName);
+    });
+
+  const uniqueGameNames = [...new Set(gameNames)];
+  return uniqueGameNames;
+};
