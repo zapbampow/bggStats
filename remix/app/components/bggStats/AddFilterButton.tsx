@@ -106,11 +106,7 @@ export default function AddFilterButton({ addFilterButton, display }: Props) {
                       as={Fragment}
                     >
                       {({ active, selected }) => (
-                        <li
-                          className={`px-2 ${
-                            selected ? "font-bold" : ""
-                          } hover:cursor-pointer`}
-                        >
+                        <li className={`px-2 hover:cursor-pointer`}>
                           {option.label}
                         </li>
                       )}

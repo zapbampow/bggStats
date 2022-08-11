@@ -1,11 +1,16 @@
 import React from "react";
-import SingleSelect from "./SingleSelect";
+import SingleSelectFilter from "~/components/bggStats/filters/SingleSelectFilter";
+import type { FilterButtonData } from "~/components/bggStats/types";
 
-export default function FilterToComponent(filterLabel: string, props) {
-  switch (filterLabel) {
+type Props = {
+  filter: FilterButtonData;
+};
+
+export default function FilterToComponent({ filter }: Props) {
+  switch (filter.value) {
     case "gameName":
-      return <SingleSelect {...props} />;
+      return <SingleSelectFilter key={filter.filterId} filter={filter} />;
     default:
-      return <SingleSelect {...props} />;
+      return <SingleSelectFilter key={filter.filterId} filter={filter} />;
   }
 }

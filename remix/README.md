@@ -2,10 +2,20 @@ Additional Aggregator Logic
 - when a making a selection, clear all other filters because the filter tree will be different
 - This should include when updating a 'how many' filter 
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
-- 
+
+# Generic Select/Filter Components
+LAST: Added filter button to screen
+NEXT: Get filter options
+props: filter option {value, label}
+It takes the filter option (ex. gameName, player, location) and gets the possible values
+Sets them in component state
+On select, adds them to context state
+
+The AddFilterButton disables options that have already been selected.
+Add a way to remove the filterButtons and their options
 
 # Todo
-- [ ] Add initial button when selecting option from +. Decide how you want to do this. Look at UsernamePlays comments for thoughts on options.
+- [ ] Add initial button when selecting option from +. Decide how you want to do this. Look at UsernamePlays comments for thoughts on options. And the Section above for 
 - [ ] Componentize combo box
 - [ ] Add filter button when selecting 'how many', 'games', 'of' and use the combo box. This should provide a pattern for adding any other combo box
 - [ ] Componentize multiselect box, multiselect combo, date selector, 

@@ -21,18 +21,14 @@ import FilterToComponent from "~/components/bggStats/FilterToComponent";
 
 import { PlayFilterProvider } from "~/contexts/bggStats/playFilterContext";
 import AddFilterButton from "~/components/bggStats/AddFilterButton";
-import type { SelectionType } from "../types";
+import type {
+  SelectionType,
+  FilterButtonData,
+} from "~/components/bggStats/types";
 import dayjs from "dayjs";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
-};
-
-type FilterButtonData = {
-  key: string;
-  label: string;
-  value: string;
-  component: React.Component;
 };
 
 type AccDataType = {
@@ -51,7 +47,7 @@ export default function UsernamePlays() {
   const { state, dispatch } = usePlayFilterContext();
 
   useEffect(() => {
-    console.log("state", state);
+    // console.log("state", state);
   }, [state]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
@@ -77,6 +73,13 @@ export default function UsernamePlays() {
     // figure out how you want to add the filter buttons/selects/etc
     // option 1: go ahead and had to state the filter without arguments, then updated them with the buttons
     // option 2: create a state array for filter and component type. Use that to add the filter to state and to edit.
+    let filter: FilterButtonData = {
+      filterId: dayjs().unix(),
+      label: "something",
+      value: "something",
+    };
+
+    setFilterButtons((filters) => [...filterButtons, filter]);
   };
 
   const shouldShowAddFilterButton = () => {
@@ -191,16 +194,12 @@ export default function UsernamePlays() {
       <div className="mt-20">
         <div className="flex">
           <Aggregator />
-          {/* {filterButtons.map((btn: FilterButtonData) => {
-            return (
-              <FilterToComponent
-                key={btn.key}
-                filterLabel={btn.label}
-                props={{}}
-              />
-            );
-          })} */}
-          {/* add more to context  */}
+
+          {/* Filter components */}
+          {filterButtons.map((filter: FilterButtonData) => {
+            return <FilterToComponent key={filter.filterId} filter={filter} />;
+          })}
+
           <AddFilterButton
             addFilterButton={addFilterButton}
             display={shouldShowAddFilterButton()}
