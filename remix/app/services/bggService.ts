@@ -10,7 +10,7 @@ type FetchOptions = {
   username: string;
   page?: number;
   startdate?: string;
-}
+};
 
 export async function fetchXmlPlayData(options: FetchOptions) {
   try {
@@ -35,7 +35,7 @@ export async function fetchXmlPlayData(options: FetchOptions) {
 
 export async function getInitialPlayData(username: string) {
   try {
-    const xmlData = await fetchXmlPlayData({username});
+    const xmlData = await fetchXmlPlayData({ username });
     const data = convertXmlToJsObject(xmlData);
 
     const pages = Math.ceil(parseInt(data.plays._attributes.total, 10) / 100);
@@ -45,7 +45,6 @@ export async function getInitialPlayData(username: string) {
     return {
       pages,
     };
-
   } catch (err) {
     console.log(err);
     throw new Error(err);
@@ -53,13 +52,13 @@ export async function getInitialPlayData(username: string) {
 }
 
 export const getPlayDataWithExponentialBackingOff = async (options: {
-  username: string,
-  pages: number,
-  startdate?:string,
-  setPercentDone: (x: number) => void,
+  username: string;
+  pages: number;
+  startdate?: string;
+  setPercentDone: (x: number) => void;
 }) => {
   try {
-    const {username, pages, startdate, setPercentDone} = options;
+    const { username, pages, startdate, setPercentDone } = options;
 
     // Create array from 1 to pages
     const pageArray = Array.from({ length: pages }, (_, i) => i + 1);
@@ -67,7 +66,7 @@ export const getPlayDataWithExponentialBackingOff = async (options: {
     // Create array of promises to get page data
     const allPages: any[] = pageArray
       .map((page) => {
-        const xmlData = fetchXmlPlayData({username, page, startdate});
+        const xmlData = fetchXmlPlayData({ username, page, startdate });
         return xmlData;
       })
       .filter((x) => x);
@@ -174,7 +173,7 @@ function convertPlayers(
   }
 }
 
-export async function getUserInfo(username: string):UserInfo {
+export async function getUserInfo(username: string): UserInfo {
   if (username) {
     const query = `https://boardgamegeek.com/xmlapi2/user?name=${username}`;
     const originalFetch = window.fetch;
@@ -203,7 +202,7 @@ export async function getUserInfo(username: string):UserInfo {
 
 export async function getLatestPlaysInfo(username: string, date: string) {
   try {
-    const xmlData = await fetchXmlPlayData({username, startdate: date});
+    const xmlData = await fetchXmlPlayData({ username, startdate: date });
     const data = convertXmlToJsObject(xmlData);
 
     const pages = Math.ceil(parseInt(data.plays._attributes.total, 10) / 100);

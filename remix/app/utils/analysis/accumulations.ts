@@ -1,4 +1,5 @@
 import { db } from "../../services/db";
+import type { SelectionType } from "~/components/bggStats/types";
 
 // All these must filter by recordingUserId too
 export const getAllPlayerNames = async (recordingUserId: number) => {
@@ -58,6 +59,8 @@ export const getAllLocations = async (recordingUserId: number) => {
 };
 
 export const getAllGameNames = async (recordingUserId: number) => {
+  if (!recordingUserId) return [];
+
   const gameNames: string[] = [];
   await db.plays
     .filter((play) => play.recordingUserId === recordingUserId)
@@ -66,5 +69,54 @@ export const getAllGameNames = async (recordingUserId: number) => {
     });
 
   const uniqueGameNames = [...new Set(gameNames)];
-  return uniqueGameNames;
+  const sortedGames = sortGameNames(uniqueGameNames);
+
+  return sortedGames;
+};
+export const getAllGames = async (recordingUserId: number) => {
+  if (!recordingUserId) return [];
+
+  const games: SelectionType[] = [];
+  await db.plays
+    .filter((play) => play.recordingUserId === recordingUserId)
+    .each((play) => {
+      const game: SelectionType = {
+        value: play?.gameId.toString(),
+        label: play?.gameName,
+      };
+      game?.value && game?.label && games.push(game);
+    });
+
+  if (!games || games.length <= 0) return [];
+
+  const uniqueGames = [
+    ...new Map(games.map((game) => [game["value"], game])).values(),
+  ];
+
+  const sortedGames = sortGames(uniqueGames);
+
+  return sortedGames;
+};
+
+const sortGames = (games: SelectionType[]) => {
+  let sorted = games.sort((a, b) => {
+    let noArticleA = removeStartArticles(a.label.toLowerCase());
+    let noArticleB = removeStartArticles(b.label.toLowerCase());
+
+    if (noArticleA > noArticleB) return 1;
+    if (noArticleA < noArticleB) return -1;
+    return 0;
+  });
+
+  return sorted;
+};
+
+const removeStartArticles = (game: string) => {
+  if (game.startsWith("the ")) {
+    return game.slice(3).trim();
+  } else if (game.startsWith("a ")) {
+    return game.slice(1).trim();
+  } else {
+    return game;
+  }
 };

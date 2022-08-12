@@ -19,6 +19,7 @@ import {
 import { onDate, beforeDate, afterDate, betweenDates } from "./filterByDate";
 import { gameName, gameNames } from "./filterByGameName";
 import { location, locations } from "./filterByLocation";
+import type { FilterType } from "./types";
 
 /**
  * How it works:
@@ -68,13 +69,13 @@ type FilterName =
   | "afterDate"
   | "betweenDates";
 
-type FilterArgsType = {
-  order: number;
-  filter: FilterName;
-  // the arg type will change as I build more filters that can take different arguments
-  // Maybe join all arg types for functions
-  arg: string | string[];
-};
+// export type FilterType = {
+//   order: number | "aggregator";
+//   filter: FilterName;
+//   // the arg type will change as I build more filters that can take different arguments
+//   // Maybe join all arg types for functions
+//   arg: string | string[];
+// };
 
 const argFunctionPairs = {
   // AGGREGATES
@@ -105,18 +106,15 @@ const pipe = (initialPlays: Plays, ...fns: Function[]) =>
     return cur(acc);
   }, initialPlays);
 
-export function pipeWithArgs2(plays: Plays, args: FilterArgsType[]) {
-  console.log(args);
+export function pipeWithArgs2(plays: Plays, args: FilterType[]) {
+  console.log({ plays, args });
   return pipe(
     plays,
     ...args.map(({ filter, arg }) => argFunctionPairs[filter](arg)) // I don't know TS well enough to type my way out of this linting error, but it runs fine
   );
 }
 
-export default async function filter(
-  userId: number,
-  filters: FilterArgsType[]
-) {
+export default async function filter(userId: number, filters: FilterType[]) {
   const plays = await getInitialPlayData(userId);
   const pipe = pipeWithArgs2(plays, filters);
 

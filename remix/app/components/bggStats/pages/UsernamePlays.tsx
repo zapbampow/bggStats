@@ -26,6 +26,8 @@ import type {
   FilterButtonData,
 } from "~/components/bggStats/types";
 import dayjs from "dayjs";
+import { BigButton } from "~/components/bggStats/Button";
+import { FilterType } from "~/services/queryService/types";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -43,11 +45,11 @@ export default function UsernamePlays() {
   const [locations, setLocations] = useState<string[]>([]);
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [filterButtons, setFilterButtons] = useState<FilterButtonData[]>([]);
-
+  const [filterCount, setFilterCount] = useState(1);
   const { state, dispatch } = usePlayFilterContext();
 
   useEffect(() => {
-    // console.log("state", state);
+    console.log("state", state);
   }, [state]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
@@ -69,17 +71,13 @@ export default function UsernamePlays() {
   };
 
   const addFilterButton = (selection: SelectionType) => {
-    console.log("should add a button", selection);
-    // figure out how you want to add the filter buttons/selects/etc
-    // option 1: go ahead and had to state the filter without arguments, then updated them with the buttons
-    // option 2: create a state array for filter and component type. Use that to add the filter to state and to edit.
     let filter: FilterButtonData = {
-      filterId: dayjs().unix(),
-      label: "something",
-      value: "something",
+      filterId: filterCount,
+      ...selection,
     };
 
     setFilterButtons((filters) => [...filterButtons, filter]);
+    setFilterCount((count) => count + 1);
   };
 
   const shouldShowAddFilterButton = () => {
@@ -117,50 +115,81 @@ export default function UsernamePlays() {
   //   // console.log('pipe', pipe);
   // };
 
-  // const testP2 = async () => {
-  //   const filters = [
-  //     // {
-  //     //   order: 1,
-  //     //   filter: "withAllPlayerNames",
-  //     //   arg: ["Clayton Ingalls", "Teresa", "Autumn"],
-  //     // },
-  //     // {
-  //     //   order: 1000,
-  //     //   filter: "listPlayerNames",
-  //     // },
-  //     {
-  //       order: 1,
-  //       filter: "gameName",
-  //       arg: "Sonar",
-  //     },
-  //     {
-  //       order: 1000,
-  //       filter: "count",
-  //       arg: "days",
-  //     },
-  //   ];
+  const testP2 = async () => {
+    const filters = [
+      // {
+      //   order: 1,
+      //   filter: "withAllPlayerNames",
+      //   arg: ["Clayton Ingalls", "Teresa", "Autumn"],
+      // },
+      // {
+      //   order: 1000,
+      //   filter: "listPlayerNames",
+      // },
+      // {
+      //   order: 1,
+      //   filter: "gameName",
+      //   arg: "Sonar",
+      // },
+      // {
+      //   order: 1000,
+      //   filter: "count",
+      //   arg: "days",
+      // },
+      {
+        order: 1,
+        filter: "gameName",
+        arg: "3 Wishes",
+      },
+      {
+        order: 1000,
+        filter: "count",
+        arg: "plays",
+      },
+    ];
+    // debugger;
+    const pipe = await filter(user.userId, filters);
 
-  //   const pipe = await filter(user.userId, filters);
-
-  //   console.log("pipe", pipe);
-  // };
+    console.log("pipe", pipe);
+  };
   function timestamp() {
     return dayjs();
   }
 
   useEffect(() => {
-    if (user) {
-      // const start = timestamp();
-      // getAccumulatedData(user.userId);
-      // const end = timestamp();
-      // const length = start.diff(end);
-      // console.log("length", length);
-      // getTestQuery(user.userId, '2022-03-01')
-      // test2(user.userId)
-      // testPipeWithArgs();
-      // testP2();
-    }
+    if (!user) return;
+    // const start = timestamp();
+    // getAccumulatedData(user.userId);
+    // const end = timestamp();
+    // const length = start.diff(end);
+    // console.log("length", length);
+    // getTestQuery(user.userId, '2022-03-01')
+    // test2(user.userId)
+    // testPipeWithArgs();
+    testP2();
   }, [user]);
+
+  const handleAsk = async () => {
+    if (!user?.userId) return;
+    let filters = JSON.parse(JSON.stringify(state));
+
+    // Update aggregator order value
+    let index = filters.findIndex(
+      (filter: FilterType) => filter.order === "aggregator"
+    );
+    filters[index].order = 1000;
+
+    filters.sort((a: FilterType, b: FilterType) => {
+      if (a.order > b.order) return 1;
+      if (a.order < b.order) return -1;
+      return 0;
+    });
+
+    console.log("sorted filters", filters);
+    const pipe = await filter(user.userId, filters);
+
+    console.log("pipe", pipe);
+  };
 
   return (
     <div className="min-h-screen p-4 bgGradient">
@@ -192,6 +221,7 @@ export default function UsernamePlays() {
       </div>
 
       <div className="mt-20">
+        <BigButton onClick={handleAsk}>Ask your question</BigButton>
         <div className="flex">
           <Aggregator />
 

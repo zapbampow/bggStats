@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useCallback } from "react";
 import { Listbox } from "@headlessui/react";
 import {
   baseStyles,
@@ -12,41 +12,72 @@ import type {
   FilterButtonData,
 } from "~/components/bggStats/types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
+import {
+  getAllPlayerNames,
+  getAllUserNames,
+  getAllLocations,
+  getAllGameNames,
+  getAllGames,
+} from "~/utils/analysis/accumulations";
+import { useBggUser } from "~/hooks/bgg/useBggUser";
 
 interface Props {
-  filterType: FilterButtonData;
+  filter: FilterButtonData;
 }
 
-export default function SingleSelect({ filterType }: Props) {
+export default function SingleSelect({ filter }: Props) {
+  const user = useBggUser();
   const { state, dispatch } = usePlayFilterContext();
   const [options, setOptions] = useState<SelectionType[]>();
 
-  const [selectedValue, setSelectedValue] = useState<SelectionType>({
-    label: "",
-    value: "",
-  });
+  const [selection, setSelection] = useState<SelectionType>();
 
   const handleChange = (selection: SelectionType) => {
-    setSelectedValue(selection);
+    setSelection(selection);
 
-    // update how this is handling arg
     dispatch({
       type: "upsert",
       filter: {
-        order: filterType.filterId,
-        filter: filterType.value,
-        arg: selection.value,
+        order: filter.filterId,
+        filter: filter.value,
+        arg: selection.label,
       },
     });
   };
 
+  const getOptions = useCallback(
+    async (filter: FilterButtonData) => {
+      try {
+        const { value } = filter;
+        let options;
+
+        switch (value) {
+          case "gameName":
+            options = await getAllGames(user?.userId || 0);
+            break;
+          default:
+            break;
+        }
+
+        console.log("options", options);
+        setOptions(options);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [user?.userId]
+  );
+
   useEffect(() => {
-    // get options based on filterType.value
-  }, []);
+    if (!filter) return;
+    // get options based on filter.value
+    // console.log("filter.value", filter.value);
+    getOptions(filter);
+  }, [filter, getOptions]);
 
   return (
     <div className="relative">
-      <Listbox value={selectedValue} onChange={handleChange}>
+      <Listbox value={selection?.value} onChange={handleChange}>
         {({ open }) => (
           <>
             <Listbox.Button
@@ -56,7 +87,7 @@ export default function SingleSelect({ filterType }: Props) {
                 ${hoverStyles}
                 `}
             >
-              {selectedValue?.label || "Select a question"}
+              {selection ? `of ${selection.label}` : filter.label}
             </Listbox.Button>
             <Listbox.Options
               className={`mt-1 max-w-max ${baseStyles} ${openMenuStyles}`}
