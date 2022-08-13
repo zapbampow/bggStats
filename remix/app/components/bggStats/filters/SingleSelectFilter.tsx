@@ -59,7 +59,6 @@ export default function SingleSelect({ filter }: Props) {
             break;
         }
 
-        console.log("options", options);
         setOptions(options);
       } catch (err) {
         console.log(err);

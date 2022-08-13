@@ -57,6 +57,7 @@ export default function Aggregator() {
         options={options}
         selectedValue={selectedValue}
         onChange={handleChange}
+        selectName="Select a question"
       />
 
       {/* Options of the main selector, if there are any. Only needed for "how many" */}
@@ -66,6 +67,7 @@ export default function Aggregator() {
           options={filterTree[selectedValue.value].filters}
           selectedValue={aggArg}
           onChange={handleArgChange}
+          selectName="of what?"
         />
       ) : null}
     </>

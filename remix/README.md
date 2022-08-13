@@ -4,8 +4,8 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Generic Select/Filter Components
-LAST: Added filter button to screen
-NEXT: Get filter options
+LAST: Added combobox filter
+NEXT: Create Measurer component to help with resizing the combobox input when the value is too long
 props: filter option {value, label}
 It takes the filter option (ex. gameName, player, location) and gets the possible values
 Sets them in component state

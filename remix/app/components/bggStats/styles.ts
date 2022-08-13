@@ -7,11 +7,19 @@ export const hoverStyles = `
 `;
 
 export const openButtonStyles = `
-  scale-110 underline underline-offset-8 bg-blur-md
+  scale-110 underline underline-offset-8 backdrop-blur-sm z-10
 `;
 
 export const openMenuStyles = `
-  bg-slate-50/25 shadow-lg shadow-slate-500/10 bg-blur-md absolute w-max
+  bg-slate-50/70 shadow-lg shadow-slate-500/10 backdrop-blur-sm z-10 absolute w-max
+`;
+
+export const openComboboxMenuStyles = `
+bg-slate-50/70 shadow-lg shadow-slate-500/10 backdrop-blur-sm z-10 w-max max-h-36 overflow-y-auto absolute top-12
+`;
+
+export const comboActiveItem = `
+transition-all scale-105 underline-offset-8 duration-300 ease-in-out bg-slate-200
 `;
 
 export const itemHoverStyles = `

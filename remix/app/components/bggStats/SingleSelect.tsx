@@ -13,12 +13,14 @@ interface Props {
   selectedValue: SelectionType;
   onChange: (selection: SelectionType) => void;
   options: SelectionType[];
+  selectName: string;
 }
 
 export default function SingleSelect({
   selectedValue,
   onChange,
   options,
+  selectName,
 }: Props) {
   return (
     <div className="relative">
@@ -32,7 +34,7 @@ export default function SingleSelect({
                 ${hoverStyles}
                 `}
             >
-              {selectedValue?.label || "Select a question"}
+              {selectedValue?.label || selectName}
             </Listbox.Button>
             <Listbox.Options
               className={`mt-1 max-w-max ${baseStyles} ${openMenuStyles}`}

@@ -1,6 +1,9 @@
 import React from "react";
-import SingleSelectFilter from "~/components/bggStats/filters/SingleSelectFilter";
 import type { FilterButtonData } from "~/components/bggStats/types";
+import {
+  ComboBoxFilter,
+  SingleSelectFilter,
+} from "~/components/bggStats/filters";
 
 type Props = {
   filter: FilterButtonData;
@@ -9,7 +12,7 @@ type Props = {
 export default function FilterToComponent({ filter }: Props) {
   switch (filter.value) {
     case "gameName":
-      return <SingleSelectFilter key={filter.filterId} filter={filter} />;
+      return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     default:
       return <SingleSelectFilter key={filter.filterId} filter={filter} />;
   }

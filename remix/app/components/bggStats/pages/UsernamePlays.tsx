@@ -27,7 +27,8 @@ import type {
 } from "~/components/bggStats/types";
 import dayjs from "dayjs";
 import { BigButton } from "~/components/bggStats/Button";
-import { FilterType } from "~/services/queryService/types";
+import type { FilterType } from "~/services/queryService/types";
+import Answer from "~/components/bggStats/Answer";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -46,10 +47,11 @@ export default function UsernamePlays() {
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [filterButtons, setFilterButtons] = useState<FilterButtonData[]>([]);
   const [filterCount, setFilterCount] = useState(1);
+  const [answer, setAnswer] = useState();
   const { state, dispatch } = usePlayFilterContext();
 
   useEffect(() => {
-    console.log("state", state);
+    // console.log("state", state);
   }, [state]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
@@ -136,16 +138,16 @@ export default function UsernamePlays() {
       //   filter: "count",
       //   arg: "days",
       // },
-      {
-        order: 1,
-        filter: "gameName",
-        arg: "3 Wishes",
-      },
-      {
-        order: 1000,
-        filter: "count",
-        arg: "plays",
-      },
+      // {
+      //   order: 1,
+      //   filter: "gameName",
+      //   arg: "3 Wishes",
+      // },
+      // {
+      //   order: 1000,
+      //   filter: "count",
+      //   arg: "plays",
+      // },
     ];
     // debugger;
     const pipe = await filter(user.userId, filters);
@@ -166,7 +168,7 @@ export default function UsernamePlays() {
     // getTestQuery(user.userId, '2022-03-01')
     // test2(user.userId)
     // testPipeWithArgs();
-    testP2();
+    // testP2();
   }, [user]);
 
   const handleAsk = async () => {
@@ -185,10 +187,10 @@ export default function UsernamePlays() {
       return 0;
     });
 
-    console.log("sorted filters", filters);
     const pipe = await filter(user.userId, filters);
+    setAnswer(pipe);
 
-    console.log("pipe", pipe);
+    console.log("answer", pipe);
   };
 
   return (
@@ -221,8 +223,11 @@ export default function UsernamePlays() {
       </div>
 
       <div className="mt-20">
-        <BigButton onClick={handleAsk}>Ask your question</BigButton>
-        <div className="flex">
+        <div className="flex items-center gap-16">
+          <BigButton onClick={handleAsk}>Ask your question</BigButton>
+          <Answer answer={answer} />
+        </div>
+        <div className="flex flex-col flex-wrap">
           <Aggregator />
 
           {/* Filter components */}
