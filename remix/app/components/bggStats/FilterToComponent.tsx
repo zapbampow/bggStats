@@ -4,6 +4,7 @@ import {
   ComboBoxFilter,
   SingleSelectFilter,
 } from "~/components/bggStats/filters";
+import ComboBoxFilterMultiple from "./filters/ComboBoxFilterMultiple";
 
 type Props = {
   filter: FilterButtonData;
@@ -18,6 +19,9 @@ export default function FilterToComponent({ filter }: Props) {
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     case "whereSinglePlayerNameWon":
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
+    case "gameNames":
+      return <ComboBoxFilterMultiple key={filter.filterId} filter={filter} />;
+
     default:
       console.log("hitting default");
       return <SingleSelectFilter key={filter.filterId} filter={filter} />;

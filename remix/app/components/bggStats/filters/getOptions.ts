@@ -18,6 +18,8 @@ export default async function getOptions({ filter, user }: Args) {
     switch (value) {
       case "gameName":
         return await getAllGames(user?.userId || 0);
+      case "gameNames":
+        return await getAllGames(user?.userId || 0);
       case "location":
         return await getAllLocations(user?.userId || 0);
       case "whereSinglePlayerNameWon":

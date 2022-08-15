@@ -6,6 +6,6 @@ export type SelectionType = {
 export type FilterButtonData = {
   filterId: number;
   label: string;
-  value: string;
+  value: string | string[];
   // component: React.Component;
 };
