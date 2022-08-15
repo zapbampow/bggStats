@@ -15,7 +15,8 @@ export default function FilterToComponent({ filter }: Props) {
     case "gameName":
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     case "location":
-      console.log("should combobox");
+      return <ComboBoxFilter key={filter.filterId} filter={filter} />;
+    case "whereSinglePlayerNameWon":
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     default:
       console.log("hitting default");

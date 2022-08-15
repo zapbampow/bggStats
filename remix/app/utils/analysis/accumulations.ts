@@ -3,16 +3,20 @@ import type { SelectionType } from "~/components/bggStats/types";
 
 // All these must filter by recordingUserId too
 export const getAllPlayerNames = async (recordingUserId: number) => {
-  const names: string[] = [];
+  const names: SelectionType[] = [];
   await db.plays
     .filter((play) => play.recordingUserId === recordingUserId)
     .each((play) => {
-      play.players.forEach((player) => player?.name && names.push(player.name));
+      play.players.forEach((player) => {
+        let playerSelection = {
+          value: player.name,
+          label: player.name,
+        };
+        names.push(playerSelection);
+      });
     });
 
-  const uniqueNames = [...new Set(names)];
-
-  return uniqueNames;
+  return getUniqueSortedSelections(names);
 };
 
 export const getAllUserNames = async (recordingUserId: number) => {
@@ -53,21 +57,13 @@ export const getAllLocations = async (recordingUserId: number) => {
     .filter((play) => play.recordingUserId === recordingUserId)
     .each((play) => {
       const location = {
-        value: play?.location?.replace(/\s+/g, ""),
-        label: play?.location,
+        value: play.location?.replace(/\s+/g, ""),
+        label: play.location,
       };
       play?.location && locations.push(location);
     });
 
-  const uniqueLocations = [
-    ...new Map(
-      locations.map((location) => [location["value"], location])
-    ).values(),
-  ];
-
-  const sortedLocations = sortSelections(uniqueLocations);
-
-  return sortedLocations;
+  return getUniqueSortedSelections(locations);
 };
 
 export const getAllGames = async (recordingUserId: number) => {
@@ -84,15 +80,7 @@ export const getAllGames = async (recordingUserId: number) => {
       game?.value && game?.label && games.push(game);
     });
 
-  if (!games || games.length <= 0) return [];
-
-  const uniqueGames = [
-    ...new Map(games.map((game) => [game["value"], game])).values(),
-  ];
-
-  const sortedGames = sortSelections(uniqueGames);
-
-  return sortedGames;
+  return getUniqueSortedSelections(games);
 };
 
 // export const getAllGameNames = async (recordingUserId: number) => {
@@ -110,6 +98,20 @@ export const getAllGames = async (recordingUserId: number) => {
 
 //   return sortedGames;
 // };
+
+const getUniqueSortedSelections = (selections: SelectionType[] = []) => {
+  if (selections.length === 0) return [];
+
+  const uniqueSelections = [
+    ...new Map(
+      selections.map((selection) => [selection["value"], selection])
+    ).values(),
+  ];
+
+  const sortedSelections = sortSelections(uniqueSelections);
+
+  return sortedSelections;
+};
 
 const sortSelections = (selections: SelectionType[]) => {
   let sorted = selections.sort((a, b) => {

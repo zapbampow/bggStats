@@ -6,6 +6,11 @@ Additional Aggregator Logic
 # Next
 Connect other single select/single combobox filterss
 
+# How to Connect Frontend Filter to Backend
+1. Update FilterToComponent to make sure the correct component is used for that filter type
+2. If getOptions is needed, make sure the filter option is connected to the correct accumulator
+3. Make sure the accumulator function has been updated to return {value, label}[]
+
 # Generic Select/Filter Components
 props: filter option {value, label}
 It takes the filter option (ex. gameName, player, location) and gets the possible values
