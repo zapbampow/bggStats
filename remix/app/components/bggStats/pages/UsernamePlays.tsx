@@ -7,7 +7,7 @@ import {
   getAllPlayerNames,
   getAllUserNames,
   getAllLocations,
-  getAllGameNames,
+  // getAllGameNames,
 } from "~/utils/analysis/accumulations";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
@@ -57,10 +57,10 @@ export default function UsernamePlays() {
   const { manuallyUpdate, percentDone, error } = usePlayData();
 
   const getAccumulatedData = async (recordingUserId: number) => {
-    const playerNames = await getAllPlayerNames(recordingUserId);
-    const usernames = await getAllUserNames(recordingUserId);
-    const locations = await getAllLocations(recordingUserId);
-    const gameNames = await getAllGameNames(recordingUserId);
+    // const playerNames = await getAllPlayerNames(recordingUserId);
+    // const usernames = await getAllUserNames(recordingUserId);
+    // const locations = await getAllLocations(recordingUserId);
+    // const gameNames = await getAllGameNames(recordingUserId);
     // console.log("gameNames", { gameNames, amount: gameNames.length });
 
     setAccData({
@@ -73,12 +73,13 @@ export default function UsernamePlays() {
   };
 
   const addFilterButton = (selection: SelectionType) => {
+    // debugger;
     let filter: FilterButtonData = {
       filterId: filterCount,
       ...selection,
     };
 
-    setFilterButtons((filters) => [...filterButtons, filter]);
+    setFilterButtons((filters) => [...filters, filter]);
     setFilterCount((count) => count + 1);
   };
 
@@ -201,11 +202,11 @@ export default function UsernamePlays() {
       <div>
         Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
       </div>
-      <div>Number of playerNames: {accData?.numPlayers}</div>
+      {/* <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
-      <div>Number of locations: {accData?.numLocations}</div>
+      <div>Number of locations: {accData?.numLocations}</div> */}
 
-      <div className="grid-cols-3">
+      {/* <div className="grid-cols-3">
         <select name="playerNames">
           {playerNames.map((name, index) => (
             <option key={name} value={name}>
@@ -220,7 +221,7 @@ export default function UsernamePlays() {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
 
       <div className="mt-20">
         <div className="flex items-center gap-16">
@@ -232,6 +233,7 @@ export default function UsernamePlays() {
 
           {/* Filter components */}
           {filterButtons.map((filter: FilterButtonData) => {
+            console.log("filter", filter);
             return <FilterToComponent key={filter.filterId} filter={filter} />;
           })}
 

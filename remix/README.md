@@ -3,9 +3,10 @@ Additional Aggregator Logic
 - This should include when updating a 'how many' filter 
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
+# Next
+Connect other single select/single combobox filterss
+
 # Generic Select/Filter Components
-LAST: Added combobox filter
-NEXT: Create Measurer component to help with resizing the combobox input when the value is too long
 props: filter option {value, label}
 It takes the filter option (ex. gameName, player, location) and gets the possible values
 Sets them in component state
@@ -16,10 +17,11 @@ Add a way to remove the filterButtons and their options
 
 # Todo
 - [ ] Add initial button when selecting option from +. Decide how you want to do this. Look at UsernamePlays comments for thoughts on options. And the Section above for 
-- [ ] Componentize combo box
+- [x] Componentize combo box
 - [ ] Add filter button when selecting 'how many', 'games', 'of' and use the combo box. This should provide a pattern for adding any other combo box
 - [ ] Componentize multiselect box, multiselect combo, date selector, 
 - [x] Componentize dropdown button and list for reuse
+- [ ] Save filters to local storage so that users can revisit past queries
 - [x] Add play filtering context basically just for the filtering object. Update the object with each selection
 - [ ] Handle errors on username/plays
 - [ ] Add meta to pages
@@ -73,6 +75,15 @@ Add a way to remove the filterButtons and their options
 - withOnlyPlayerIds
 - playersWon
 
+
+## Other Options
+Board Game Stats App likely does a lot of this and certainly does a lot more. It is very popular and the people who use it seem to love it. The guy who built it also built the official BGG app. So he clearly knows what he's doing. https://www.bgstatsapp.com/
+
+Board Gamer Tools http://www.boredgamertools.com/
+Has some nice pie charts based on your play data along with piles of charts with your play data. It also has some features around your collection, including a recommendation tool for games you may like.
+
+http://www.sheltonsonline.net/bggtools/getplays
+View play data. Download as excel sheet. Last time I went here it was down because some stuff when wrong when updating their site. But it sounded like he planned on getting it back up at some point.
 
 
 

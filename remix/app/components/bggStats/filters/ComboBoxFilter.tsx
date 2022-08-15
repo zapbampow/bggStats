@@ -71,7 +71,6 @@ export default function ComboBoxFilter({ filter }: Props) {
 
     try {
       const options = await getOptions({ filter, user });
-
       setOptions(options);
     } catch (err) {
       console.log(err);
@@ -106,7 +105,7 @@ export default function ComboBoxFilter({ filter }: Props) {
             displayValue={(option: SelectionType) => {
               return option?.label;
             }}
-            autofocus
+            autoFocus
             // placeholder={filter.label}
             className={`${baseStyles} bg-transparent font-semibold transition transition-all ease-in-out duration-500`}
           />
@@ -124,8 +123,9 @@ export default function ComboBoxFilter({ filter }: Props) {
                   {({ active, selected }) => (
                     <li
                       className={`${selected ? "font-bold" : ""} 
-                      ${active ? comboActiveItem : ""}`}
+                      ${active ? comboActiveItem : ""}
                       hover:cursor-pointer
+                    `}
                     >
                       {option.label}
                     </li>

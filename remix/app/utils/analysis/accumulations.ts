@@ -46,33 +46,30 @@ export const getAllPlayedColors = async (recordingUserId: number) => {
 };
 
 export const getAllLocations = async (recordingUserId: number) => {
-  const locations: string[] = [];
-  await db.plays
-    .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
-      play?.location && locations.push(play.location);
-    });
-
-  const uniqueLocations = [...new Set(locations)];
-
-  return uniqueLocations;
-};
-
-export const getAllGameNames = async (recordingUserId: number) => {
   if (!recordingUserId) return [];
 
-  const gameNames: string[] = [];
+  const locations: SelectionType[] = [];
   await db.plays
     .filter((play) => play.recordingUserId === recordingUserId)
     .each((play) => {
-      play?.gameName && gameNames.push(play.gameName);
+      const location = {
+        value: play?.location?.replace(/\s+/g, ""),
+        label: play?.location,
+      };
+      play?.location && locations.push(location);
     });
 
-  const uniqueGameNames = [...new Set(gameNames)];
-  const sortedGames = sortGameNames(uniqueGameNames);
+  const uniqueLocations = [
+    ...new Map(
+      locations.map((location) => [location["value"], location])
+    ).values(),
+  ];
 
-  return sortedGames;
+  const sortedLocations = sortSelections(uniqueLocations);
+
+  return sortedLocations;
 };
+
 export const getAllGames = async (recordingUserId: number) => {
   if (!recordingUserId) return [];
 
@@ -93,13 +90,29 @@ export const getAllGames = async (recordingUserId: number) => {
     ...new Map(games.map((game) => [game["value"], game])).values(),
   ];
 
-  const sortedGames = sortGames(uniqueGames);
+  const sortedGames = sortSelections(uniqueGames);
 
   return sortedGames;
 };
 
-const sortGames = (games: SelectionType[]) => {
-  let sorted = games.sort((a, b) => {
+// export const getAllGameNames = async (recordingUserId: number) => {
+//   if (!recordingUserId) return [];
+
+//   const gameNames: string[] = [];
+//   await db.plays
+//     .filter((play) => play.recordingUserId === recordingUserId)
+//     .each((play) => {
+//       play?.gameName && gameNames.push(play.gameName);
+//     });
+
+//   const uniqueGameNames = [...new Set(gameNames)];
+//   const sortedGames = sortGameNames(uniqueGameNames);
+
+//   return sortedGames;
+// };
+
+const sortSelections = (selections: SelectionType[]) => {
+  let sorted = selections.sort((a, b) => {
     let noArticleA = removeStartArticles(a.label.toLowerCase());
     let noArticleB = removeStartArticles(b.label.toLowerCase());
 
@@ -111,12 +124,12 @@ const sortGames = (games: SelectionType[]) => {
   return sorted;
 };
 
-const removeStartArticles = (game: string) => {
-  if (game.startsWith("the ")) {
-    return game.slice(3).trim();
-  } else if (game.startsWith("a ")) {
-    return game.slice(1).trim();
+const removeStartArticles = (str: string) => {
+  if (str.startsWith("the ")) {
+    return str.slice(3).trim();
+  } else if (str.startsWith("a ")) {
+    return str.slice(1).trim();
   } else {
-    return game;
+    return str;
   }
 };

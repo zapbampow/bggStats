@@ -10,10 +10,15 @@ type Props = {
 };
 
 export default function FilterToComponent({ filter }: Props) {
+  console.log("filter", filter);
   switch (filter.value) {
     case "gameName":
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
+    case "location":
+      console.log("should combobox");
+      return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     default:
+      console.log("hitting default");
       return <SingleSelectFilter key={filter.filterId} filter={filter} />;
   }
 }
