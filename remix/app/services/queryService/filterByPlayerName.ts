@@ -22,8 +22,9 @@ export function withOnlyPlayerNames(names: string[]) {
 export function withAnyPlayerNames(names: string[]) {
   return (plays: Plays) =>
     plays.filter((play) => {
-      return play.players.filter((player) => {
+      let players = play.players.filter((player) => {
         return names.includes(player.name);
       });
+      return players.length > 0;
     });
 }

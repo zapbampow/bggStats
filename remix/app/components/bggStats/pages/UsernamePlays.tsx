@@ -175,7 +175,6 @@ export default function UsernamePlays() {
   const handleAsk = async () => {
     if (!user?.userId) return;
     let filters = JSON.parse(JSON.stringify(state));
-
     // Update aggregator order value
     let index = filters.findIndex(
       (filter: FilterType) => filter.order === "aggregator"
@@ -189,6 +188,7 @@ export default function UsernamePlays() {
     });
 
     const pipe = await filter(user.userId, filters);
+    // console.log("pipe", pipe);
     setAnswer(pipe);
 
     console.log("answer", pipe);
@@ -233,7 +233,6 @@ export default function UsernamePlays() {
 
           {/* Filter components */}
           {filterButtons.map((filter: FilterButtonData) => {
-            console.log("filter", filter);
             return <FilterToComponent key={filter.filterId} filter={filter} />;
           })}
 

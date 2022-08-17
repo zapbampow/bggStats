@@ -26,6 +26,10 @@ export default async function getOptions({ filter, user }: Args) {
         return await getAllPlayerNames(user?.userId || 0);
       case "withAllPlayerNames":
         return await getAllPlayerNames(user?.userId || 0);
+      case "withOnlyPlayerNames":
+        return await getAllPlayerNames(user?.userId || 0);
+      case "withAnyPlayerNames":
+        return await getAllPlayerNames(user?.userId || 0);
 
       default:
         break;
