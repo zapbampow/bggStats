@@ -1,5 +1,13 @@
 import type { Plays } from "./types";
 
+export function withAllPlayerNames(names: string[]) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      const playerNames = play.players.map((player) => player.name);
+      return names.every((name) => playerNames.includes(name));
+    });
+}
+
 export function withOnlyPlayerNames(names: string[]) {
   return (plays: Plays) =>
     plays.filter((play) => {
@@ -8,14 +16,6 @@ export function withOnlyPlayerNames(names: string[]) {
         .map((player) => player.name)
         .sort();
       return orderedNames.every((name, i) => name === orderedPlayerNames[i]);
-    });
-}
-
-export function withAllPlayerNames(names: string[]) {
-  return (plays: Plays) =>
-    plays.filter((play) => {
-      const playerNames = play.players.map((player) => player.name);
-      return names.every((name) => playerNames.includes(name));
     });
 }
 

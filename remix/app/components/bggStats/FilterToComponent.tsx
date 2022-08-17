@@ -21,6 +21,8 @@ export default function FilterToComponent({ filter }: Props) {
       return <ComboBoxFilter key={filter.filterId} filter={filter} />;
     case "gameNames":
       return <ComboBoxFilterMultiple key={filter.filterId} filter={filter} />;
+    case "withAllPlayerNames":
+      return <ComboBoxFilterMultiple key={filter.filterId} filter={filter} />;
 
     default:
       console.log("hitting default");

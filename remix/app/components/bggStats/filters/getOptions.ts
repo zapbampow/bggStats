@@ -24,6 +24,9 @@ export default async function getOptions({ filter, user }: Args) {
         return await getAllLocations(user?.userId || 0);
       case "whereSinglePlayerNameWon":
         return await getAllPlayerNames(user?.userId || 0);
+      case "withAllPlayerNames":
+        return await getAllPlayerNames(user?.userId || 0);
+
       default:
         break;
     }
