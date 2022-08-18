@@ -4,9 +4,9 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-Connect other single select/single combobox filterss
+Create date picker
 
-# How to Connect Frontend Filter to Backend
+## How to Connect Frontend Filter to Backend
 1. Update FilterToComponent to make sure the correct component is used for that filter type
 2. If getOptions is needed, make sure the filter option is connected to the correct accumulator
 3. Make sure the accumulator function has been updated to return {value, label}[]
