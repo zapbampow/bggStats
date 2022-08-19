@@ -1,9 +1,14 @@
+import type { ReactElement } from "react";
+
 type Props = {
   width?: number;
   className?: string;
 };
 
-export default function CheckIcon({ width = 24, className }: Props) {
+export default function CheckIcon({
+  width = 24,
+  className,
+}: Props): ReactElement<any, any> {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -29,6 +29,7 @@ import dayjs from "dayjs";
 import { BigButton } from "~/components/bggStats/Button";
 import type { FilterType } from "~/services/queryService/types";
 import Answer from "~/components/bggStats/Answer";
+import DatePickerComponent from "~/components/bggStats/datepicker";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -202,6 +203,7 @@ export default function UsernamePlays() {
       <div>
         Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
       </div>
+      <DatePickerComponent />
       {/* <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div> */}
