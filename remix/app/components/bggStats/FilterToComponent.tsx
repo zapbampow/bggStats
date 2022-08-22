@@ -5,6 +5,7 @@ import {
   SingleSelectFilter,
 } from "~/components/bggStats/filters";
 import ComboBoxFilterMultiple from "./filters/ComboBoxFilterMultiple";
+import Datepicker from "./datepicker";
 
 type Props = {
   filter: FilterButtonData;
@@ -29,6 +30,12 @@ export default function FilterToComponent({ filter }: Props) {
       return <ComboBoxFilterMultiple key={filter.filterId} filter={filter} />;
     case "wherePlayerNamesWon":
       return <ComboBoxFilterMultiple key={filter.filterId} filter={filter} />;
+    case "onDate":
+      return <Datepicker key={filter.filterId} filter={filter} />;
+    case "afterDate":
+      return <Datepicker key={filter.filterId} filter={filter} />;
+    case "beforeDate":
+      return <Datepicker key={filter.filterId} filter={filter} />;
 
     default:
       console.log("hitting default");

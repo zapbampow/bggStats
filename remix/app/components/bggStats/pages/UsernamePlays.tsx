@@ -52,7 +52,7 @@ export default function UsernamePlays() {
   const { state, dispatch } = usePlayFilterContext();
 
   useEffect(() => {
-    // console.log("state", state);
+    console.log("state", state);
   }, [state]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
@@ -203,7 +203,7 @@ export default function UsernamePlays() {
       <div>
         Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
       </div>
-      <DatePickerComponent />
+      {/* <DatePickerComponent /> */}
       {/* <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div> */}
