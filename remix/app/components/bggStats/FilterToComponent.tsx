@@ -5,7 +5,7 @@ import {
   SingleSelectFilter,
 } from "~/components/bggStats/filters";
 import ComboBoxFilterMultiple from "./filters/ComboBoxFilterMultiple";
-import Datepicker from "./datepicker";
+import Datepicker, { MultiDatePicker } from "./datepicker";
 
 type Props = {
   filter: FilterButtonData;
@@ -36,6 +36,8 @@ export default function FilterToComponent({ filter }: Props) {
       return <Datepicker key={filter.filterId} filter={filter} />;
     case "beforeDate":
       return <Datepicker key={filter.filterId} filter={filter} />;
+    case "betweenDates":
+      return <MultiDatePicker key={filter.filterId} filter={filter} />;
 
     default:
       console.log("hitting default");

@@ -20,7 +20,8 @@ export function afterDate(date: string) {
   };
 }
 
-export function betweenDates(startDate: string, endDate: string) {
+export function betweenDates(dates: string[]) {
+  let [startDate, endDate] = dates;
   return (plays: Plays) => {
     return plays.filter((play) => {
       return play.date >= startDate && play.date <= endDate;

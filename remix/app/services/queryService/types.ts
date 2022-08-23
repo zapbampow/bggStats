@@ -5,5 +5,5 @@ export type Plays = PlayDataModel[];
 export type FilterType = {
   order: number | "aggregator";
   filter: string;
-  arg: string;
+  arg: string | string[];
 };

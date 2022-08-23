@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 import { BigButton } from "~/components/bggStats/Button";
 import type { FilterType } from "~/services/queryService/types";
 import Answer from "~/components/bggStats/Answer";
-import DatePickerComponent from "~/components/bggStats/datepicker";
+import { MultiDatePicker } from "~/components/bggStats/datepicker";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -140,16 +140,16 @@ export default function UsernamePlays() {
       //   filter: "count",
       //   arg: "days",
       // },
-      // {
-      //   order: 1,
-      //   filter: "gameName",
-      //   arg: "3 Wishes",
-      // },
-      // {
-      //   order: 1000,
-      //   filter: "count",
-      //   arg: "plays",
-      // },
+      {
+        order: 1,
+        filter: "betweenDates",
+        arg: ["2022-08-01", "2022-08-23"],
+      },
+      {
+        order: 1000,
+        filter: "count",
+        arg: "plays",
+      },
     ];
     // debugger;
     const pipe = await filter(user.userId, filters);
@@ -203,7 +203,10 @@ export default function UsernamePlays() {
       <div>
         Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
       </div>
-      {/* <DatePickerComponent /> */}
+
+      <MultiDatePicker
+        filter={{ filterId: 2, value: "betweenDates", label: "between" }}
+      />
       {/* <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div> */}

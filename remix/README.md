@@ -4,7 +4,7 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-Create date picker
+Create date picker for between dates
 
 ## How to Connect Frontend Filter to Backend
 1. Update FilterToComponent to make sure the correct component is used for that filter type
