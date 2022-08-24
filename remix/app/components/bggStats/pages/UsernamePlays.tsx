@@ -89,7 +89,7 @@ export default function UsernamePlays() {
       return false;
     }
 
-    if (state?.length === 1 && !state[0]?.arg) {
+    if (state?.length === 1 && state[0].filter === "count" && !state[0]?.arg) {
       return false;
     }
 

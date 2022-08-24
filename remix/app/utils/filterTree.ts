@@ -81,6 +81,11 @@ const filterTree = {
       { value: "gameName", label: "of" },
       { value: "gameNames", label: "of these games:" },
     ],
+    time: [
+      { value: "betweenDates", label: "between" },
+      { value: "afterDate", label: "after" },
+      { value: "beforeDate", label: "before" },
+    ],
     players: [
       { value: "withAllPlayerNames", label: "with" },
       { value: "withOnlyPlayerNames", label: "with only" },
