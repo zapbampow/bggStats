@@ -204,9 +204,9 @@ export default function UsernamePlays() {
         Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
       </div>
 
-      <MultiDatePicker
+      {/* <MultiDatePicker
         filter={{ filterId: 2, value: "betweenDates", label: "between" }}
-      />
+      /> */}
       {/* <div>Number of playerNames: {accData?.numPlayers}</div>
       <div>Number of usernames: {accData?.numUsernames}</div>
       <div>Number of locations: {accData?.numLocations}</div> */}

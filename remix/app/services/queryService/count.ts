@@ -16,14 +16,18 @@ export function count(arg: CountArgsType) {
 
     // LOCATIONS
     if (arg === "locations") {
-      return plays
+      let locations = plays
         .map((play) => play?.location || null)
-        .filter((location) => location !== null).length;
+        .filter((location) => location !== null);
+      let differentLocations = Array.from(new Set(locations));
+      return differentLocations.length;
     }
 
     // GAME NAMES
     if (arg === "games") {
-      const allGameNames = plays.filter((play) => play.gameName);
+      const allGameNames = plays
+        .filter((play) => play.gameName)
+        .map((play) => play.gameName);
       const differentGames = Array.from(new Set(allGameNames));
       return differentGames.length;
     }
