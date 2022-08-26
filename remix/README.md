@@ -4,7 +4,18 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-Create date picker for between dates
+- Update design
+- Remove hover scaling
+- Add 'Clear' functionality
+- Add 'Remove Filter' to all filter components
+- Add answer display components (Count, list, table)
+
+# Long Term
+- add navbar (query history, general stats, recent plays)
+- save history of queries
+- add 'this year' and 'last year' as date range options
+- add a general stats page (most recent plays, total games played, total this year, most played games, most played with players, most played locations, etc.)
+- 
 
 ## How to Connect Frontend Filter to Backend
 1. Update FilterToComponent to make sure the correct component is used for that filter type

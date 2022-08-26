@@ -57,7 +57,7 @@ export default function Aggregator() {
         options={options}
         selectedValue={selectedValue}
         onChange={handleChange}
-        selectName="Select a question"
+        selectName="Begin your question"
       />
 
       {/* Options of the main selector, if there are any. Only needed for "how many" */}

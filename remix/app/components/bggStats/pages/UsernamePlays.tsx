@@ -30,6 +30,7 @@ import { BigButton } from "~/components/bggStats/Button";
 import type { FilterType } from "~/services/queryService/types";
 import Answer from "~/components/bggStats/Answer";
 import { MultiDatePicker } from "~/components/bggStats/datepicker";
+import { Container } from "./layout";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -196,56 +197,38 @@ export default function UsernamePlays() {
   };
 
   return (
-    <div className="min-h-screen p-4 bgGradient">
-      <h1 className="text-4xl text-lime-500 mb-4">
-        Query {user?.username}'s PlayData
-      </h1>
-      <div>
-        Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
+    <div className="min-h-screen">
+      <div className="bg-slate-300">
+        <Container>
+          <h1 className="text-4xl text-lime-500 mb-4">
+            Query {user?.username}'s PlayData
+          </h1>
+          <div>
+            Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
+          </div>
+          <div className="mt-20">
+            <div className="filters flex flex-wrap">
+              <Aggregator />
+              {/* Filter components */}
+              {filterButtons.map((filter: FilterButtonData) => {
+                return (
+                  <FilterToComponent key={filter.filterId} filter={filter} />
+                );
+              })}
+              <AddFilterButton
+                addFilterButton={addFilterButton}
+                display={shouldShowAddFilterButton()}
+              />
+            </div>
+            <div className="flex items-center gap-16">
+              <BigButton onClick={handleAsk}>Ask your question</BigButton>
+            </div>
+          </div>
+        </Container>
       </div>
 
-      {/* <MultiDatePicker
-        filter={{ filterId: 2, value: "betweenDates", label: "between" }}
-      /> */}
-      {/* <div>Number of playerNames: {accData?.numPlayers}</div>
-      <div>Number of usernames: {accData?.numUsernames}</div>
-      <div>Number of locations: {accData?.numLocations}</div> */}
-
-      {/* <div className="grid-cols-3">
-        <select name="playerNames">
-          {playerNames.map((name, index) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
-        <select name="locations">
-          {locations.map((name, index) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
-      </div> */}
-
-      <div className="mt-20">
-        <div className="flex items-center gap-16">
-          <BigButton onClick={handleAsk}>Ask your question</BigButton>
-          <Answer answer={answer} />
-        </div>
-        <div className="flex flex-col flex-wrap">
-          <Aggregator />
-
-          {/* Filter components */}
-          {filterButtons.map((filter: FilterButtonData) => {
-            return <FilterToComponent key={filter.filterId} filter={filter} />;
-          })}
-
-          <AddFilterButton
-            addFilterButton={addFilterButton}
-            display={shouldShowAddFilterButton()}
-          />
-        </div>
+      <div>
+        <Answer answer={answer} />
       </div>
     </div>
   );

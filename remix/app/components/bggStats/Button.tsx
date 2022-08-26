@@ -14,7 +14,7 @@ type Props = {
 export function BigButton(props: Props) {
   return (
     <button
-      className="px-4 py-2 rounded-lg bg-green-500 text-white text-3xl"
+      className="px-4 py-2 rounded-sm bg-green-500 text-white text-3xl"
       {...props}
     >
       {props.children}
