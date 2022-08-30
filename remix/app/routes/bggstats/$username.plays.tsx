@@ -8,6 +8,10 @@ export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: datePickerStyles },
+    {
+      rel: "stylesheet",
+      href: "'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@100..900&display=swap'",
+    },
   ];
 };
 
