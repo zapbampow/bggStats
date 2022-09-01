@@ -197,17 +197,19 @@ export default function UsernamePlays() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-slate-300">
+    <div className="min-h-screen worksans font-normal">
+      <div className="bg-slate-200">
         <Container>
-          <h1 className="text-4xl text-lime-500 mb-4">
-            Query {user?.username}'s PlayData
+          <h1 className="text-6xl text-slate-700 font-extrabold mb-4">
+            Explore{" "}
+            <span className="italic font-extralight">{user?.username}'s</span>{" "}
+            Play Data
           </h1>
           <div>
             Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
           </div>
           <div className="mt-20">
-            <div className="filters flex flex-wrap">
+            <div className="filters flex flex-wrap gap-2 mb-8">
               <Aggregator />
               {/* Filter components */}
               {filterButtons.map((filter: FilterButtonData) => {

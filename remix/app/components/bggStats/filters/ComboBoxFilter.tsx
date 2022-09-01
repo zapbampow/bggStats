@@ -14,6 +14,7 @@ import {
   itemHoverStyles,
   openComboboxMenuStyles,
   comboActiveItem,
+  comboContainerStyles,
 } from "~/components/bggStats/styles";
 import type {
   SelectionType,
@@ -86,14 +87,14 @@ export default function ComboBoxFilter({ filter }: Props) {
   );
 
   return (
-    <div className="flex items-center gap-4">
+    <div className={`flex items-center gap-4 ${comboContainerStyles}`}>
       <Measurer
         value={selection?.label || ""}
         visible={visible}
         setVisible={setVisible}
         impactedRef={inputRef}
       />
-      <div className="font-semibold pl-4">{filter.label}</div>
+      <div className="font-semibold">{filter.label}</div>
       <div className="relative grid auto-rows-min	">
         <Combobox value={selection} onChange={handleChange}>
           <Combobox.Button ref={btnRef}></Combobox.Button>
@@ -107,11 +108,11 @@ export default function ComboBoxFilter({ filter }: Props) {
             }}
             autoFocus
             // placeholder={filter.label}
-            className={`${baseStyles} bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles}`}
+            className={`px-2 py-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
           />
           <Combobox.Options
             id={comboboxId}
-            className={`${baseStyles} ${openComboboxMenuStyles}`}
+            className={`${openComboboxMenuStyles}`}
           >
             {filteredOptions?.map((option) => {
               return (
@@ -123,11 +124,17 @@ export default function ComboBoxFilter({ filter }: Props) {
                   {({ active, selected }) => (
                     <li
                       className={`${selected ? "font-bold" : ""} 
-                      ${active ? comboActiveItem : ""}
-                      hover:cursor-pointer
+                      px-3 py-2 leading-4
+                      hover:cursor-pointer focus:font-semibold
                     `}
                     >
-                      {option.label}
+                      <span
+                        className={`inline-block ${
+                          active ? comboActiveItem : ""
+                        }`}
+                      >
+                        {option.label}
+                      </span>
                     </li>
                   )}
                 </Combobox.Option>
