@@ -4,11 +4,14 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
+- Restyle date picker containers to have border around entire component like I've done for comboboxes
 - Update design
 - Remove hover scaling
+- move component text into border (like 'of', 'between', etc) AND open options when clicking on broader container for a filter (ex. clicking on 'between' will open the date range selector)
 - Add 'Clear' functionality
 - Add 'Remove Filter' to all filter components
 - Add answer display components (Count, list, table)
+- Add updating/updated component for 
 
 # Long Term
 - add navbar (query history, general stats, recent plays)

@@ -13,6 +13,8 @@ import {
   itemHoverStyles,
   openComboboxMenuStyles,
   comboActiveItem,
+  baseSelectItem,
+  comboContainerStyles,
 } from "~/components/bggStats/styles";
 import getOptions from "./getOptions";
 
@@ -85,9 +87,18 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     [filter, getSetOptions]
   );
 
+  const clickButton = () => {
+    if (!btnRef?.current.click) return;
+
+    btnRef.current.click();
+  };
+
   return (
-    <div className="flex items-center gap-4">
-      <div className="font-semibold pl-4">{filter.label}</div>
+    <div
+      className={`flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      onClick={clickButton}
+    >
+      <div className="font-semibold">{filter.label}</div>
       <Combobox value={selections} onChange={handleChange} multiple>
         {({ open }) => (
           <>
@@ -105,7 +116,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                     onChange={(e: React.FormEvent<HTMLInputElement>) => {
                       setQuery(e.currentTarget.value);
                     }}
-                    className={`${baseStyles} border border-gray-400 bg-transparent font-semibold transition transition-all ease-in-out duration-500`}
+                    className={`px-2 py-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
                   />
                   <Combobox.Button
                     ref={btnRef}
@@ -126,13 +137,15 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                     >
                       {({ active, selected }) => (
                         <li
-                          className={`${
+                          className={`${baseSelectItem} ${itemHoverStyles} ${
                             selected ? "font-bold" : ""
-                          } flex gap-2 ${active ? comboActiveItem : ""}
-                        hover:cursor-pointer`}
+                          } ${active ? comboActiveItem : ""}
+                      `}
                         >
                           {selected && <CheckIcon className="text-green-500" />}
-                          {options.label}
+                          <span className={`inline-block `}>
+                            {options.label}
+                          </span>
                         </li>
                       )}
                     </Combobox.Option>

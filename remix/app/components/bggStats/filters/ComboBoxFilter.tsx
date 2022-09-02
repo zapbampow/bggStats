@@ -15,6 +15,7 @@ import {
   openComboboxMenuStyles,
   comboActiveItem,
   comboContainerStyles,
+  baseSelectItem,
 } from "~/components/bggStats/styles";
 import type {
   SelectionType,
@@ -86,8 +87,17 @@ export default function ComboBoxFilter({ filter }: Props) {
     [filter, getSetOptions]
   );
 
+  const clickButton = () => {
+    if (!btnRef?.current.click) return;
+
+    btnRef.current.click();
+  };
+
   return (
-    <div className={`flex items-center gap-4 ${comboContainerStyles}`}>
+    <div
+      className={`flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      onClick={clickButton}
+    >
       <Measurer
         value={selection?.label || ""}
         visible={visible}
@@ -112,7 +122,7 @@ export default function ComboBoxFilter({ filter }: Props) {
           />
           <Combobox.Options
             id={comboboxId}
-            className={`${openComboboxMenuStyles}`}
+            className={`${baseStyles} ${openComboboxMenuStyles}`}
           >
             {filteredOptions?.map((option) => {
               return (
@@ -123,18 +133,13 @@ export default function ComboBoxFilter({ filter }: Props) {
                 >
                   {({ active, selected }) => (
                     <li
-                      className={`${selected ? "font-bold" : ""} 
-                      px-3 py-2 leading-4
-                      hover:cursor-pointer focus:font-semibold
+                      className={`${baseSelectItem} ${itemHoverStyles} ${
+                        selected ? "font-bold" : ""
+                      } ${active ? comboActiveItem : ""}
+                      
                     `}
                     >
-                      <span
-                        className={`inline-block ${
-                          active ? comboActiveItem : ""
-                        }`}
-                      >
-                        {option.label}
-                      </span>
+                      <span className={`inline-block `}>{option.label}</span>
                     </li>
                   )}
                 </Combobox.Option>

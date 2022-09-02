@@ -4,8 +4,10 @@ import {
   baseStyles,
   openMenuStyles,
   openButtonStyles,
-  hoverStyles,
   itemHoverStyles,
+  singleSelectHoverStyles,
+  comboActiveItem,
+  baseSelectItem,
 } from "./styles";
 import type { SelectionType } from "./types";
 
@@ -29,9 +31,9 @@ export default function SingleSelect({
           <>
             <Listbox.Button
               className={`${baseStyles} relative font-semibold transition duration-700  ${
-                open ? openButtonStyles : "border-transparent"
+                open ? openButtonStyles : ""
               }  
-                ${hoverStyles}
+                ${singleSelectHoverStyles}
                 `}
             >
               {selectedValue?.label || selectName}
@@ -48,8 +50,10 @@ export default function SingleSelect({
                   >
                     {({ active, selected }) => (
                       <li
-                        className={`${
+                        className={`${baseSelectItem} ${
                           selected ? "font-bold" : ""
+                        } ${
+                          active ? comboActiveItem : ""
                         } hover:cursor-pointer ${itemHoverStyles}`}
                       >
                         {option.label}

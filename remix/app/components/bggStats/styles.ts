@@ -1,13 +1,13 @@
 export const baseStyles = `
-  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200
+  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-slate-500 bg-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500
 `;
 
 // export const hoverStyles = `
 //   hover:transition-all hover:scale-110 hover:underline hover:underline-offset-8  hover:duration-300 hover:ease-in-out
 // `;
-export const hoverStyles = `
-  border-0
-`;
+export const hoverStyles = `border-0`;
+
+export const singleSelectHoverStyles = ``;
 
 // export const openButtonStyles = `
 //   scale-110 underline underline-offset-8 backdrop-blur-sm z-10
@@ -21,11 +21,11 @@ export const openMenuStyles = `
 `;
 
 export const openComboboxMenuStyles = `
-  bg-slate-200 shadow-lg shadow-slate-500/20  z-10 w-max max-h-72 overflow-y-auto absolute top-12 max-w-sm
+  bg-slate-200 shadow-lg shadow-slate-500/20  z-10 w-max max-h-72 overflow-y-auto absolute top-12 max-w-sm 
 `;
 
 export const comboActiveItem = `
-  transition-all scale-105 font-medium underline-offset-8 duration-300 ease-in-out bg-slate-200
+  transition-all scale-105 font-medium underline-offset-8 duration-300 ease-in-out bg-slate-200 ring-2 ring-cyan-500 rounded-sm
 `;
 
 export const itemHoverStyles = `
@@ -33,5 +33,7 @@ export const itemHoverStyles = `
 `;
 
 export const comboContainerStyles = `
-  pl-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200 focus-within:ring-2
+  pl-6 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200 focus-within:ring-2 focus-within:ring-cyan-500
 `;
+
+export const baseSelectItem = `px-1 hover:cursor-pointer`;

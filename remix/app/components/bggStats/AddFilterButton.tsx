@@ -7,6 +7,8 @@ import {
   openButtonStyles,
   openMenuStyles,
   hoverStyles,
+  comboActiveItem,
+  baseSelectItem,
 } from "./styles";
 import type { SelectionType } from "./types";
 
@@ -106,7 +108,11 @@ export default function AddFilterButton({ addFilterButton, display }: Props) {
                       as={Fragment}
                     >
                       {({ active, selected }) => (
-                        <li className={`px-2 hover:cursor-pointer`}>
+                        <li
+                          className={`${baseSelectItem} ${
+                            active ? comboActiveItem : ""
+                          }`}
+                        >
                           {option.label}
                         </li>
                       )}

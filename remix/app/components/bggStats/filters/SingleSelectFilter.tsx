@@ -6,6 +6,7 @@ import {
   openButtonStyles,
   hoverStyles,
   itemHoverStyles,
+  baseSelectItem,
 } from "~/components/bggStats/styles";
 import type {
   SelectionType,
@@ -81,7 +82,7 @@ export default function SingleSelect({ filter }: Props) {
           <>
             <Listbox.Button
               className={`${baseStyles} relative font-semibold transition duration-700  ${
-                open ? openButtonStyles : "border-transparent"
+                open ? openButtonStyles : ""
               }  
                 ${hoverStyles}
                 `}
@@ -100,9 +101,9 @@ export default function SingleSelect({ filter }: Props) {
                   >
                     {({ active, selected }) => (
                       <li
-                        className={`${
+                        className={`${baseSelectItem} ${itemHoverStyles} ${
                           selected ? "font-bold" : ""
-                        } hover:cursor-pointer ${itemHoverStyles}`}
+                        } `}
                       >
                         {option.label}
                       </li>
