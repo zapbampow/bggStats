@@ -33,9 +33,9 @@
   display: flex;
   flex-grow: 1;
   flex-shrink: 0;
-  border: 2px solid gray;
-  border-radius: 0.5rem;
-  padding: .5rem 1rem;
+  /* border: 2px solid gray; */
+  /* border-radius: 0.5rem; */
+  /* padding: .5rem 1rem; */
 }
 
 .react-date-picker__inputGroup {
