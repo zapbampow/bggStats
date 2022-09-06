@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 // import DatePicker from "react-date-picker/dist/entry.nostyle";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/entry.nostyle";
@@ -11,6 +11,7 @@ import {
   ChevronsRight,
 } from "../icons";
 import type { FilterButtonData } from "../types";
+import { baseStyles } from "~/components/bggStats/styles";
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -20,7 +21,7 @@ interface Props {
 export default function DatePickerComponent({ filter }: Props) {
   const user = useBggUser();
   const { state, dispatch } = usePlayFilterContext();
-  console.log("filter", filter);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [value, setValue] = React.useState([new Date(), new Date()]);
 
@@ -50,24 +51,12 @@ export default function DatePickerComponent({ filter }: Props) {
     });
   };
 
-  //   useEffect(
-  //     function setDefaultDate() {
-  //       let today = dayjs().format("YYYY-MM-DD");
-  //       dispatch({
-  //         type: "upsert",
-  //         filter: {
-  //           order: filter.filterId,
-  //           filter: filter.value,
-  //           arg: [today, today],
-  //         },
-  //       });
-  //     },
-  //     [dispatch, filter]
-  //   );
-
   return (
-    <div className="text-slate-700 flex items-center gap-4">
-      <div className="font-semibold pl-4">{filter.label}</div>
+    <div
+      onClick={() => setIsOpen(true)}
+      className={`text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
+    >
+      <div className="font-semibold">{filter.label}</div>
       <DateRangePicker
         value={value}
         onChange={handleChange}
@@ -80,7 +69,8 @@ export default function DatePickerComponent({ filter }: Props) {
         format="yyyy-MM-dd"
         autoFocus={true}
         openCalendarOnFocus={true}
-        isOpen={true}
+        isOpen={isOpen}
+        onCalendarClose={() => setIsOpen(false)}
         rangeDivider="and"
       />
     </div>

@@ -12,6 +12,7 @@ Additional Aggregator Logic
 - Add 'Remove Filter' to all filter components
 - Add answer display components (Count, list, table)
 - Add updating/updated component for 
+- Create "for all time" component
 
 # Long Term
 - add navbar (query history, general stats, recent plays)
