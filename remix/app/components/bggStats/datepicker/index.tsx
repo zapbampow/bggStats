@@ -1,4 +1,5 @@
 import MultiDatePicker from "./MultiDatePicker";
+import ForAllTime from "./ForAllTime";
 
 export { default } from "./DatePicker";
-export { MultiDatePicker };
+export { MultiDatePicker, ForAllTime };
