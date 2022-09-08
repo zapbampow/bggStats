@@ -56,6 +56,10 @@ export default function UsernamePlays() {
     console.log("state", state);
   }, [state]);
 
+  useEffect(() => {
+    console.log("filterButtons", filterButtons);
+  }, [filterButtons]);
+
   const { manuallyUpdate, percentDone, error } = usePlayData();
 
   const getAccumulatedData = async (recordingUserId: number) => {
@@ -196,6 +200,11 @@ export default function UsernamePlays() {
     console.log("answer", pipe);
   };
 
+  const removeButtonById = (id) => {
+    const newButtonList = filterButtons.filter((btn) => btn.filterId !== id);
+    setFilterButtons(newButtonList);
+  };
+
   return (
     <div className="min-h-screen worksans font-normal">
       <div className="bg-slate-200">
@@ -214,7 +223,11 @@ export default function UsernamePlays() {
               {/* Filter components */}
               {filterButtons.map((filter: FilterButtonData) => {
                 return (
-                  <FilterToComponent key={filter.filterId} filter={filter} />
+                  <FilterToComponent
+                    key={filter.filterId}
+                    filter={filter}
+                    removeButtonById={removeButtonById}
+                  />
                 );
               })}
               <AddFilterButton

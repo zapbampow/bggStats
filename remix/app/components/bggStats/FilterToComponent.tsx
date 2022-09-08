@@ -9,9 +9,10 @@ import Datepicker, { MultiDatePicker, ForAllTime } from "./datepicker";
 
 type Props = {
   filter: FilterButtonData;
+  removeButtonById: (id: number) => void;
 };
 
-export default function FilterToComponent({ filter }: Props) {
+export default function FilterToComponent({ filter, removeButtonById }: Props) {
   console.log("filter", filter);
   switch (filter.value) {
     case "gameName":
@@ -39,7 +40,13 @@ export default function FilterToComponent({ filter }: Props) {
     case "betweenDates":
       return <MultiDatePicker key={filter.filterId} filter={filter} />;
     case "all": // for all time
-      return <ForAllTime key={filter.filterId} filter={filter} />;
+      return (
+        <ForAllTime
+          key={filter.filterId}
+          filter={filter}
+          removeButtonById={removeButtonById}
+        />
+      );
 
     default:
       console.log("hitting default");

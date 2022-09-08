@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu } from "@headlessui/react";
 import Times from "../icons/Times";
 import {
@@ -12,9 +12,14 @@ import type { FilterButtonData } from "../types";
 
 interface Props {
   filter: FilterButtonData;
+  removeButtonById: (id: number) => void;
 }
 
-export default function ForAllTime({ filter }: Props) {
+export default function ForAllTime({ filter, removeButtonById }: Props) {
+  useEffect(() => {
+    console.log("filter", filter);
+  }, [filter]);
+
   return (
     <div className="relative">
       <Menu>
@@ -27,9 +32,12 @@ export default function ForAllTime({ filter }: Props) {
           <Menu.Item>
             <div
               className={`flex justify-center items-center gap-2 hover:cursor-pointer hover:font-semibold`}
+              onClick={() => {
+                removeButtonById(filter.filterId);
+              }}
             >
               <div>Clear</div>
-              <Times width={20} className="text-red-500" />
+              <Times width={20} strokeWidth={3} className="text-red-500" />
             </div>
           </Menu.Item>
         </Menu.Items>
