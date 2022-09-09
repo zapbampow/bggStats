@@ -95,7 +95,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   return (
     <div
-      className={`flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      className={`relative flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
       onClick={clickButton}
     >
       <div className="font-semibold">{filter.label}</div>
@@ -107,7 +107,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                 {selections.map((selection) => selection.label).join(", ")}
               </Combobox.Button>
             ) : (
-              <div className="relative">
+              <div>
                 <div
                   className={`transition transition-all ease-in-out duration-500 ${hoverStyles}`}
                 >

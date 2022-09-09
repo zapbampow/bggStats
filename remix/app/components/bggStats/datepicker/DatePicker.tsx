@@ -51,7 +51,7 @@ export default function DatePickerComponent({ filter }: Props) {
 
   return (
     <div
-      className={`text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
+      className={`relative text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
       onClick={() => {
         setIsOpen(true);
       }}

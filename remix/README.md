@@ -4,12 +4,12 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-- Restyle date picker containers to have border around entire component like I've done for comboboxes
-- Update design
-- Remove hover scaling
-- move component text into border (like 'of', 'between', etc) AND open options when clicking on broader container for a filter (ex. clicking on 'between' will open the date range selector)
-- Add 'Clear' functionality
+- Add padding to 'with any of' and 'where the winners were' results
+- Move filter buttons to context to make it easily accessible to all the buttons for removing themselves
+  - Think through how exactly the actual filters should be connected to the buttons
 - Add 'Remove Filter' to all filter components
+- Update design
+- Add 'Clear' functionality to clear all filters
 - Add answer display components (Count, list, table)
 - Add updating/updated component for 
 - Create "for all time" component

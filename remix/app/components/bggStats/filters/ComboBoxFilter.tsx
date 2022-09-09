@@ -95,7 +95,7 @@ export default function ComboBoxFilter({ filter }: Props) {
 
   return (
     <div
-      className={`flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      className={`relative flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
       onClick={clickButton}
     >
       <Measurer
@@ -105,7 +105,7 @@ export default function ComboBoxFilter({ filter }: Props) {
         impactedRef={inputRef}
       />
       <div className="font-semibold">{filter.label}</div>
-      <div className="relative grid auto-rows-min	">
+      <div className="grid auto-rows-min	">
         <Combobox value={selection} onChange={handleChange}>
           <Combobox.Button ref={btnRef}></Combobox.Button>
           <Combobox.Input
