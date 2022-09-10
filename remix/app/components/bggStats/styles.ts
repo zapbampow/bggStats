@@ -33,7 +33,7 @@ export const itemHoverStyles = `
 `;
 
 export const comboContainerStyles = `
-  pl-6 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200 focus-within:ring-2 focus-within:ring-cyan-500
+  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200 focus-within:ring-2 focus-within:ring-cyan-500
 `;
 
 export const baseSelectItem = `px-1 hover:cursor-pointer`;
