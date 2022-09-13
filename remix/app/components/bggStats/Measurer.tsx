@@ -4,7 +4,7 @@ type Props = {
   value: string;
   visible: boolean;
   setVisible: (val: boolean) => void;
-  impactedRef: React.MutableRefObject<HTMLElement>;
+  impactedRef: React.MutableRefObject<HTMLInputElement | null>;
 };
 
 export default function Measurer({
@@ -13,16 +13,17 @@ export default function Measurer({
   setVisible,
   impactedRef,
 }: Props) {
-  let measurerRef = useRef<HTMLElement>();
+  let measurerRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     setVisible(true);
   }, [value, setVisible]);
 
   React.useLayoutEffect(() => {
-    if (!visible || !measurerRef?.current) return;
+    if (!visible || !measurerRef?.current || !impactedRef?.current) return;
 
-    const rect = measurerRef.current.getBoundingClientRect();
+    const rect = measurerRef?.current?.getBoundingClientRect();
+
     if (rect.width === 0) {
       impactedRef.current.style.width = "218px";
       setVisible(false);

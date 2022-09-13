@@ -15,17 +15,18 @@ import {
   comboContainerStyles,
 } from "~/components/bggStats/styles";
 import getOptions from "./getOptions";
+import type { FilterType } from "~/services/queryService/types";
 
 type Props = {
-  filter: FilterButtonData;
+  filter: FilterType;
 };
 
 export default function ComboBoxFilterMultiple({ filter }: Props) {
   const { state, dispatch } = usePlayFilterContext();
   const user = useBggUser();
-  let comboboxId = `combobox-${filter.filterId}`;
-  let inputRef = useRef();
-  let btnRef = useRef();
+  let comboboxId = `combobox-${filter.order}`;
+  let inputRef = useRef<HTMLInputElement | null>(null);
+  let btnRef = useRef<HTMLButtonElement>(null);
 
   const [selections, setSelections] = useState<SelectionType[]>([]);
   const [options, setOptions] = useState<SelectionType[]>([]);
@@ -51,8 +52,9 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     dispatch({
       type: "upsert",
       filter: {
-        order: filter.filterId,
-        filter: filter.value,
+        order: filter.order,
+        filter: filter.filter,
+        label: filter.label,
         arg: selections.map((selection) => selection.label),
       },
     });
@@ -63,7 +65,9 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
     try {
       const options = await getOptions({ filter, user });
-      setOptions(options);
+      if (options) {
+        setOptions(options);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +82,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   );
 
   const clickButton = () => {
-    if (!btnRef?.current.click) return;
+    if (!btnRef?.current?.click) return;
 
     btnRef.current.click();
   };

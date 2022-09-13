@@ -4,18 +4,20 @@ import {
   getAllPlayerNames,
 } from "~/utils/analysis/accumulations";
 import type { UserInfo } from "~/models/bgg/userInfo";
-import type { FilterButtonData } from "../types";
+import type { FilterType } from "~/services/queryService/types";
 
 type Args = {
-  filter: FilterButtonData;
+  filter: FilterType;
   user: UserInfo;
 };
 
 export default async function getOptions({ filter, user }: Args) {
-  try {
-    const { value } = filter;
+  if (!filter || !user) return [];
 
-    switch (value) {
+  try {
+    const { filter: filterVal } = filter;
+
+    switch (filterVal) {
       case "gameName":
         return await getAllGames(user?.userId || 0);
       case "gameNames":
@@ -34,7 +36,7 @@ export default async function getOptions({ filter, user }: Args) {
         return await getAllPlayerNames(user?.userId || 0);
 
       default:
-        break;
+        return [];
     }
   } catch (err) {
     console.log(err);

@@ -11,9 +11,10 @@ import {
 } from "../icons";
 import type { FilterButtonData } from "../types";
 import { baseStyles, hoverStyles } from "~/components/bggStats/styles";
+import { FilterType } from "~/services/queryService/types";
 
 interface Props {
-  filter: FilterButtonData;
+  filter: FilterType;
 }
 export default function DatePickerComponent({ filter }: Props) {
   const user = useBggUser();
@@ -28,8 +29,9 @@ export default function DatePickerComponent({ filter }: Props) {
     dispatch({
       type: "upsert",
       filter: {
-        order: filter.filterId,
-        filter: filter.value,
+        order: filter.order,
+        filter: filter.filter,
+        label: filter.label,
         arg: dayjs(value).format("YYYY-MM-DD"),
       },
     });
@@ -40,8 +42,9 @@ export default function DatePickerComponent({ filter }: Props) {
       dispatch({
         type: "upsert",
         filter: {
-          order: filter.filterId,
-          filter: filter.value,
+          order: filter.order,
+          filter: filter.filter,
+          label: filter.label,
           arg: dayjs().format("YYYY-MM-DD"),
         },
       });

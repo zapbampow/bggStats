@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   useRef,
+  MutableRefObject,
 } from "react";
 import { Combobox } from "@headlessui/react";
 import {
@@ -25,16 +26,17 @@ import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
 import getOptions from "./getOptions";
 import Measurer from "~/components/bggStats/Measurer";
+import type { FilterType } from "~/services/queryService/types";
 
 type Props = {
-  filter: FilterButtonData;
+  filter: FilterType;
 };
 export default function ComboBoxFilter({ filter }: Props) {
   const { state, dispatch } = usePlayFilterContext();
   const user = useBggUser();
-  let comboboxId = `combobox-${filter.filterId}`;
-  let inputRef = useRef();
-  let btnRef = useRef();
+  let comboboxId = `combobox-${filter.order}`;
+  let inputRef = useRef<HTMLInputElement | null>(null);
+  let btnRef = useRef<HTMLButtonElement>(null);
 
   const [options, setOptions] = useState<SelectionType[]>([]);
   const [selection, setSelection] = useState<SelectionType>();
@@ -43,7 +45,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    btnRef.current.click();
+    btnRef?.current?.click();
   }, []);
 
   const filteredOptions =
@@ -61,8 +63,9 @@ export default function ComboBoxFilter({ filter }: Props) {
     dispatch({
       type: "upsert",
       filter: {
-        order: filter.filterId,
-        filter: filter.value,
+        order: filter.order,
+        filter: filter.filter,
+        label: filter.label,
         arg: selectionObject.label,
       },
     });
@@ -73,7 +76,9 @@ export default function ComboBoxFilter({ filter }: Props) {
 
     try {
       const options = await getOptions({ filter, user });
-      setOptions(options);
+      if (options) {
+        setOptions(options);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +93,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   );
 
   const clickButton = () => {
-    if (!btnRef?.current.click) return;
+    if (!btnRef?.current?.click) return;
 
     btnRef.current.click();
   };

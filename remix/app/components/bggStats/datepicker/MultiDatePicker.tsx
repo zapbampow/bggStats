@@ -12,11 +12,12 @@ import {
 } from "../icons";
 import type { FilterButtonData } from "../types";
 import { baseStyles } from "~/components/bggStats/styles";
+import type { FilterType } from "~/services/queryService/types";
 
 const dateFormat = "YYYY-MM-DD";
 
 interface Props {
-  filter: FilterButtonData;
+  filter: FilterType;
 }
 export default function DatePickerComponent({ filter }: Props) {
   const user = useBggUser();
@@ -44,8 +45,9 @@ export default function DatePickerComponent({ filter }: Props) {
     dispatch({
       type: "upsert",
       filter: {
-        order: filter.filterId,
-        filter: filter.value,
+        order: filter.order,
+        filter: filter.filter,
+        label: filter.label,
         arg: sortedDates,
       },
     });

@@ -4,10 +4,7 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-- Add padding to 'with any of' and 'where the winners were' results
-- Move filter buttons to context to make it easily accessible to all the buttons for removing themselves
-  - Think through how exactly the actual filters should be connected to the buttons
-- Add 'Remove Filter' to all filter components
+- Add 'Remove Filter' to all filter components using the dispatch({type: remove}) action.
 - Update design
 - Add 'Clear' functionality to clear all filters
 - Add answer display components (Count, list, table)
@@ -18,6 +15,7 @@ Additional Aggregator Logic
 - add navbar (query history, general stats, recent plays)
 - save history of queries
 - add 'this year' and 'last year' as date range options
+- add 'games I recorded' and update I played to include filter for games where username is a player
 - add a general stats page (most recent plays, total games played, total this year, most played games, most played with players, most played locations, etc.)
 - 
 

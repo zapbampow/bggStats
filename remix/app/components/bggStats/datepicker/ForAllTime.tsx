@@ -9,16 +9,27 @@ import {
   openMenuStyles,
 } from "../styles";
 import type { FilterButtonData } from "../types";
+import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
+import type { FilterType } from "~/services/queryService/types";
 
 interface Props {
-  filter: FilterButtonData;
-  removeButtonById: (id: number) => void;
+  filter: FilterType;
+  // removeButtonById: (id: number) => void;
 }
 
-export default function ForAllTime({ filter, removeButtonById }: Props) {
+export default function ForAllTime({ filter }: Props) {
+  const { state, dispatch } = usePlayFilterContext();
+
   useEffect(() => {
     console.log("filter", filter);
   }, [filter]);
+
+  const removeFilter = () => {
+    dispatch({
+      type: "remove",
+      filter,
+    });
+  };
 
   return (
     <div className="relative">
@@ -33,7 +44,8 @@ export default function ForAllTime({ filter, removeButtonById }: Props) {
             <div
               className={`flex justify-center items-center gap-2 hover:cursor-pointer hover:font-semibold`}
               onClick={() => {
-                removeButtonById(filter.filterId);
+                removeFilter();
+                // removeButtonById(filter.filterId);
               }}
             >
               <div>Clear</div>
