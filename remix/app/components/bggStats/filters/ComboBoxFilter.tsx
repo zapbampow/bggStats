@@ -123,7 +123,7 @@ export default function ComboBoxFilter({ filter }: Props) {
             }}
             autoFocus
             // placeholder={filter.label}
-            className={`px-2 py-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
+            className={`px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
           />
           <Combobox.Options
             id={comboboxId}
