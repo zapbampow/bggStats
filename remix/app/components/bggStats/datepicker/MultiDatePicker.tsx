@@ -26,10 +26,6 @@ export default function DatePickerComponent({ filter }: Props) {
 
   const [value, setValue] = React.useState([new Date(), new Date()]);
 
-  useEffect(() => {
-    console.log("value", value);
-  }, [value]);
-
   const handleChange = (value: any) => {
     setValue(value);
 

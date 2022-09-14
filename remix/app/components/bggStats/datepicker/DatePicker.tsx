@@ -39,6 +39,8 @@ export default function DatePickerComponent({ filter }: Props) {
 
   useEffect(
     function setDefaultDate() {
+      if (filter.filter) return;
+
       dispatch({
         type: "upsert",
         filter: {
