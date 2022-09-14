@@ -4,6 +4,7 @@ import ChevronRight from "./ChevronRight";
 import ChevronsLeft from "./ChevronsLeft";
 import ChevronsRight from "./ChevronsRight";
 import Selector from "./Selector";
+import Times from "./Times";
 
 export {
   Check,
@@ -12,4 +13,5 @@ export {
   ChevronsLeft,
   ChevronsRight,
   Selector,
+  Times,
 };
