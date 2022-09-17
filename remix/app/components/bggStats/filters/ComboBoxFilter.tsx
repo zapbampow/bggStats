@@ -121,7 +121,7 @@ export default function ComboBoxFilter({ filter }: Props) {
         impactedRef={inputRef}
       />
       <div className="font-semibold">{filter.label}</div>
-      <div className="grid auto-rows-min	">
+      <div className="grid auto-rows-min">
         <Combobox value={selection} onChange={handleChange} nullable={true}>
           {({ open }) => (
             <>
