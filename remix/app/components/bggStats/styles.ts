@@ -1,5 +1,9 @@
 export const baseStyles = `
-  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-slate-500 bg-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500
+  px-4 py-2 rounded-sm text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
+`;
+
+export const containerBase = `
+rounded-sm text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
 `;
 
 // export const hoverStyles = `
@@ -21,7 +25,7 @@ export const openMenuStyles = `
 `;
 
 export const openComboboxMenuStyles = `
-  bg-slate-200 shadow-lg shadow-slate-500/20  z-10 w-max max-h-72 overflow-y-auto absolute left-0 top-12 max-w-sm 
+  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max absolute left-0 top-12 max-w-sm 
 `;
 
 export const comboActiveItem = `
@@ -33,7 +37,7 @@ export const itemHoverStyles = `
 `;
 
 export const comboContainerStyles = `
-  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-200 focus-within:ring-2 focus-within:ring-cyan-500
+  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-100 focus-within:ring-2 focus-within:ring-cyan-500
 `;
 
 export const baseSelectItem = `px-1 hover:cursor-pointer`;

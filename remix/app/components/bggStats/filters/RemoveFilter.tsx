@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import type { FilterType } from "~/services/queryService/types";
-import { Times } from "~/components/bggStats/icons";
+import { Trash } from "~/components/bggStats/icons";
 
 type Props = {
   filter: FilterType;
@@ -23,13 +22,13 @@ export default function RemoveFilter({ filter }: Props) {
 
   return (
     <div
-      className={`flex justify-center items-center gap-2 hover:cursor-pointer hover:font-semibold`}
+      className={`flex justify-center items-center gap-2 hover:cursor-pointer font-semibold border border-slate-500 bg-red-100 rounded-sm py-1 w-36 hover:bg-red-200`}
       onClick={() => {
         removeFilter(filter);
       }}
     >
-      <div>Clear</div>
-      <Times width={20} strokeWidth={3} className="text-red-500" />
+      <div>Remove</div>
+      <Trash width={20} className="text-red-500" />
     </div>
   );
 }

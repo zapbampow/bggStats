@@ -3,7 +3,13 @@ import type { FilterType } from "~/services/queryService/types";
 
 type PlayFilterProviderProps = { children: React.ReactNode };
 type Action = {
-  type: "add" | "remove" | "update" | "upsert" | "updateAccumulatorArg";
+  type:
+    | "add"
+    | "remove"
+    | "update"
+    | "upsert"
+    | "updateAccumulatorArg"
+    | "clear filter";
   filter: FilterType;
 };
 type Dispatch = (action: Action) => void;
@@ -22,6 +28,14 @@ const filterReducer = (state: FilterType[], action: Action) => {
         return filter;
       });
       return newState;
+    case "clear filter":
+      const updated = state.map((filter: FilterType) => {
+        if (filter.order === action.filter.order) {
+          return { ...action.filter, arg: null };
+        }
+        return filter;
+      });
+      return updated;
     case "upsert":
       const needToUpdate = state.find((f) => f.order === action.filter.order);
 
@@ -36,7 +50,6 @@ const filterReducer = (state: FilterType[], action: Action) => {
       } else {
         return [...state, action.filter];
       }
-
     default:
       throw new Error("Unknown action type of " + action.type);
   }

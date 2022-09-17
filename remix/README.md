@@ -4,12 +4,11 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
+- Keep working on adding clear filter button to the combobox: it's clearing the value, but not what is in the input
 - Add 'Remove Filter' to all filter components using the dispatch({type: remove}) action.
-- Update design
 - Add 'Clear' functionality to clear all filters
 - Add answer display components (Count, list, table)
-- Add updating/updated component for 
-- Create "for all time" component
+- Update design
 
 # Long Term
 - add navbar (query history, general stats, recent plays)
