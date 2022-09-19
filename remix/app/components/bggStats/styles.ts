@@ -24,8 +24,11 @@ export const openMenuStyles = `
   bg-slate-200 shadow-lg shadow-slate-500/20  z-10 absolute w-max
 `;
 
-export const openComboboxMenuStyles = `
+export const openMultiComboboxMenuStyles = `
   bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max absolute left-0 top-[5.5rem] md:top-12 w-fit
+`;
+export const openComboboxMenuStyles = `
+  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max absolute left-0 top-12 w-fit
 `;
 
 export const comboActiveItem = `

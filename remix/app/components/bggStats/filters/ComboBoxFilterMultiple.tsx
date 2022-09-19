@@ -7,11 +7,11 @@ import { Selector, Check } from "~/components/bggStats/icons";
 import {
   hoverStyles,
   itemHoverStyles,
-  openComboboxMenuStyles,
   comboActiveItem,
   baseSelectItem,
   comboContainerStyles,
   containerBase,
+  openMultiComboboxMenuStyles,
 } from "~/components/bggStats/styles";
 import getOptions from "./getOptions";
 import type { FilterType } from "~/services/queryService/types";
@@ -127,7 +127,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                 </Combobox.Button>
               </div>
               <div
-                className={`${containerBase} ${openComboboxMenuStyles} divide-y divide-slate-500`}
+                className={`${containerBase} ${openMultiComboboxMenuStyles} divide-y divide-slate-500`}
               >
                 <Combobox.Options
                   className={` max-h-72 overflow-y-auto px-4 py-2 `}
