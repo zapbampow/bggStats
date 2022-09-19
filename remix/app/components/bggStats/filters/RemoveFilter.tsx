@@ -22,13 +22,13 @@ export default function RemoveFilter({ filter }: Props) {
 
   return (
     <div
-      className={`flex justify-center items-center gap-2 hover:cursor-pointer font-semibold border border-slate-500 bg-red-100 rounded-sm py-1 w-36 hover:bg-red-200`}
+      className={`flex justify-center items-center gap-2 hover:cursor-pointer font-semibold border border-slate-500 rounded-sm py-1 w-36 hover:bg-red-100`}
       onClick={() => {
         removeFilter(filter);
       }}
     >
       <div>Remove</div>
-      <Trash width={20} className="text-red-500" />
+      <Trash width={20} />
     </div>
   );
 }

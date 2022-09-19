@@ -25,7 +25,7 @@ export const openMenuStyles = `
 `;
 
 export const openComboboxMenuStyles = `
-  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max absolute left-0 top-12 max-w-xs md:max-w-md
+  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max absolute left-0 top-[5.5rem] md:top-12 w-fit
 `;
 
 export const comboActiveItem = `

@@ -4,13 +4,9 @@ import React, {
   useEffect,
   useState,
   useRef,
-  MutableRefObject,
 } from "react";
 import { Combobox } from "@headlessui/react";
 import {
-  baseStyles,
-  openMenuStyles,
-  openButtonStyles,
   hoverStyles,
   itemHoverStyles,
   openComboboxMenuStyles,
@@ -19,10 +15,7 @@ import {
   baseSelectItem,
   containerBase,
 } from "~/components/bggStats/styles";
-import type {
-  SelectionType,
-  FilterButtonData,
-} from "~/components/bggStats/types";
+import type { SelectionType } from "~/components/bggStats/types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
 import getOptions from "./getOptions";
@@ -35,7 +28,7 @@ type Props = {
   filter: FilterType;
 };
 export default function ComboBoxFilter({ filter }: Props) {
-  const { state, dispatch } = usePlayFilterContext();
+  const { dispatch } = usePlayFilterContext();
   const user = useBggUser();
   let comboboxId = `combobox-${filter.order}`;
   let inputRef = useRef<HTMLInputElement | null>(null);
@@ -45,9 +38,9 @@ export default function ComboBoxFilter({ filter }: Props) {
   const [selection, setSelection] = useState<SelectionType>();
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    console.log("selection", selection);
-  }, [selection]);
+  // useEffect(() => {
+  //   console.log("selection", selection);
+  // }, [selection]);
 
   const [visible, setVisible] = useState(false);
 

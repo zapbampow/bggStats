@@ -27,11 +27,11 @@ export default function ClearFilter({ filter, onClick }: Props) {
 
   return (
     <div
-      className={`flex justify-center items-center gap-2 hover:cursor-pointer font-semibold border border-slate-500 bg-red-100 rounded-sm py-1 w-36 hover:bg-red-200`}
+      className={`flex justify-center items-center gap-2 hover:cursor-pointer font-semibold border border-slate-500 rounded-sm py-1 w-28 hover:bg-slate-200`}
       onClick={handleClick}
     >
       <div>Clear</div>
-      <Backspace width={20} className="text-red-500" />
+      <Backspace width={20} />
     </div>
   );
 }

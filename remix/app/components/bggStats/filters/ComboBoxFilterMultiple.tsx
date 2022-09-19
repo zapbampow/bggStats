@@ -1,30 +1,30 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Combobox } from "@headlessui/react";
-import CheckIcon from "../icons/Check";
-import type { FilterButtonData, SelectionType } from "../types";
+import type { SelectionType } from "../types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
-import SelectorIcon from "~/components/bggStats/icons/Selector";
+import { Selector, Check } from "~/components/bggStats/icons";
 import {
-  baseStyles,
   hoverStyles,
   itemHoverStyles,
   openComboboxMenuStyles,
   comboActiveItem,
   baseSelectItem,
   comboContainerStyles,
+  containerBase,
 } from "~/components/bggStats/styles";
 import getOptions from "./getOptions";
 import type { FilterType } from "~/services/queryService/types";
+import ClearFilter from "./ClearFilter";
+import RemoveFilter from "./RemoveFilter";
 
 type Props = {
   filter: FilterType;
 };
 
 export default function ComboBoxFilterMultiple({ filter }: Props) {
-  const { state, dispatch } = usePlayFilterContext();
+  const { dispatch } = usePlayFilterContext();
   const user = useBggUser();
-  let comboboxId = `combobox-${filter.order}`;
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
 
@@ -61,7 +61,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   };
 
   const getSetOptions = useCallback(async () => {
-    if (!user) return;
+    if (!user || options.length > 0) return;
 
     try {
       const options = await getOptions({ filter, user });
@@ -71,7 +71,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     } catch (err) {
       console.log(err);
     }
-  }, [user, filter]);
+  }, [user, filter, options]);
 
   useEffect(
     function SetupOptions() {
@@ -91,67 +91,85 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     clickButton();
   }, []);
 
+  const handleClear = () => {
+    setSelections([{ value: "", label: "" }]);
+  };
+
   return (
     <div
-      className={`relative flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      className={`relative flex flex-col md:flex-row md:items-center  gap-4 ${comboContainerStyles} hover:cursor-pointer`}
       onClick={clickButton}
     >
       <div className="font-semibold">{filter.label}</div>
       <Combobox value={selections} onChange={handleChange} multiple={true}>
         {({ open }) => (
-          <>
-            {selections.length > 0 && (
-              <Combobox.Button className="font-semibold">
+          <div className="flex flex-col md:flex-row">
+            {selections.length > 0 && !open && (
+              <Combobox.Button className="font-semibold text-left">
                 {selections.map((selection) => selection.label).join(", ")}
               </Combobox.Button>
             )}
             <div>
-              <div
-                className={`transition transition-all ease-in-out duration-500 ${hoverStyles}`}
-              >
+              <div className={`${hoverStyles} relative md:static`}>
                 <Combobox.Input
                   ref={inputRef}
                   onChange={(e: React.FormEvent<HTMLInputElement>) => {
                     setQuery(e.currentTarget.value);
                   }}
-                  className={`bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0 ${
-                    !open && selections.length > 0 ? "w-0" : ""
-                  }`}
+                  className={`bg-transparent font-semibold transition transition-all ease-in-out duration-500 focus:outline-0 border-b border-slate-500
+                  `}
                 />
                 <Combobox.Button
                   ref={btnRef}
                   className="absolute inset-y-0 right-0 flex items-center"
                 >
-                  <SelectorIcon />
+                  <Selector />
                 </Combobox.Button>
               </div>
-              <Combobox.Options
-                id={comboboxId}
-                className={`${baseStyles} ${openComboboxMenuStyles} `}
-                hold={true}
+              <div
+                className={`${containerBase} ${openComboboxMenuStyles} divide-y divide-slate-500`}
               >
-                {filteredOptions.map((options) => (
-                  <Combobox.Option
-                    key={options.value}
-                    value={options}
-                    as={Fragment}
-                  >
-                    {({ active, selected }) => (
-                      <li
-                        className={`${baseSelectItem} ${itemHoverStyles} ${
-                          selected ? "font-bold" : ""
-                        } ${active ? comboActiveItem : ""}
-                      `}
-                      >
-                        {selected && <CheckIcon className="text-green-500" />}
-                        <span className={`inline-block `}>{options.label}</span>
-                      </li>
-                    )}
-                  </Combobox.Option>
-                ))}
-              </Combobox.Options>
+                <Combobox.Options
+                  className={` max-h-72 overflow-y-auto px-4 py-2 `}
+                  hold={true}
+                >
+                  {filteredOptions.map((option) => (
+                    <Combobox.Option
+                      key={option.value}
+                      value={option}
+                      as={Fragment}
+                    >
+                      {({ active, selected }) => (
+                        <li
+                          className={`flex items-center gap-2 ${baseSelectItem} ${itemHoverStyles} ${
+                            selected ? "font-bold" : ""
+                          } ${active ? comboActiveItem : ""}
+                        `}
+                        >
+                          {selected ? (
+                            <Check width={16} className="text-green-500" />
+                          ) : (
+                            <div style={{ width: "16px" }} />
+                          )}
+                          <span className={`inline-block `}>
+                            {option.label}
+                          </span>
+                        </li>
+                      )}
+                    </Combobox.Option>
+                  ))}
+                </Combobox.Options>
+                <div
+                  className={`flex justify-between gap-auto p-2 ${
+                    !open ? "hidden" : ""
+                  }`}
+                >
+                  <ClearFilter filter={filter} onClick={handleClear} />
+                  <RemoveFilter filter={filter} />
+                </div>
+              </div>
             </div>
-          </>
+          </div>
         )}
       </Combobox>
     </div>

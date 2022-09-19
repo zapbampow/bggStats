@@ -124,17 +124,11 @@ export default function UsernamePlays() {
             Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
           </div>
           <div className="mt-20">
-            <div className="filters flex flex-wrap gap-2 mb-8">
+            <div className="filters flex flex-col md:flex-row flex-wrap gap-2 mb-8">
               <Aggregator />
               {/* Filter components */}
               {state.slice(1).map((filter: FilterType) => {
-                return (
-                  <FilterToComponent
-                    key={filter.order}
-                    filter={filter}
-                    // removeButtonById={removeButtonById}
-                  />
-                );
+                return <FilterToComponent key={filter.order} filter={filter} />;
               })}
               <AddFilterButton
                 addFilterButton={addFilterButton}
