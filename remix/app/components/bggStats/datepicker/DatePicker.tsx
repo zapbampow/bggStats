@@ -8,10 +8,12 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Times,
+  Trash,
 } from "../icons";
-import type { FilterButtonData } from "../types";
 import { baseStyles, hoverStyles } from "~/components/bggStats/styles";
-import { FilterType } from "~/services/queryService/types";
+import type { FilterType } from "~/services/queryService/types";
+import { RemoveFilter } from "~/components/bggStats/filters";
 
 interface Props {
   filter: FilterType;
@@ -34,6 +36,15 @@ export default function DatePickerComponent({ filter }: Props) {
         label: filter.label,
         arg: dayjs(value).format("YYYY-MM-DD"),
       },
+    });
+  };
+
+  const removeFilter = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    dispatch({
+      type: "remove",
+      filter: filter,
     });
   };
 
@@ -62,21 +73,28 @@ export default function DatePickerComponent({ filter }: Props) {
       }}
     >
       <div className="font-semibold">{filter.label}</div>
-      <DatePicker
-        value={value}
-        onChange={handleChange}
-        onCalendarClose={() => setIsOpen(false)}
-        calendarIcon={null}
-        clearIcon={null}
-        showLeadingZeros={true}
-        locale="en-US"
-        nextLabel={<ChevronRight width={16} />}
-        prevLabel={<ChevronLeft width={16} />}
-        format="yyyy-MM-dd"
-        autoFocus={true}
-        openCalendarOnFocus={true}
-        isOpen={isOpen}
-      />
+      <div>
+        <DatePicker
+          value={value}
+          onChange={handleChange}
+          onCalendarClose={() => setIsOpen(false)}
+          calendarIcon={null}
+          clearIcon={null}
+          showLeadingZeros={true}
+          locale="en-US"
+          nextLabel={<ChevronRight width={16} />}
+          prevLabel={<ChevronLeft width={16} />}
+          format="yyyy-MM-dd"
+          autoFocus={true}
+          openCalendarOnFocus={true}
+          isOpen={isOpen}
+          clearIcon={<Times width={16} />}
+          clearAriaLabel="Clear date"
+        />
+      </div>
+      <div onClick={removeFilter}>
+        <Trash width={16} />
+      </div>
     </div>
   );
 }
