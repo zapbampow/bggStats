@@ -1,5 +1,9 @@
 import { Menu } from "@headlessui/react";
-import { baseStyles, comboContainerStyles } from "../styles";
+import {
+  baseStyles,
+  comboContainerStyles,
+  openComboboxMenuStyles,
+} from "../styles";
 
 import type { FilterType } from "~/services/queryService/types";
 import { RemoveFilter } from "~/components/bggStats/filters";
@@ -16,7 +20,7 @@ export default function ForAllTime({ filter }: Props) {
           {filter.label}
         </Menu.Button>
         <Menu.Items
-          className={`mt-1 ${baseStyles} ${comboContainerStyles} w-full`}
+          className={`mt-1 ${baseStyles} ${openComboboxMenuStyles} w-full`}
         >
           <Menu.Item>
             <RemoveFilter filter={filter} />

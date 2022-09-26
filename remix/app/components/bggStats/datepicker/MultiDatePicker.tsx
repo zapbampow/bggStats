@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Trash,
 } from "../icons";
 import type { FilterButtonData } from "../types";
 import { baseStyles } from "~/components/bggStats/styles";
@@ -49,6 +50,15 @@ export default function DatePickerComponent({ filter }: Props) {
     });
   };
 
+  const removeFilter = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    dispatch({
+      type: "remove",
+      filter: filter,
+    });
+  };
+
   return (
     <div
       onClick={() => setIsOpen(true)}
@@ -71,6 +81,9 @@ export default function DatePickerComponent({ filter }: Props) {
         onCalendarClose={() => setIsOpen(false)}
         rangeDivider="and"
       />
+      <div onClick={removeFilter}>
+        <Trash width={16} />
+      </div>
     </div>
   );
 }

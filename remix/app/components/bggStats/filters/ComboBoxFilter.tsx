@@ -164,7 +164,7 @@ export default function ComboBoxFilter({ filter }: Props) {
                   })}
                 </Combobox.Options>
                 <div
-                  className={`flex justify-between gap-auto p-2 ${
+                  className={`flex justify-between gap-4 p-2 ${
                     !open ? "hidden" : ""
                   }`}
                 >
