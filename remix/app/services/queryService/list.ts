@@ -34,3 +34,9 @@ export function listDates() {
     return Array.from(new Set(everyDate));
   };
 }
+
+export function listRecordedPlays() {
+  return (plays: Plays) => {
+    return plays;
+  };
+}

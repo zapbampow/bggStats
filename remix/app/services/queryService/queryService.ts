@@ -5,6 +5,7 @@ import {
   listDates,
   listGameNames,
   listLocations,
+  listRecordedPlays,
   listPlayerNames,
 } from "./list";
 import {
@@ -57,6 +58,7 @@ type FilterName =
   | "listLocations"
   | "listPlayerNames"
   | "listDate"
+  | "listPlayData"
   | "gameName"
   | "location"
   | "withOnlyPlayerNames"
@@ -84,6 +86,7 @@ const argFunctionPairs = {
   listGameNames: listGameNames,
   listPlayerNames: listPlayerNames,
   listDates: listDates,
+  listRecordedPlays: listRecordedPlays,
 
   // FILTERS
   gameName: gameName,

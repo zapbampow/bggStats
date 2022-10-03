@@ -4,13 +4,15 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-- Add Header and Footer to React-Date-Picker
-- Add Remove and Clear to DatePicker and MultiDatePicker
+- using react-table, build out table component
+- add list plays query to list.ts - returns actual play data to display in a table - use pagination - link to bgg play - maybe use react-table from tanner lindsey
+- try making vertical display for multiselector for centered selectors
 - Make sure mobile styles look okay for Combobox, multi combo, datepicker, and multidatepicker
-- Add 'Remove Filter' to all filter components using the dispatch({type: remove}) action.
-- Add 'Clear' functionality to clear all filters
 - Add answer display components (Count, list, table)
 - Update design
+- Answer components
+  - When? List of formatted dates
+  - What games? => List with link to bgg or image
 
 # Long Term
 - add navbar (query history, general stats, recent plays)

@@ -115,27 +115,27 @@ export default function UsernamePlays() {
     <div className="min-h-screen worksans font-normal">
       <div className="bg-slate-200">
         <Container>
-          <h1 className="text-6xl text-slate-700 font-extrabold mb-4">
+          <h1 className="text-6xl text-slate-700 font-extrabold mb-4  text-center">
             Explore{" "}
             <span className="italic font-extralight">{user?.username}'s</span>{" "}
             Play Data
           </h1>
-          <div>
+          <div className="text-center">
             Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
           </div>
-          <div className="mt-20">
-            <div className="filters flex flex-col md:flex-row flex-wrap gap-2 mb-8">
+          <div className="mt-20 max-w-xl border border-slate-500 mx-auto">
+            <div className="filters flex flex-col justify-center md:flex-row flex-wrap gap-2 mb-8">
               <Aggregator />
               {/* Filter components */}
               {state.slice(1).map((filter: FilterType) => {
                 return <FilterToComponent key={filter.order} filter={filter} />;
               })}
+            </div>
+            <div className="flex flex-col items-center gap-4">
               <AddFilterButton
                 addFilterButton={addFilterButton}
                 display={shouldShowAddFilterButton()}
               />
-            </div>
-            <div className="flex items-center gap-16">
               <BigButton onClick={handleAsk}>Submit</BigButton>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function UsernamePlays() {
       </div>
 
       <div>
-        <Answer answer={answer} />
+        <Answer answer={answer} aggregator={state[0]} />
       </div>
     </div>
   );

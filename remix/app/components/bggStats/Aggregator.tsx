@@ -11,6 +11,7 @@ const options = [
   { value: "listGameNames", label: "What games did I play" },
   { value: "listDates", label: "When did I play games" },
   { value: "listLocations", label: "Where did I play games" },
+  { value: "listRecordedPlays", label: "List my play records" },
 ];
 
 export default function Aggregator() {

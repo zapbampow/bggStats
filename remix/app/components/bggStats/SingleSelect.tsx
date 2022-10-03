@@ -30,7 +30,7 @@ export default function SingleSelect({
         {({ open }) => (
           <>
             <Listbox.Button
-              className={`${baseStyles} relative font-semibold transition duration-700  ${
+              className={`${baseStyles} relative font-semibold ${
                 open ? openButtonStyles : ""
               }  
                 ${singleSelectHoverStyles}
