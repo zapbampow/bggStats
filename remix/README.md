@@ -4,7 +4,6 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-- using react-table, build out table component
 - add list plays query to list.ts - returns actual play data to display in a table - use pagination - link to bgg play - maybe use react-table from tanner lindsey
 - try making vertical display for multiselector for centered selectors
 - Make sure mobile styles look okay for Combobox, multi combo, datepicker, and multidatepicker

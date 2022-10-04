@@ -75,7 +75,7 @@ export default function RecordedPlays({ data }: Props) {
     <Container>
       <table
         {...getTableProps()}
-        className="w-full table-auto rounded-sm border-separate border shadow-lg"
+        className="w-full table-auto border-separate rounded-sm border shadow-lg"
         style={{ borderSpacing: 0 }}
       >
         <thead className="border-b border-spacing-2">
@@ -96,7 +96,7 @@ export default function RecordedPlays({ data }: Props) {
                     <th
                       key={i}
                       {...column.getHeaderProps()}
-                      className={`${cellStyle}`}
+                      className={`${cellStyle} border-b`}
                     >
                       {
                         // Render the header
@@ -110,7 +110,7 @@ export default function RecordedPlays({ data }: Props) {
           }
         </thead>
         {/* Apply the table body props */}
-        <tbody {...getTableBodyProps()}>
+        <tbody {...getTableBodyProps()} className="border-separate">
           {
             // Loop over the table rows
             rows.map((row, i) => {
