@@ -4,6 +4,7 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
+- Rework and Style pagination to RecordedPlays (TanStack Link)[https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/pagination?from-embed]
 - add list plays query to list.ts - returns actual play data to display in a table - use pagination - link to bgg play - maybe use react-table from tanner lindsey
 - try making vertical display for multiselector for centered selectors
 - Make sure mobile styles look okay for Combobox, multi combo, datepicker, and multidatepicker

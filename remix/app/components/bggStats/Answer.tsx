@@ -17,6 +17,7 @@ export default function Answer({ answer, aggregator }: Props) {
   if (aggregator.filter === "listRecordedPlays") {
     return (
       <Container>
+        {/* <PlayFilters /> */}
         <RecordedPlays data={answer} />
       </Container>
     );
