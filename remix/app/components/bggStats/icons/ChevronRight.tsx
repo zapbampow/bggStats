@@ -3,7 +3,7 @@ type Props = {
   width?: number;
   className?: string;
 };
-export default function ChevronRight({ width, className }: Props) {
+export default function ChevronRight({ width = 24, className }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
