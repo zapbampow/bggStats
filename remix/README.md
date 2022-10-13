@@ -4,15 +4,16 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 # Next
-- Rework and Style pagination to RecordedPlays (TanStack Link)[https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/pagination?from-embed]
-- add list plays query to list.ts - returns actual play data to display in a table - use pagination - link to bgg play - maybe use react-table from tanner lindsey
-- try making vertical display for multiselector for centered selectors
-- Make sure mobile styles look okay for Combobox, multi combo, datepicker, and multidatepicker
-- Add answer display components (Count, list, table)
 - Update design
-- Answer components
-  - When? List of formatted dates
-  - What games? => List with link to bgg or image
+  - [ ] Wrapper with navbar
+    - [ ] Make home button a home icon
+    - [ ] Menu icon with About, Query History, Code Section
+  - [ ] Page 1: Get username
+  - [ ] Page 2: Dashboard
+    - [ ] Aggregated details cards
+      -  [ ] charts with detail drilling (add to filters when clicking particular charts)
+    - [ ] Filter button row
+    - [ ] Details table
 
 # Long Term
 - add navbar (query history, general stats, recent plays)
@@ -37,29 +38,9 @@ The AddFilterButton disables options that have already been selected.
 Add a way to remove the filterButtons and their options
 
 # Todo
-- [ ] Add initial button when selecting option from +. Decide how you want to do this. Look at UsernamePlays comments for thoughts on options. And the Section above for 
-- [x] Componentize combo box
-- [ ] Add filter button when selecting 'how many', 'games', 'of' and use the combo box. This should provide a pattern for adding any other combo box
-- [ ] Componentize multiselect box, multiselect combo, date selector, 
-- [x] Componentize dropdown button and list for reuse
 - [ ] Save filters to local storage so that users can revisit past queries
-- [x] Add play filtering context basically just for the filtering object. Update the object with each selection
 - [ ] Handle errors on username/plays
 - [ ] Add meta to pages
-- [ ] Add settings
-  - [ ] data used display
-  - [ ] clear data by user
-  - [ ] clear all data button
-- [x] In data fetching, check if newest retrieved is higher than newest in db before trying to add them to the db
-  - [x] Only try to add plays whose play id is higher than the most recent
-- [x] Create filter methods
-- [x] Change route from /plays/$username to $username/plays
-- [x] Generate a list of players that includes names, ids, and usernames from all the stored data
-  - [x] { id: number; name: string; username: string }
-  - [x] use this to display list of possible players in player select
-
-## Design
-- try out a glassmorphism design with floating meeples in the background.
 
 ## What this app doesn't do
 - Keep everything totally in sync. If you go back and update data that's already stored in the app, then it won't know about those updates. It only goes and gets your newest plays.
