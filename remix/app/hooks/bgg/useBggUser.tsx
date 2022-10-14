@@ -6,7 +6,7 @@ import { db } from "../../services/db";
 
 export function useBggUser() {
   const { username } = useParams();
-  const [user, setUser] = useState<UserInfo>();
+  const [user, setUser] = useState<UserInfo | undefined>();
 
   const handleUserName = async (username: string) => {
     const dbUserInfo = await db.users
@@ -32,7 +32,7 @@ export function useBggUser() {
     if (username) {
       handleUserName(username);
     } else {
-      setUser(null);
+      setUser(undefined);
     }
   }, [username]);
 

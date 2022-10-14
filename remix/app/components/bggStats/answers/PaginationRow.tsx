@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function PaginationRow({ table }: Props) {
-  console.log("table", table);
+  // console.log("table", table);
   return (
     <div className="flex justify-between items-start gap-2">
       {/* Previous page buttons */}

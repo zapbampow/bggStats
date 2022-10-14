@@ -25,18 +25,18 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
 };
 
-type AccDataType = {
-  numPlayers: number;
-  numUsernames: number;
-  numLocations: number;
-};
+// type AccDataType = {
+//   numPlayers: number;
+//   numUsernames: number;
+//   numLocations: number;
+// };
 
 export default function UsernamePlays() {
   const user = useBggUser();
-  const [accData, setAccData] = useState<AccDataType>();
-  const [locations, setLocations] = useState<string[]>([]);
-  const [playerNames, setPlayerNames] = useState<string[]>([]);
-  const [filterButtons, setFilterButtons] = useState<FilterType[]>([]);
+  // const [accData, setAccData] = useState<AccDataType>();
+  // const [locations, setLocations] = useState<string[]>([]);
+  // const [playerNames, setPlayerNames] = useState<string[]>([]);
+  // const [filterButtons, setFilterButtons] = useState<FilterType[]>([]);
   const [filterCount, setFilterCount] = useState(1);
   const [answer, setAnswer] = useState();
   const { state, dispatch } = usePlayFilterContext();
@@ -45,9 +45,9 @@ export default function UsernamePlays() {
     console.log("state", state);
   }, [state]);
 
-  useEffect(() => {
-    console.log("filterButtons", filterButtons);
-  }, [filterButtons]);
+  // useEffect(() => {
+  //   console.log("filterButtons", filterButtons);
+  // }, [filterButtons]);
 
   const { manuallyUpdate, percentDone, error } = usePlayData();
 

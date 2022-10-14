@@ -3,11 +3,14 @@ Additional Aggregator Logic
 - This should include when updating a 'how many' filter 
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
-# Next
+## Next
+- Set up as if default aggregator is list - probably have default setting in context that cannot be removed. This should fix the "add filter" button not having an options
+
+## Design
 - Update design
-  - [ ] Wrapper with navbar
-    - [ ] Make home button a home icon
-    - [ ] Menu icon with About, Query History, Code Section
+  - [x] Wrapper with navbar
+    - [x] Make home button a home icon
+    - [ ] Menu icon with About, Query History, Code Section, How to Use, What it doesn't do
   - [ ] Page 1: Get username
   - [ ] Page 2: Dashboard
     - [ ] Aggregated details cards
@@ -15,7 +18,7 @@ Additional Aggregator Logic
     - [ ] Filter button row
     - [ ] Details table
 
-# Long Term
+## Long Term
 - add navbar (query history, general stats, recent plays)
 - save history of queries
 - add 'this year' and 'last year' as date range options

@@ -104,7 +104,7 @@ export default function RecordedPlays({ data }: Props) {
                   {
                     // Loop over the rows cells
                     row.getVisibleCells().map((cell) => {
-                      console.log("cell", cell);
+                      // console.log("cell", cell);
                       // Apply the cell props
                       return (
                         <td

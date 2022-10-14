@@ -110,7 +110,7 @@ const pipe = (initialPlays: Plays, ...fns: Function[]) =>
   }, initialPlays);
 
 export function pipeWithArgs2(plays: Plays, args: FilterType[]) {
-  console.log({ plays, args });
+  // console.log({ plays, args });
   return pipe(
     plays,
     ...args.map(({ filter, arg }) => argFunctionPairs[filter](arg)) // I don't know TS well enough to type my way out of this linting error, but it runs fine
