@@ -62,9 +62,9 @@ export default function PlaysDashboard() {
   );
 
   return (
-    <Container>
+    <div className="min-h-screen">
       <FilterBar setFilteredResults={setFilteredResults} />
       <RecordedPlays data={filteredResults} />
-    </Container>
+    </div>
   );
 }

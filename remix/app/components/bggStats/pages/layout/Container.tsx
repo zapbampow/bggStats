@@ -5,7 +5,11 @@ type Props = {
 
 export default function Container({ className, children }: Props) {
   return (
-    <div className={`max-w-7xl p-8 mx-auto ${className ? className : ""}`}>
+    <div
+      className={`w-full lg:w-[960px] xl:w-[1024] 2xl:w-[1280] px-2 mx-auto ${
+        className ? className : ""
+      }`}
+    >
       {children}
     </div>
   );

@@ -4,19 +4,22 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- Set up as if default aggregator is list - probably have default setting in context that cannot be removed. This should fix the "add filter" button not having an options
+- Hide pagination if results don't need pagination
+- Style filters on a row
+- Only run filter after selection made to prevent going from many results to no results while selecting filter parameters
 
 ## Design
 - Update design
   - [x] Wrapper with navbar
-    - [x] Make home button a home icon
+    - [ ] Make home button a home icon
+      - [ ] Create home with meeple inside it icon
     - [ ] Menu icon with About, Query History, Code Section, How to Use, What it doesn't do
   - [ ] Page 1: Get username
   - [ ] Page 2: Dashboard
     - [ ] Aggregated details cards
       -  [ ] charts with detail drilling (add to filters when clicking particular charts)
     - [ ] Filter button row
-    - [ ] Details table
+    - [x] Details table
 
 ## Long Term
 - add navbar (query history, general stats, recent plays)

@@ -11,6 +11,7 @@ import filter from "~/services/queryService";
 
 import AddFilterButton from "../AddFilterButton";
 import FilterToComponent from "../FilterToComponent";
+import { Container } from "../pages/layout";
 
 type Props = {
   setFilteredResults: Dispatch<SetStateAction<PlayDataModel[]>>;
@@ -66,7 +67,8 @@ export default function FilterBar({ setFilteredResults }: Props) {
   }, [handleFilter]);
 
   return (
-    <div className="mt-20 max-w-xl border border-slate-500 mx-auto">
+    <Container>
+      {/* <div className="mt-20 max-w-xl border border-slate-500 mx-auto"> */}
       <div className="filters flex flex-col justify-center md:flex-row flex-wrap gap-2 mb-8">
         {/* Filter components */}
         {state.slice(1).map((filter: FilterType) => {
@@ -77,6 +79,7 @@ export default function FilterBar({ setFilteredResults }: Props) {
         <AddFilterButton addFilterButton={addFilterButton} display={true} />
         {/* <BigButton onClick={handleAsk}>Submit</BigButton> */}
       </div>
-    </div>
+      {/* </div> */}
+    </Container>
   );
 }

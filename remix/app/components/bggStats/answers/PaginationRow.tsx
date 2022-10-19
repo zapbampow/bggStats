@@ -13,7 +13,11 @@ type Props = {
 };
 
 export default function PaginationRow({ table }: Props) {
-  // console.log("table", table);
+  let pageCount = table.getPageCount();
+  let currentPage = table.getState().pagination.pageIndex + 1;
+
+  if (pageCount === currentPage) return null;
+
   return (
     <div className="flex justify-between items-start gap-2">
       {/* Previous page buttons */}
@@ -39,8 +43,7 @@ export default function PaginationRow({ table }: Props) {
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            {currentPage} of {pageCount}
           </strong>
         </span>
         <div className="flex justify-center gap-4 flex-auto">
