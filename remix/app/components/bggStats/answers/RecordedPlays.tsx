@@ -1,4 +1,3 @@
-import React from "react";
 import { Container } from "~/components/bggStats/pages/layout";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { cellStyle } from "./tableStyles";
@@ -10,7 +9,7 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import PaginationRow from "./PaginationRow";
-import BggLogo from "../icons/BggLogo";
+import { ExternalLink } from "../icons";
 
 type Props = {
   data: PlayDataModel[];
@@ -28,7 +27,7 @@ export default function RecordedPlays({ data }: Props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <BggLogo width={16} />
+            <ExternalLink width={16} />
           </a>
         );
       },
