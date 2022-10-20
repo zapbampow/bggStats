@@ -34,7 +34,12 @@ export default function PlaysDashboard() {
       return 0;
     });
 
-    const pipe = await filter(user.userId, filters);
+    const filtersWithArgs = filters.filter(
+      (item: FilterType) =>
+        item.filter === "listRecordedPlays" || item.arg !== ""
+    );
+
+    const pipe = await filter(user.userId, filtersWithArgs);
     // console.log("pipe", pipe);
     setFilteredResults(pipe);
   }, [state, user?.userId]);

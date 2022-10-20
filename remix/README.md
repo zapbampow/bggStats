@@ -4,9 +4,15 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- Hide pagination if results don't need pagination
-- Style filters on a row
-- Only run filter after selection made to prevent going from many results to no results while selecting filter parameters
+- Before running through pipe, filter out any filters that have no args
+- Multiselect
+  - Prevent close on select
+  - Only show search box when open and on a new row
+  - On close, reorder to show selected at the top of the list when opened next
+  - Limit the length of the displayed results and add an ellipsis to indicate list is longer
+- Add trash can to all filter components like in the calendar
+- Rework the language of the filter
+- Add ability to reorder results by date in tanstack-table
 
 ## Design
 - Update design

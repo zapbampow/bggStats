@@ -39,47 +39,42 @@ export default function FilterBar({ setFilteredResults }: Props) {
     setFilterCount((count) => count + 1);
   };
 
-  const handleFilter = useCallback(async () => {
-    if (!user?.userId) return;
+  // const handleFilter = useCallback(async () => {
+  //   if (!user?.userId) return;
 
-    let filters = JSON.parse(JSON.stringify(state));
-    // Update aggregator order value
-    let index = filters.findIndex(
-      (filter: FilterType) => filter.order === "aggregator"
-    );
-    filters[index].order = 1000;
+  //   let filters = JSON.parse(JSON.stringify(state));
+  //   // Update aggregator order value
+  //   let index = filters.findIndex(
+  //     (filter: FilterType) => filter.order === "aggregator"
+  //   );
+  //   filters[index].order = 1000;
 
-    filters.sort((a: FilterType, b: FilterType) => {
-      if (a.order > b.order) return 1;
-      if (a.order < b.order) return -1;
-      return 0;
-    });
+  //   filters.sort((a: FilterType, b: FilterType) => {
+  //     if (a.order > b.order) return 1;
+  //     if (a.order < b.order) return -1;
+  //     return 0;
+  //   });
 
-    const pipe = await filter(user.userId, filters);
-    // console.log("pipe", pipe);
-    setFilteredResults(pipe);
+  //   const pipe = await filter(user.userId, filters);
+  //   // console.log("pipe", pipe);
+  //   setFilteredResults(pipe);
 
-    console.log("answer", pipe);
-  }, [setFilteredResults, state, user?.userId]);
+  //   console.log("answer", pipe);
+  // }, [setFilteredResults, state, user?.userId]);
 
-  useEffect(() => {
-    handleFilter();
-  }, [handleFilter]);
+  // useEffect(() => {
+  //   handleFilter();
+  // }, [handleFilter]);
 
   return (
     <Container>
-      {/* <div className="mt-20 max-w-xl border border-slate-500 mx-auto"> */}
-      <div className="filters flex flex-col justify-center md:flex-row flex-wrap gap-2 mb-8">
+      <div className="filters flex flex-wrap gap-2 mb-8">
         {/* Filter components */}
         {state.slice(1).map((filter: FilterType) => {
           return <FilterToComponent key={filter.order} filter={filter} />;
         })}
-      </div>
-      <div className="flex flex-col items-center gap-4">
         <AddFilterButton addFilterButton={addFilterButton} display={true} />
-        {/* <BigButton onClick={handleAsk}>Submit</BigButton> */}
       </div>
-      {/* </div> */}
     </Container>
   );
 }
