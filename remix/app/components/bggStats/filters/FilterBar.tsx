@@ -6,6 +6,7 @@ import type { SelectionType } from "../types";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
+import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
 import filter from "~/services/queryService";
 
@@ -13,17 +14,11 @@ import AddFilterButton from "../AddFilterButton";
 import FilterToComponent from "../FilterToComponent";
 import { Container } from "../pages/layout";
 
-type Props = {
-  setFilteredResults: Dispatch<SetStateAction<PlayDataModel[]>>;
-};
-
-export default function FilterBar({ setFilteredResults }: Props) {
-  const user = useBggUser();
+export default function FilterBar() {
   const { state, dispatch } = usePlayFilterContext();
   const [filterCount, setFilterCount] = useState(1);
 
   const addFilterButton = (selection: SelectionType) => {
-    console.log("selection", selection);
     let filter: FilterType = {
       order: filterCount,
       filter: selection.value,
@@ -38,33 +33,6 @@ export default function FilterBar({ setFilteredResults }: Props) {
     });
     setFilterCount((count) => count + 1);
   };
-
-  // const handleFilter = useCallback(async () => {
-  //   if (!user?.userId) return;
-
-  //   let filters = JSON.parse(JSON.stringify(state));
-  //   // Update aggregator order value
-  //   let index = filters.findIndex(
-  //     (filter: FilterType) => filter.order === "aggregator"
-  //   );
-  //   filters[index].order = 1000;
-
-  //   filters.sort((a: FilterType, b: FilterType) => {
-  //     if (a.order > b.order) return 1;
-  //     if (a.order < b.order) return -1;
-  //     return 0;
-  //   });
-
-  //   const pipe = await filter(user.userId, filters);
-  //   // console.log("pipe", pipe);
-  //   setFilteredResults(pipe);
-
-  //   console.log("answer", pipe);
-  // }, [setFilteredResults, state, user?.userId]);
-
-  // useEffect(() => {
-  //   handleFilter();
-  // }, [handleFilter]);
 
   return (
     <Container>

@@ -1,6 +1,7 @@
 import type { LinksFunction } from "remix";
 import styles from "~/styles/bggStats/username.css";
 import { PlayFilterProvider } from "~/contexts/bggStats/playFilterContext";
+import { PlayResultsProvider } from "~/contexts/bggStats/playResultsContext";
 import UsernamePlays from "~/components/bggStats/pages/UsernamePlays";
 import datePickerStyles from "~/styles/bggStats/datePickerStyles.css";
 import PlaysDashboard from "~/components/bggStats/pages/PlaysDashboard";
@@ -25,8 +26,10 @@ export const links: LinksFunction = () => {
 function Plays() {
   return (
     <PlayFilterProvider>
-      {/* <UsernamePlays /> */}
-      <PlaysDashboard />
+      <PlayResultsProvider>
+        {/* <UsernamePlays /> */}
+        <PlaysDashboard />
+      </PlayResultsProvider>
     </PlayFilterProvider>
   );
 }

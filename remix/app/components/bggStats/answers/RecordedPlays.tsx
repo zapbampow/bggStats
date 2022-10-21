@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Container } from "~/components/bggStats/pages/layout";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { cellStyle } from "./tableStyles";
@@ -10,12 +11,11 @@ import {
 } from "@tanstack/react-table";
 import PaginationRow from "./PaginationRow";
 import { ExternalLink } from "../icons";
+import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 
-type Props = {
-  data: PlayDataModel[];
-};
+export default function RecordedPlays() {
+  const { state: data } = usePlayResultsContext();
 
-export default function RecordedPlays({ data }: Props) {
   const columnHelper = createColumnHelper<PlayDataModel>();
   const columns = [
     columnHelper.accessor("playId", {
