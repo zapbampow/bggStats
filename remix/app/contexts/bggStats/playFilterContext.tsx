@@ -56,16 +56,27 @@ const filterReducer = (state: FilterType[], action: Action) => {
 };
 
 const PlayFilterContext = React.createContext<
-  { state: FilterType[]; dispatch: Dispatch } | undefined
+  | {
+      state: FilterType[];
+      dispatch: Dispatch;
+      removeFilter: (filter: FilterType) => void;
+    }
+  | undefined
 >(undefined);
 
 function PlayFilterProvider({ children }: PlayFilterProviderProps) {
-  const [state, dispatch] = React.useReducer(filterReducer, []);
-  const value = { state, dispatch };
+  const [state, dispatch] = React.useReducer<
+    React.Reducer<FilterType[], Action>
+  >(filterReducer, []);
 
-  // React.useEffect((): void => {
-  //   console.log("state", state);
-  // }, [state]);
+  const removeFilter = (filter: FilterType) => {
+    dispatch({
+      type: "remove",
+      filter: filter,
+    });
+  };
+
+  const value = { state, dispatch, removeFilter };
 
   return (
     <PlayFilterContext.Provider value={value}>

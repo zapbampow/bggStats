@@ -4,7 +4,10 @@ type Props = {
   value: string;
   visible: boolean;
   setVisible: (val: boolean) => void;
-  impactedRef: React.MutableRefObject<HTMLInputElement | null>;
+  impactedRef: React.MutableRefObject<
+    HTMLInputElement | HTMLButtonElement | HTMLDivElement | null
+  >;
+  addedWidth?: number;
 };
 
 export default function Measurer({
@@ -12,6 +15,7 @@ export default function Measurer({
   visible,
   setVisible,
   impactedRef,
+  addedWidth = 0,
 }: Props) {
   let measurerRef = useRef<HTMLDivElement>(null);
 
@@ -21,25 +25,24 @@ export default function Measurer({
 
   React.useLayoutEffect(() => {
     if (!visible || !measurerRef?.current || !impactedRef?.current) return;
-
     const rect = measurerRef?.current?.getBoundingClientRect();
 
     if (rect.width === 0) {
-      impactedRef.current.style.width = "218px";
+      impactedRef.current.style.width = "max-content";
       setVisible(false);
       return;
     }
-
-    let newWidth = `${rect.width + 48}px`;
-    console.log("newWidth", newWidth);
+    // debugger;
+    let newWidth = `${rect.width + addedWidth}px`;
     impactedRef.current.style.width = newWidth;
-    // setWidth(rect.width);
     setVisible(false);
-  }, [visible, setVisible, measurerRef, impactedRef]);
+  }, [visible, setVisible, measurerRef, impactedRef, addedWidth]);
+
+  if (!visible) return null;
 
   return (
-    <div ref={measurerRef} className="absolute visibility-0 ">
-      {visible && value}
+    <div ref={measurerRef} className="absolute invisible w-max">
+      {value}
     </div>
   );
 }

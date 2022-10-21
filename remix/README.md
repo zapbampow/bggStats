@@ -4,12 +4,9 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- Before running through pipe, filter out any filters that have no args
-- Multiselect
+- ComboboxMultiselect & ComboboxSingle
   - Prevent close on select
-  - Only show search box when open and on a new row
   - On close, reorder to show selected at the top of the list when opened next
-  - Limit the length of the displayed results and add an ellipsis to indicate list is longer
 - Add trash can to all filter components like in the calendar
 - Rework the language of the filter
 - Add ability to reorder results by date in tanstack-table

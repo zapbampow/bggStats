@@ -3,7 +3,7 @@ import { Combobox } from "@headlessui/react";
 import type { SelectionType } from "../types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { useBggUser } from "~/hooks/bgg/useBggUser";
-import { Selector, Check } from "~/components/bggStats/icons";
+import { Selector, Check, Search, Trash } from "~/components/bggStats/icons";
 import {
   hoverStyles,
   itemHoverStyles,
@@ -17,20 +17,32 @@ import getOptions from "./getOptions";
 import type { FilterType } from "~/services/queryService/types";
 import ClearFilter from "./ClearFilter";
 import RemoveFilter from "./RemoveFilter";
+import Measurer from "~/components/bggStats/Measurer";
 
 type Props = {
   filter: FilterType;
 };
 
 export default function ComboBoxFilterMultiple({ filter }: Props) {
-  const { dispatch } = usePlayFilterContext();
+  const { dispatch, removeFilter } = usePlayFilterContext();
   const user = useBggUser();
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
+  let filterBtnRef = useRef<HTMLDivElement>(null);
 
   const [selections, setSelections] = useState<SelectionType[]>([]);
   const [options, setOptions] = useState<SelectionType[]>([]);
   const [query, setQuery] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [selectionText, setSelectionText] = useState("");
+
+  useEffect(
+    function updateSelectionText() {
+      const text = getSelectionText(selections);
+      setSelectionText(text);
+    },
+    [selections]
+  );
 
   const filteredOptions =
     query === ""
@@ -47,6 +59,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
         });
 
   const handleChange = (selections: SelectionType[]) => {
+    console.log("selections", selections);
     setSelections(selections);
 
     dispatch({
@@ -62,7 +75,6 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   const getSetOptions = useCallback(async () => {
     if (!user || options.length > 0) return;
-
     try {
       const options = await getOptions({ filter, user });
       if (options) {
@@ -74,7 +86,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   }, [user, filter, options]);
 
   useEffect(
-    function SetupOptions() {
+    function setupOptions() {
       if (!filter) return;
       getSetOptions();
     },
@@ -97,41 +109,56 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   return (
     <div
-      className={`relative flex flex-col md:flex-row md:items-center  gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      className={`relative ${comboContainerStyles} hover:cursor-pointer`}
       onClick={clickButton}
     >
-      <div className="font-semibold">{filter.label}</div>
+      <Measurer
+        value={`${filter.label} ${selectionText}`}
+        visible={visible}
+        setVisible={setVisible}
+        impactedRef={filterBtnRef}
+        addedWidth={selectionText ? 40 : 2}
+      />
+      <div
+        ref={filterBtnRef}
+        className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+      >
+        {filter.label} {selectionText}
+        {selectionText ? (
+          <button
+            className="text-slate-400 hover:text-red-500"
+            onClick={() => removeFilter(filter)}
+          >
+            <Trash />
+          </button>
+        ) : null}
+      </div>
       <Combobox value={selections} onChange={handleChange} multiple={true}>
         {({ open }) => (
-          <div className="flex flex-col md:flex-row">
-            {selections.length > 0 && !open && (
-              <Combobox.Button className="font-semibold text-left">
-                {selections.map((selection) => selection.label).join(", ")}
-              </Combobox.Button>
-            )}
+          <div className={`${!open ? "hidden" : ""} flex flex-col md:flex-row`}>
             <div>
-              <div className={`${hoverStyles} relative md:static`}>
-                <Combobox.Input
-                  ref={inputRef}
-                  onChange={(e: React.FormEvent<HTMLInputElement>) => {
-                    setQuery(e.currentTarget.value);
-                  }}
-                  className={`bg-transparent font-semibold transition transition-all ease-in-out duration-500 focus:outline-0 border-b border-slate-500
-                  `}
-                />
-                <Combobox.Button
-                  ref={btnRef}
-                  className="absolute inset-y-0 right-0 flex items-center"
-                >
-                  <Selector />
-                </Combobox.Button>
-              </div>
               <div
                 className={`${containerBase} ${openMultiComboboxMenuStyles} divide-y divide-slate-500`}
               >
+                <div
+                  className={`flex px-4 py-2  ${hoverStyles} relative md:static`}
+                >
+                  <Combobox.Input
+                    ref={inputRef}
+                    onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                      setQuery(e.currentTarget.value);
+                    }}
+                    className={`flex-1 bg-transparent font-semibold transition transition-all ease-in-out duration-500 focus:outline-0 placeholder:font-normal`}
+                    placeholder="search"
+                  />
+                  <Combobox.Button ref={btnRef} className="display-none">
+                    <Search />
+                  </Combobox.Button>
+                </div>
                 <Combobox.Options
                   className={` max-h-72 overflow-y-auto px-4 py-2 `}
                   hold={true}
+                  static={true}
                 >
                   {filteredOptions.map((option) => (
                     <Combobox.Option
@@ -175,3 +202,13 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     </div>
   );
 }
+
+const getSelectionText = (selections: SelectionType[]) => {
+  const selectionString = selections.map((item) => item.label).join(", ");
+
+  if (selectionString.length > 20) {
+    return `${selectionString.slice(0, 20)}...`;
+  }
+
+  return selectionString;
+};

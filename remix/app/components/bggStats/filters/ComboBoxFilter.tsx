@@ -23,24 +23,27 @@ import Measurer from "~/components/bggStats/Measurer";
 import type { FilterType } from "~/services/queryService/types";
 import RemoveFilter from "./RemoveFilter";
 import ClearFilter from "./ClearFilter";
+import { Search, Trash } from "../icons";
 
 type Props = {
   filter: FilterType;
 };
 export default function ComboBoxFilter({ filter }: Props) {
-  const { dispatch } = usePlayFilterContext();
+  const { dispatch, removeFilter } = usePlayFilterContext();
   const user = useBggUser();
   let comboboxId = `combobox-${filter.order}`;
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
+  let filterBtnRef = useRef<HTMLDivElement>(null);
 
   const [options, setOptions] = useState<SelectionType[]>([]);
-  const [selection, setSelection] = useState<SelectionType>();
+  const [selection, setSelection] = useState<SelectionType | undefined>();
   const [query, setQuery] = useState("");
+  const [selectionText, setSelectionText] = useState("");
 
-  // useEffect(() => {
-  //   console.log("selection", selection);
-  // }, [selection]);
+  useEffect(() => {
+    setSelectionText(getSelectionText(selection));
+  }, [selection]);
 
   const [visible, setVisible] = useState(false);
 
@@ -104,40 +107,63 @@ export default function ComboBoxFilter({ filter }: Props) {
 
   return (
     <div
-      className={`relative flex items-center gap-4 ${comboContainerStyles} hover:cursor-pointer`}
+      className={`relative flex items-center ${comboContainerStyles} hover:cursor-pointer`}
       onClick={clickButton}
     >
       <Measurer
-        value={selection?.label || ""}
+        value={`${filter.label} ${selectionText}`}
         visible={visible}
         setVisible={setVisible}
-        impactedRef={inputRef}
+        impactedRef={filterBtnRef}
+        addedWidth={selectionText ? 40 : 0}
       />
-      <div className="font-semibold">{filter.label}</div>
+      <div
+        ref={filterBtnRef}
+        className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+      >
+        {filter.label} {selectionText}
+        {selectionText ? (
+          <button
+            className="text-slate-400 hover:text-red-500"
+            onClick={() => removeFilter(filter)}
+          >
+            <Trash />
+          </button>
+        ) : null}
+      </div>
       <div className="grid auto-rows-min">
         <Combobox value={selection} onChange={handleChange} nullable={true}>
           {({ open }) => (
-            <>
-              <Combobox.Button ref={btnRef}></Combobox.Button>
-              <Combobox.Input
-                ref={inputRef}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setQuery(e.currentTarget.value)
-                }
-                displayValue={(option: SelectionType) => {
-                  return option?.label;
-                }}
-                autoFocus
-                // placeholder={filter.label}
-                className={`px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
-              />
-
+            <div className={`${!open ? "hidden" : ""}`}>
               <div
                 className={`${containerBase} ${openComboboxMenuStyles} divide-y divide-slate-500`}
               >
+                <div
+                  className={`flex px-4 py-2  ${hoverStyles} relative md:static`}
+                >
+                  <Combobox.Input
+                    ref={inputRef}
+                    onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                      setQuery(e.currentTarget.value)
+                    }
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log("click");
+                    }}
+                    autoFocus
+                    placeholder="search"
+                    className={`flex-1 px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
+                  />
+                  <Search className="text-slate-500 cursor-default" />
+                  <Combobox.Button
+                    ref={btnRef}
+                    className="display-none"
+                  ></Combobox.Button>
+                </div>
                 <Combobox.Options
                   id={comboboxId}
                   className={`max-h-72 overflow-y-auto px-4 py-2 `}
+                  static={true}
                 >
                   {filteredOptions?.map((option) => {
                     return (
@@ -172,10 +198,20 @@ export default function ComboBoxFilter({ filter }: Props) {
                   <RemoveFilter filter={filter} />
                 </div>
               </div>
-            </>
+            </div>
           )}
         </Combobox>
       </div>
     </div>
   );
 }
+
+const getSelectionText = (selection: SelectionType | undefined) => {
+  if (!selection) return "";
+
+  if (selection.label.length > 20) {
+    return `${selection.label.slice(0, 20)}...`;
+  }
+
+  return selection.label;
+};

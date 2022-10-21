@@ -13,6 +13,7 @@ import Home from "./Home";
 import Meeple from "./Meeple";
 import Menu from "./Menu";
 import HomeMeeple from "./HomeMeeple";
+import Search from "./Search";
 
 export {
   Backspace,
@@ -27,6 +28,7 @@ export {
   HomeMeeple,
   Meeple,
   Menu,
+  Search,
   Selector,
   Times,
   Trash,
