@@ -97,7 +97,6 @@ export default function ComboBoxFilter({ filter }: Props) {
 
   const clickButton = () => {
     if (!btnRef?.current?.click) return;
-
     btnRef.current.click();
   };
 
@@ -108,7 +107,6 @@ export default function ComboBoxFilter({ filter }: Props) {
   return (
     <div
       className={`relative flex items-center ${comboContainerStyles} hover:cursor-pointer`}
-      onClick={clickButton}
     >
       <Measurer
         value={`${filter.label} ${selectionText}`}
@@ -120,6 +118,7 @@ export default function ComboBoxFilter({ filter }: Props) {
       <div
         ref={filterBtnRef}
         className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+        onClick={clickButton}
       >
         {filter.label} {selectionText}
         {selectionText ? (
@@ -148,7 +147,6 @@ export default function ComboBoxFilter({ filter }: Props) {
                     }
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log("click");
                     }}
                     autoFocus
                     placeholder="search"

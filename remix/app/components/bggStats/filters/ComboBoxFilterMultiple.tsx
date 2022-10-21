@@ -59,7 +59,6 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
         });
 
   const handleChange = (selections: SelectionType[]) => {
-    console.log("selections", selections);
     setSelections(selections);
 
     dispatch({
@@ -95,7 +94,6 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   const clickButton = () => {
     if (!btnRef?.current?.click) return;
-
     btnRef.current.click();
   };
 
@@ -108,10 +106,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   };
 
   return (
-    <div
-      className={`relative ${comboContainerStyles} hover:cursor-pointer`}
-      onClick={clickButton}
-    >
+    <div className={`relative ${comboContainerStyles} hover:cursor-pointer`}>
       <Measurer
         value={`${filter.label} ${selectionText}`}
         visible={visible}
@@ -122,6 +117,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
       <div
         ref={filterBtnRef}
         className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+        onClick={clickButton}
       >
         {filter.label} {selectionText}
         {selectionText ? (
@@ -156,7 +152,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                   </Combobox.Button>
                 </div>
                 <Combobox.Options
-                  className={` max-h-72 overflow-y-auto px-4 py-2 `}
+                  className={`max-h-72 overflow-y-auto px-4 py-2 `}
                   hold={true}
                   static={true}
                 >
