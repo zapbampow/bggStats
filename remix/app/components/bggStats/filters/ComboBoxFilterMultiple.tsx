@@ -165,7 +165,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                       {({ active, selected }) => (
                         <li
                           className={`flex items-center gap-2 ${baseSelectItem} ${itemHoverStyles} ${
-                            selected ? "font-bold" : ""
+                            selected ? "font-semibold" : ""
                           } ${active ? comboActiveItem : ""}
                         `}
                         >

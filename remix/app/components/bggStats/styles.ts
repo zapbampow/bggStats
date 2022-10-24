@@ -32,11 +32,11 @@ export const openComboboxMenuStyles = `
 `;
 
 export const comboActiveItem = `
-  transition-all scale-105 font-medium underline-offset-8 duration-300 ease-in-out bg-slate-200 ring-2 ring-cyan-500 rounded-sm
+  transition-all font-semibold font-medium underline-offset-8 duration-300 ease-in-out bg-slate-200 ring-2 ring-cyan-500 rounded-sm
 `;
 
 export const itemHoverStyles = `
-  hover:transition-all hover:scale-105 hover:underline-offset-8 hover:duration-300 hover:ease-in-out
+  hover:transition-all hover:font-semibold hover:underline-offset-8 hover:duration-300 hover:ease-in-out
 `;
 
 export const comboContainerStyles = `
