@@ -29,11 +29,13 @@ export default function useFilteredData() {
 
     const filtersWithArgs = filters.filter(
       (item: FilterType) =>
-        item.filter === "listRecordedPlays" || item.arg !== ""
+        item.filter === "listRecordedPlays" || item?.arg?.length
     );
 
+    console.log("filtersWithArgs", filtersWithArgs);
+
     const pipe = await filter(user.userId, filtersWithArgs);
-    // console.log("pipe", pipe);
+    console.log("pipe", pipe);
     // setFilteredResults(pipe);
     resultsDispatch({
       type: "setFilteredResults",
