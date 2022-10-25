@@ -24,6 +24,7 @@ import type { FilterType } from "~/services/queryService/types";
 import RemoveFilter from "./RemoveFilter";
 import ClearFilter from "./ClearFilter";
 import { Search, Trash } from "../icons";
+import useDebounce from "~/hooks/useDebounce";
 
 type Props = {
   filter: FilterType;
@@ -41,6 +42,8 @@ export default function ComboBoxFilter({ filter }: Props) {
   const [query, setQuery] = useState("");
   const [selectionText, setSelectionText] = useState("");
 
+  const debouncedQuery = useDebounce(query, 350);
+
   useEffect(() => {
     setSelectionText(getSelectionText(selection));
   }, [selection]);
@@ -52,7 +55,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   }, []);
 
   const filteredOptions =
-    query === ""
+    debouncedQuery === ""
       ? options
       : options?.filter((option: SelectionType) => {
           return option.label.toLowerCase().includes(query.toLowerCase());

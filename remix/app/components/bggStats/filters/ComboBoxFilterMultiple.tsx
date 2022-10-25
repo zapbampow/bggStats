@@ -18,6 +18,7 @@ import type { FilterType } from "~/services/queryService/types";
 import ClearFilter from "./ClearFilter";
 import RemoveFilter from "./RemoveFilter";
 import Measurer from "~/components/bggStats/Measurer";
+import useDebounce from "~/hooks/useDebounce";
 
 type Props = {
   filter: FilterType;
@@ -38,6 +39,8 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   const [visible, setVisible] = useState(false);
   const [selectionText, setSelectionText] = useState("");
 
+  const debouncedQuery = useDebounce(query, 350);
+
   useEffect(
     function updateSelectionText() {
       const text = getSelectionText(selections);
@@ -47,7 +50,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   );
 
   const filteredOptions =
-    query === ""
+    debouncedQuery === ""
       ? options
       : options?.filter((option: SelectionType) => {
           let matchesQuery = option.label
