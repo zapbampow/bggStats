@@ -30,8 +30,10 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   let btnRef = useRef<HTMLButtonElement>(null);
   let filterBtnRef = useRef<HTMLDivElement>(null);
 
-  const [selections, setSelections] = useState<SelectionType[]>([]);
-  const [options, setOptions] = useState<SelectionType[]>([]);
+  const [selections, setSelections] = useState<SelectionType[]>([]); // selected options
+  const [allOptions, setAllOptions] = useState<SelectionType[]>([]);
+
+  const [options, setOptions] = useState<SelectionType[]>([]); // list of options
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(false);
   const [selectionText, setSelectionText] = useState("");
@@ -72,24 +74,26 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     });
   };
 
-  const getSetOptions = useCallback(async () => {
-    if (!user || options.length > 0) return;
+  const getInitialOptions = useCallback(async () => {
+    if (!user || allOptions.length) return;
+
     try {
       const options = await getOptions({ filter, user });
       if (options) {
+        setAllOptions(options);
         setOptions(options);
       }
     } catch (err) {
       console.log(err);
     }
-  }, [user, filter, options]);
+  }, [user, filter, allOptions]);
 
   useEffect(
     function setupOptions() {
       if (!filter) return;
-      getSetOptions();
+      getInitialOptions();
     },
-    [filter, getSetOptions]
+    [filter, getInitialOptions]
   );
 
   const clickButton = () => {
@@ -103,6 +107,25 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   const handleClear = () => {
     setSelections([{ value: "", label: "" }]);
+  };
+
+  const onClose = (open: boolean) => {
+    if (open) return;
+
+    if (!selections.length) {
+      setOptions(allOptions);
+      return;
+    }
+    const sorted = allOptions.sort((a, b) => {
+      let aSelected = selections.some((item) => a.value === item.value);
+      let bSelected = selections.some((item) => b.value === item.value);
+
+      if (aSelected && !bSelected) return -1;
+      if (!aSelected && bSelected) return 1;
+      return 0;
+    });
+
+    setOptions(sorted);
   };
 
   return (
@@ -132,6 +155,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
       <Combobox value={selections} onChange={handleChange} multiple={true}>
         {({ open }) => (
           <div className={`${!open ? "hidden" : ""} flex flex-col md:flex-row`}>
+            <ReorderOnClose open={open} onClose={() => onClose(open)} />
             <div>
               <div
                 className={`${containerBase} ${openMultiComboboxMenuStyles} divide-y divide-slate-500`}
@@ -207,4 +231,17 @@ const getSelectionText = (selections: SelectionType[]) => {
   }
 
   return selectionString;
+};
+
+type OnCloseProps = {
+  open: boolean;
+  onClose: () => void;
+};
+const ReorderOnClose = ({ open, onClose }: OnCloseProps) => {
+  useEffect(() => {
+    if (open) return;
+    onClose();
+  }, [open, onClose]);
+
+  return <></>;
 };

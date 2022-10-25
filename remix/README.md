@@ -5,8 +5,7 @@ Additional Aggregator Logic
 
 ## Next
 - ComboboxMultiselect & ComboboxSingle
-  - Prevent close on select
-  - On close, reorder to show selected at the top of the list when opened next
+  - debounce search results
 - Add trash can to all filter components like in the calendar
 - Rework the language of the filter
 - Add ability to reorder results by date in tanstack-table
