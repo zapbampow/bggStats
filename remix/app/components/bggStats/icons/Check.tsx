@@ -3,11 +3,13 @@ import type { ReactElement } from "react";
 type Props = {
   width?: number;
   className?: string;
+  strokeWidth?: number;
 };
 
 export default function CheckIcon({
   width = 24,
   className,
+  strokeWidth = 2,
 }: Props): ReactElement<any, any> {
   return (
     <svg
@@ -16,7 +18,7 @@ export default function CheckIcon({
       width={width}
       height={width}
       viewBox="0 0 24 24"
-      strokeWidth="2"
+      strokeWidth={strokeWidth}
       stroke="currentColor"
       fill="none"
       strokeLinecap="round"

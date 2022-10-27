@@ -4,11 +4,19 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- ComboboxMultiselect & ComboboxSingle
-  - debounce search results
-- Add trash can to all filter components like in the calendar
-- Rework the language of the filter
 - Add ability to reorder results by date in tanstack-table
+- Start adding dashboard aggregate components
+  - chart library
+  - Count
+  - Games
+  - Locations
+  - Dates
+  - Players
+- Design
+  - Add colorful background (in styles/bggStats/username.css)
+  - update color styles to look better with bg colors
+  - updates filter row to make buttons smaller and rounded
+  - make stuff rounder to feel friendlier with the colorful redesign
 
 ## Design
 - Update design

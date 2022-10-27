@@ -43,4 +43,4 @@ export const comboContainerStyles = `
   px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-100 focus-within:ring-2 focus-within:ring-cyan-500
 `;
 
-export const baseSelectItem = `px-1 hover:cursor-pointer`;
+export const baseSelectItem = `mx-1 px-1 hover:cursor-pointer`;

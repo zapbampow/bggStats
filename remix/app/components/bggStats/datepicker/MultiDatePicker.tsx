@@ -64,7 +64,7 @@ export default function DatePickerComponent({ filter }: Props) {
       onClick={() => setIsOpen(true)}
       className={`text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
     >
-      <div className="font-semibold">{filter.label}</div>
+      <div className="font-semibold">{filter.label}:</div>
       <DateRangePicker
         value={value}
         onChange={handleChange}

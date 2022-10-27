@@ -112,7 +112,7 @@ export default function ComboBoxFilter({ filter }: Props) {
       className={`relative flex items-center ${comboContainerStyles} hover:cursor-pointer`}
     >
       <Measurer
-        value={`${filter.label} ${selectionText}`}
+        value={`${filter.label}: ${selectionText}`}
         visible={visible}
         setVisible={setVisible}
         impactedRef={filterBtnRef}
@@ -123,13 +123,13 @@ export default function ComboBoxFilter({ filter }: Props) {
         className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
         onClick={clickButton}
       >
-        {filter.label} {selectionText}
+        {filter.label}: {selectionText}
         {selectionText ? (
           <button
             className="text-slate-400 hover:text-red-500"
             onClick={() => removeFilter(filter)}
           >
-            <Trash />
+            <Trash width={16} />
           </button>
         ) : null}
       </div>

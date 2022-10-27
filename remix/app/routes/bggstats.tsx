@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => {
 
 export default function BggStats() {
   return (
-    <div className="flex flex-col relative bg-slate-200">
+    <div className="flex flex-col relative bg-slate-200 bgg-gradient">
       <Navbar />
 
       <Outlet />

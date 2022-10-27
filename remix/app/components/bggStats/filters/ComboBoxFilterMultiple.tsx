@@ -134,7 +134,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   return (
     <div className={`relative ${comboContainerStyles} hover:cursor-pointer`}>
       <Measurer
-        value={`${filter.label} ${selectionText}`}
+        value={`${filter.label}: ${selectionText}`}
         visible={visible}
         setVisible={setVisible}
         impactedRef={filterBtnRef}
@@ -145,13 +145,13 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
         className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
         onClick={clickButton}
       >
-        {filter.label} {selectionText}
+        {filter.label}: {selectionText}
         {selectionText ? (
           <button
             className="text-slate-400 hover:text-red-500"
             onClick={() => removeFilter(filter)}
           >
-            <Trash />
+            <Trash width={16} />
           </button>
         ) : null}
       </div>
@@ -179,7 +179,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                   </Combobox.Button>
                 </div>
                 <Combobox.Options
-                  className={`max-h-72 overflow-y-auto px-4 py-2 `}
+                  className={`max-h-72 overflow-y-auto pr-4 py-2 `}
                   hold={true}
                   static={true}
                 >
@@ -191,19 +191,23 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                     >
                       {({ active, selected }) => (
                         <li
-                          className={`flex items-center gap-2 ${baseSelectItem} ${itemHoverStyles} ${
+                          className={`flex items-center gap-1 ${baseSelectItem} ${itemHoverStyles} ${
                             selected ? "font-semibold" : ""
                           } ${active ? comboActiveItem : ""}
                         `}
                         >
                           {selected ? (
-                            <Check width={16} className="text-green-500" />
+                            <div className="w-4">
+                              <Check
+                                width={16}
+                                strokeWidth={3}
+                                className="text-green-500"
+                              />
+                            </div>
                           ) : (
-                            <div style={{ width: "16px" }} />
+                            <div className="w-4" />
                           )}
-                          <span className={`inline-block `}>
-                            {option.label}
-                          </span>
+                          <span className={`flex-1`}>{option.label}</span>
                         </li>
                       )}
                     </Combobox.Option>

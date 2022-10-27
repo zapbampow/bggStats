@@ -120,22 +120,22 @@ const filterTree = {
     filters: [],
     "game name": [
       // ↑↑↑ using string for key because it's used for the section heading in the add menu button select options
-      { value: "gameName", label: "of" },
-      { value: "gameNames", label: "of these games:" },
+      { value: "gameName", label: "Game" },
+      { value: "gameNames", label: "Games" },
     ],
     time: [
-      { value: "onDate", label: "on" },
-      { value: "betweenDates", label: "between" },
-      { value: "afterDate", label: "after" },
-      { value: "beforeDate", label: "before" },
-      { value: "all", label: "for all time" },
+      { value: "onDate", label: "On" },
+      { value: "betweenDates", label: "Between" },
+      { value: "afterDate", label: "After" },
+      { value: "beforeDate", label: "Before" },
+      // { value: "all", label: "for all time" },
     ],
     players: [
-      { value: "withAllPlayerNames", label: "with" },
-      { value: "withOnlyPlayerNames", label: "with only" },
-      { value: "withAnyPlayerNames", label: "with any of" },
-      { value: "whereSinglePlayerNameWon", label: "where the winner was" },
-      { value: "wherePlayerNamesWon", label: "where the winners were" },
+      { value: "withAllPlayerNames", label: "With all" },
+      { value: "withOnlyPlayerNames", label: "With only" },
+      { value: "withAnyPlayerNames", label: "With any" },
+      { value: "whereSinglePlayerNameWon", label: "Where the winner was" },
+      { value: "wherePlayerNamesWon", label: "Where the winners were" },
       // "of", // game name
       // "at", // location
       // "with", // players
@@ -151,7 +151,7 @@ const filterTree = {
       // "where player rated game",  // rating
       // "where player color was", // color
     ],
-    location: [{ value: "location", label: "at" }],
+    location: [{ value: "location", label: "At" }],
   },
 };
 

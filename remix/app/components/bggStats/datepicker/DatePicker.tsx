@@ -72,7 +72,7 @@ export default function DatePickerComponent({ filter }: Props) {
         setIsOpen(true);
       }}
     >
-      <div className="font-semibold">{filter.label}</div>
+      <div className="font-semibold">{filter.label}:</div>
       <div>
         <DatePicker
           value={value}
