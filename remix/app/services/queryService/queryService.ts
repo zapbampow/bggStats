@@ -40,8 +40,12 @@ export const getInitialPlayData = async (userId: number) => {
       .where("recordingUserId")
       .equals(userId)
       .toArray();
-
-    return plays || [];
+    const sorted = plays.sort((a, b) => {
+      if (a.date > b.date) return -1;
+      if (a.date < b.date) return 1;
+      return 0;
+    });
+    return sorted || [];
   } catch (err) {
     console.log(err);
     return [];

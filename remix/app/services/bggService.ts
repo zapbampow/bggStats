@@ -2,9 +2,13 @@
 import { convertXmlToJsObject } from "../utils/conversion/xmlToJson";
 // import tenaciousFetch from "tenacious-fetch";
 import fetchRetry from "fetch-retry";
-import { BGGData, BGGPlay, BGGPlayerData } from "~/models/bgg/incomingBggData";
-import { PlayDataModel, PlayerModel } from "~/models/bgg/gameDataModels";
-import { UserInfo } from "~/models/bgg/userInfo";
+import type {
+  BGGData,
+  BGGPlay,
+  BGGPlayerData,
+} from "~/models/bgg/incomingBggData";
+import type { PlayDataModel, PlayerModel } from "~/models/bgg/gameDataModels";
+import type { UserInfo } from "~/models/bgg/userInfo";
 
 type FetchOptions = {
   username: string;

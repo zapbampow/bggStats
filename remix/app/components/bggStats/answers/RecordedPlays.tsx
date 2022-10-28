@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Container } from "~/components/bggStats/pages/layout";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { cellStyle } from "./tableStyles";
@@ -8,6 +7,8 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  sortingFns,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import PaginationRow from "./PaginationRow";
 import { ExternalLink } from "../icons";
@@ -32,18 +33,22 @@ export default function RecordedPlays() {
         );
       },
       header: () => "",
+      enableSorting: false,
     }),
     columnHelper.accessor("date", {
       cell: (data) => data.getValue(),
       header: () => "Date",
+      sortingFn: sortingFns.datetime,
     }),
     columnHelper.accessor("gameName", {
       cell: (data) => data.getValue(),
       header: () => "Game",
+      sortingFn: sortingFns.basic,
     }),
     columnHelper.accessor("location", {
       cell: (data) => data.getValue(),
       header: () => "Location",
+      sortingFn: sortingFns.basic,
     }),
     columnHelper.accessor("players", {
       cell: (data) => {
@@ -54,6 +59,7 @@ export default function RecordedPlays() {
         return names;
       },
       header: () => "Players",
+      enableSorting: false,
     }),
   ];
 
@@ -62,6 +68,7 @@ export default function RecordedPlays() {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -85,7 +92,11 @@ export default function RecordedPlays() {
                     // Loop over the headers in each row
                     headerGroup.headers.map((header) => (
                       // Apply the header cell props
-                      <th key={header.id} className={`${cellStyle} border-b`}>
+                      <th
+                        key={header.id}
+                        className={`${cellStyle} border-b`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
                         {
                           // Render the header
                           header.isPlaceholder
