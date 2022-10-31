@@ -11,12 +11,14 @@ import RecordedPlays from "../answers/RecordedPlays";
 import filter from "~/services/queryService";
 import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 import useFilteredData from "~/contexts/bggStats/useFilteredData";
+import AggregatorRow from "../aggregators/AggregatorRow";
 
 export default function PlaysDashboard() {
   useFilteredData();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-8">
+      <AggregatorRow />
       <FilterBar />
       <RecordedPlays />
     </div>

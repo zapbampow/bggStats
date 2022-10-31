@@ -4,7 +4,8 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- Add ability to reorder results by date in tanstack-table
+- Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
+  - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
 - Start adding dashboard aggregate components
   - chart library
   - Count
