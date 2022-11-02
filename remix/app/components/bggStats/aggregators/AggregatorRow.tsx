@@ -7,9 +7,10 @@ export default function AggregatorRow() {
     <Container className="mb-8">
       <div className="flex gap-4">
         <LocationsCard />
+        {/* <LocationsCard />
         <LocationsCard />
         <LocationsCard />
-        <LocationsCard />
+        <LocationsCard /> */}
       </div>
     </Container>
   );

@@ -7,10 +7,13 @@ Additional Aggregator Logic
 - Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
 - Start adding dashboard aggregate components
+  - Locations
+    - [x] chart added
+    - [x] click event added which adds a filter and runs the filters
+    - [ ] Make filter button show selection from click event 
   - chart library
   - Count
   - Games
-  - Locations
   - Dates
   - Players
 - Design
