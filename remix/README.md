@@ -10,7 +10,8 @@ Additional Aggregator Logic
   - Locations
     - [x] chart added
     - [x] click event added which adds a filter and runs the filters
-    - [ ] Make filter button show selection from click event 
+    - [x] Make filter button show selection from click event 
+    - [ ] ComboBox singles still not showing selected styles because it doesn't seem to recognize what is actually selected
   - chart library
   - Count
   - Games

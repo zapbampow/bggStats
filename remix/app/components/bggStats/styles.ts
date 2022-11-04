@@ -28,7 +28,7 @@ export const openMultiComboboxMenuStyles = `
   bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-full md:w-[350px] absolute left-0 top-[5.5rem] md:top-12 w-fit
 `;
 export const openComboboxMenuStyles = `
-  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-max min-w-min absolute left-0 top-[2.75rem] mt-1 w-fit
+  bg-slate-100 shadow-lg shadow-slate-500/20 z-10 w-full md:w-[350px] absolute left-0 top-[2.75rem] mt-1 w-fit
 `;
 
 export const comboActiveItem = `

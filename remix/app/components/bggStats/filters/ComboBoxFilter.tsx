@@ -23,7 +23,7 @@ import Measurer from "~/components/bggStats/Measurer";
 import type { FilterType } from "~/services/queryService/types";
 import RemoveFilter from "./RemoveFilter";
 import ClearFilter from "./ClearFilter";
-import { Search, Trash } from "../icons";
+import { Check, Search, Trash } from "../icons";
 import useDebounce from "~/hooks/useDebounce";
 
 type Props = {
@@ -44,15 +44,7 @@ export default function ComboBoxFilter({ filter }: Props) {
 
   const debouncedQuery = useDebounce(query, 350);
 
-  useEffect(() => {
-    setSelectionText(getSelectionText(selection));
-  }, [selection]);
-
   const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    btnRef?.current?.click();
-  }, []);
 
   const filteredOptions =
     debouncedQuery === ""
@@ -64,6 +56,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   const handleChange = (selection: string) => {
     let selectionObject = options.find((option) => option.value === selection);
     setSelection(selectionObject);
+    setSelectionText(getSelectionText(selectionObject));
 
     if (!selectionObject) return;
     dispatch({
@@ -77,6 +70,19 @@ export default function ComboBoxFilter({ filter }: Props) {
     });
   };
 
+  const setInitialSelection = useCallback(
+    (options: SelectionType[], filter) => {
+      if (!filter.arg || !options.length) return;
+
+      let selectionObject = options.find(
+        (option) => option.label === filter.arg
+      );
+      setSelection(selectionObject);
+      setSelectionText(getSelectionText(selectionObject));
+    },
+    []
+  );
+
   const getSetOptions = useCallback(async () => {
     if (!user) return;
 
@@ -84,11 +90,28 @@ export default function ComboBoxFilter({ filter }: Props) {
       const options = await getOptions({ filter, user });
       if (options) {
         setOptions(options);
+        setInitialSelection(options, filter);
       }
     } catch (err) {
       console.log(err);
     }
-  }, [user, filter]);
+  }, [user, filter, setInitialSelection]);
+
+  useEffect(
+    function openOptionsOnFirstRender() {
+      // don't open if there's a filter arg passed from the dashboard charts
+      if (filter.arg) return;
+      btnRef?.current?.click();
+    },
+    [filter.arg]
+  );
+
+  // useEffect(
+  //   function setSelectionTextForNewSelection() {
+  //     setSelectionText(getSelectionText(selection));
+  //   },
+  //   [selection]
+  // );
 
   useEffect(
     function SetupOptions() {
@@ -105,6 +128,7 @@ export default function ComboBoxFilter({ filter }: Props) {
 
   const handleClear = () => {
     setSelection({ value: "", label: "" });
+    setSelectionText("");
   };
 
   return (
@@ -173,19 +197,28 @@ export default function ComboBoxFilter({ filter }: Props) {
                         value={option.value}
                         as={Fragment}
                       >
-                        {({ active, selected }) => (
-                          <li
-                            className={`${baseSelectItem} ${itemHoverStyles} ${
-                              selected ? "font-bold" : ""
-                            } ${active ? comboActiveItem : ""}
-            
-                      `}
-                          >
-                            <span className={`inline-block `}>
-                              {option.label}
-                            </span>
-                          </li>
-                        )}
+                        {({ active, selected }) => {
+                          return (
+                            <li
+                              className={`${baseSelectItem} ${itemHoverStyles} ${
+                                selected ? "font-bold" : ""
+                              } ${active ? comboActiveItem : ""}`}
+                            >
+                              {selected ? (
+                                <div className="w-4">
+                                  <Check
+                                    width={16}
+                                    strokeWidth={3}
+                                    className="text-green-500"
+                                  />
+                                </div>
+                              ) : (
+                                <div className="w-4" />
+                              )}
+                              <span className={`flex-1`}>{option.label}</span>
+                            </li>
+                          );
+                        }}
                       </Combobox.Option>
                     );
                   })}
