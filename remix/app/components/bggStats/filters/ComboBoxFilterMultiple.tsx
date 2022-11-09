@@ -64,6 +64,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
         });
 
   const handleChange = (selections: SelectionType[]) => {
+    console.log("handleChange", selections);
     setSelections(selections);
 
     dispatch({
@@ -179,7 +180,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                   </Combobox.Button>
                 </div>
                 <Combobox.Options
-                  className={`max-h-72 overflow-y-auto pr-4 py-2 `}
+                  className={`max-h-72 overflow-y-auto py-2 `}
                   hold={true}
                   static={true}
                 >

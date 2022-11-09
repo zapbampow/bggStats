@@ -7,16 +7,11 @@ Additional Aggregator Logic
 - Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
 - Start adding dashboard aggregate components
-  - Locations
-    - [x] chart added
-    - [x] click event added which adds a filter and runs the filters
-    - [x] Make filter button show selection from click event 
-    - [ ] ComboBox singles still not showing selected styles because it doesn't seem to recognize what is actually selected
   - chart library
-  - Count
-  - Games
-  - Dates
-  - Players
+    - Players
+    - Count
+    - Games
+    - Dates
 - Design
   - Add colorful background (in styles/bggStats/username.css)
   - update color styles to look better with bg colors

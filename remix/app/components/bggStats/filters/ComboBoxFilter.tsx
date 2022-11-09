@@ -53,19 +53,18 @@ export default function ComboBoxFilter({ filter }: Props) {
           return option.label.toLowerCase().includes(query.toLowerCase());
         });
 
-  const handleChange = (selection: string) => {
-    let selectionObject = options.find((option) => option.value === selection);
-    setSelection(selectionObject);
-    setSelectionText(getSelectionText(selectionObject));
+  const handleChange = (selection: SelectionType) => {
+    setSelection(selection);
+    setSelectionText(getSelectionText(selection));
 
-    if (!selectionObject) return;
+    if (!selection) return;
     dispatch({
       type: "upsert",
       filter: {
         order: filter.order,
         filter: filter.filter,
         label: filter.label,
-        arg: selectionObject.label,
+        arg: selection.label,
       },
     });
   };
@@ -105,13 +104,6 @@ export default function ComboBoxFilter({ filter }: Props) {
     },
     [filter.arg]
   );
-
-  // useEffect(
-  //   function setSelectionTextForNewSelection() {
-  //     setSelectionText(getSelectionText(selection));
-  //   },
-  //   [selection]
-  // );
 
   useEffect(
     function SetupOptions() {
@@ -187,20 +179,20 @@ export default function ComboBoxFilter({ filter }: Props) {
                 </div>
                 <Combobox.Options
                   id={comboboxId}
-                  className={`max-h-72 overflow-y-auto px-4 py-2 `}
+                  className={`max-h-72 overflow-y-auto py-2`}
                   static={true}
                 >
                   {filteredOptions?.map((option) => {
                     return (
                       <Combobox.Option
                         key={option.value}
-                        value={option.value}
+                        value={option}
                         as={Fragment}
                       >
                         {({ active, selected }) => {
                           return (
                             <li
-                              className={`${baseSelectItem} ${itemHoverStyles} ${
+                              className={`flex items-center gap-1  ${baseSelectItem} ${itemHoverStyles} ${
                                 selected ? "font-bold" : ""
                               } ${active ? comboActiveItem : ""}`}
                             >
