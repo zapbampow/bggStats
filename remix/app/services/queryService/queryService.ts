@@ -12,6 +12,7 @@ import {
   withOnlyPlayerNames,
   withAllPlayerNames,
   withAnyPlayerNames,
+  withPlayerName,
 } from "./filterByPlayerName";
 import {
   whereSinglePlayerNameWon,
@@ -65,6 +66,7 @@ type FilterName =
   | "listPlayData"
   | "gameName"
   | "location"
+  | "withPlayerName"
   | "withOnlyPlayerNames"
   | "withAllPlayerNames"
   | "withAnyPlayerNames"
@@ -97,6 +99,7 @@ const argFunctionPairs = {
   gameNames: gameNames,
   location: location,
   locations: locations,
+  withPlayerName: withPlayerName,
   withAllPlayerNames: withAllPlayerNames,
   withOnlyPlayerNames: withOnlyPlayerNames,
   withAnyPlayerNames: withAnyPlayerNames,

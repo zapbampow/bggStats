@@ -28,3 +28,13 @@ export function withAnyPlayerNames(names: string[]) {
       return players.length > 0;
     });
 }
+
+export function withPlayerName(name: string) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      let players = play.players.filter((player) => {
+        return name === player.name;
+      });
+      return players.length > 0;
+    });
+}

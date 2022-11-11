@@ -24,6 +24,8 @@ export default function FilterToComponent({ filter }: Props) {
       return <ComboBoxFilter key={filter.order} filter={filter} />;
     case "gameNames":
       return <ComboBoxFilterMultiple key={filter.order} filter={filter} />;
+    case "withPlayerName":
+      return <ComboBoxFilter key={filter.order} filter={filter} />;
     case "withAllPlayerNames":
       return <ComboBoxFilterMultiple key={filter.order} filter={filter} />;
     case "withOnlyPlayerNames":

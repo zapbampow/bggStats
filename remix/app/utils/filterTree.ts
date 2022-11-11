@@ -131,6 +131,7 @@ const filterTree = {
       // { value: "all", label: "for all time" },
     ],
     players: [
+      { value: "withPlayerName", label: "With player" },
       { value: "withAllPlayerNames", label: "With all" },
       { value: "withOnlyPlayerNames", label: "With only" },
       { value: "withAnyPlayerNames", label: "With any" },
