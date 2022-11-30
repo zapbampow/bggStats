@@ -4,6 +4,14 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
+- Months Card: Add years chart
+- Months Card: On year click, add filter for whole year. Navigate to months chart
+- Months Card: Add months chart to dates card
+- Months Card: On month click, update filter for only that month/year. Navigate to dates calendar
+- Months Card: Add dates calendar
+- Months Card: On date click, update filter for just that date. Allow multiselect for adding multiple dates.
+
+
 - Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
 - Start adding dashboard aggregate components
@@ -16,6 +24,7 @@ Additional Aggregator Logic
 - Design
   - Add colorful background (in styles/bggStats/username.css)
   - update color styles to look better with bg colors
+  - update or remove card and table shadow
   - updates filter row to make buttons smaller and rounded
   - make stuff rounder to feel friendlier with the colorful redesign
 
