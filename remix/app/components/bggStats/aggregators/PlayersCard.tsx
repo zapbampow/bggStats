@@ -17,8 +17,6 @@ import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Filler);
 
-console.log("defaults", defaults);
-
 type DataSet = {
   label: string;
   data: number[];
@@ -47,10 +45,7 @@ export default function PlayersCard() {
   const [playerCount, setPlayerCount] = useState(0);
 
   React.useEffect(() => {
-    console.log("state", state);
-
     const initial: Data = JSON.parse(JSON.stringify(initialData));
-    console.log("initial", initial);
 
     const countData = state.reduce((acc, cur) => {
       if (!cur.players.length) return acc;
@@ -82,8 +77,6 @@ export default function PlayersCard() {
       0
     );
 
-    console.log("totalGameCount", totalGameCount);
-
     const groupSmallerPlayersAsOther = Object.entries(countData).reduce(
       (acc, cur) => {
         const [name, count] = cur;
@@ -102,20 +95,16 @@ export default function PlayersCard() {
       {}
     );
 
-    console.log("groupSmallerPlayersAsOther", groupSmallerPlayersAsOther);
-
     const displayData = JSON.parse(JSON.stringify(initialData));
     displayData.labels = Object.keys(groupSmallerPlayersAsOther);
     displayData.datasets[0].data = Object.values(groupSmallerPlayersAsOther);
 
-    console.log("displayData", displayData);
-
     setData(displayData);
   }, [state]);
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log("data", data);
+  // }, [data]);
 
   const getDataFromEvent = (e) => {
     if (!chartRef?.current) return;

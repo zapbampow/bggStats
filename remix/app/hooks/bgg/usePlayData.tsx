@@ -6,19 +6,19 @@ import { getLatestPlayData } from "~/services/idbService";
 import {
   getInitialPlayData,
   getPlayDataWithExponentialBackingOff,
-  getLatestPlaysInfo
+  getLatestPlaysInfo,
 } from "../../services/bggService";
-import { useBggUser } from './useBggUser'
+import { useBggUser } from "./useBggUser";
 
 /**
  * This is a hook to encapsulate the getting and storing of data into indexedDB.
- * 
+ *
  * Whatit  should do?
  * 1. Check for existing data in IndexedDB
  * 2. Check whether there is new data to add from BGG.
  * 3. Add new data to the db
  * 4. Return percentRetrieved, function to manually update, errors
- * 
+ *
  * What it isn't going to do?
  * 1. Return all the data
  */
@@ -28,32 +28,39 @@ function usePlayData() {
   const [percentDone, setPercentDone] = useState(0);
   const [error, setError] = useState(null);
 
-  const handleFetching = async (user:UserInfo) => {
+  const handleFetching = async (user: UserInfo) => {
     try {
-      if(!user) {
-        throw Error("We cannot fetch user play data unless a user is set.")
+      if (!user) {
+        throw Error("We cannot fetch user play data unless a user is set.");
       }
 
-      const {latestPlayDate, latestPlayId } = await getLatestPlayData(user.userId);
+      const { latestPlayDate, latestPlayId } = await getLatestPlayData(
+        user.userId
+      );
 
-      if(latestPlayDate && latestPlayId) {
-        const latestPlaysInfo = await getLatestPlaysInfo(user.username, latestPlayDate);
+      if (latestPlayDate && latestPlayId) {
+        const latestPlaysInfo = await getLatestPlaysInfo(
+          user.username,
+          latestPlayDate
+        );
         const latestPlays = await getPlayDataWithExponentialBackingOff({
           username: user.username,
           pages: latestPlaysInfo.pages,
           startdate: latestPlayDate,
-          setPercentDone
-        })
-        const unrecordedPlays = latestPlays.filter(play => play.playId > latestPlayId)
-        bulkAddPlays(unrecordedPlays)
-        setError(null)
-
+          setPercentDone,
+        });
+        const unrecordedPlays = latestPlays.filter(
+          (play) => play.playId > latestPlayId
+        );
+        bulkAddPlays(unrecordedPlays);
+        setError(null);
       } else {
+        console.log("hit");
         const initialData = await getInitialPlayData(user.username);
         const allPlayData = await getPlayDataWithExponentialBackingOff({
           username: user.username,
           pages: initialData.pages,
-          setPercentDone
+          setPercentDone,
         });
         bulkAddPlays(allPlayData);
         setError(null);

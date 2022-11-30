@@ -12,6 +12,7 @@ Additional Aggregator Logic
     - Count
     - Games
     - Dates
+    - OTHER: Group anything under a certain percentage together as "Other" and make it unclickable
 - Design
   - Add colorful background (in styles/bggStats/username.css)
   - update color styles to look better with bg colors

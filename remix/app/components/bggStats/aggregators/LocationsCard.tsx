@@ -17,8 +17,6 @@ import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Filler);
 
-console.log("defaults", defaults);
-
 type DataSet = {
   label: string;
   data: number[];
@@ -84,10 +82,6 @@ export default function LocationsCard() {
     // console.log("reducedData", reducedData);
     setData(reducedData);
   }, [state]);
-
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
 
   const printDatasetAtEvent = (dataset: InteractionItem[]) => {
     if (!dataset.length) return;

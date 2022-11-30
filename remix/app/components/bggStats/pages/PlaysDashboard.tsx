@@ -14,11 +14,18 @@ import useFilteredData from "~/contexts/bggStats/useFilteredData";
 import AggregatorRow from "../aggregators/AggregatorRow";
 
 export default function PlaysDashboard() {
+  const user = useBggUser();
+  // TODO: Uncomment this before deploying because it keeps the data up to date
+  // usePlayData();
   useFilteredData();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen pb-8">
-      <AggregatorRow />
+      <AggregatorRow userId={user.userId} />
       <FilterBar />
       <RecordedPlays />
     </div>

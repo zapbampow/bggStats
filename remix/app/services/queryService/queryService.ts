@@ -53,6 +53,20 @@ export const getInitialPlayData = async (userId: number) => {
   }
 };
 
+export const getRecentPlays = async (userId: number, amount: number) => {
+  try {
+    const plays = await db.plays
+      .orderBy("date")
+      .reverse()
+      .limit(amount)
+      .toArray();
+    return plays || [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 /**
  * RUNS PIPE ON IndexDB DATA USING ARGS LIKE WE I WANT TO USE THEM IN BGGSTATS
  */
