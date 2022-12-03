@@ -1,45 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import type { PlayDataModel } from "~/models/bgg/gameDataModels";
-
-import { Card, CardTitle } from "./Card";
 import dayjs from "dayjs";
-import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
-
-type Props = {
-  userId: number;
-};
-
-export default function DatesCard({ userId }: Props) {
-  const { state } = usePlayResultsContext();
-  const [dateData, setDateData] = useState<DateGroup[]>([]);
-
-  useEffect(
-    function getPlayDatesData() {
-      console.log("state", state);
-      const dateData = convertToDateData(state);
-      console.log("dateData", dateData);
-      setDateData(dateData);
-    },
-    [state]
-  );
-
-  return (
-    <Card>
-      <CardTitle>Dates</CardTitle>
-    </Card>
-  );
-}
-
-type DateGroup = {
-  year: string;
-  count: number;
-  months: {
-    monthNum: number;
-    month: string;
-    count: number;
-    dates: string[];
-  }[];
-};
+import type { DateGroup } from "../../types";
+import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 
 const convertToDateData = (data: PlayDataModel[]) => {
   let dateData: DateGroup[] = data.reduce((acc: DateGroup[], cur) => {
@@ -98,6 +59,8 @@ const convertToDateData = (data: PlayDataModel[]) => {
 
     return acc;
   }, []);
-
+  // console.log("dateData", dateData);
   return dateData;
 };
+
+export default convertToDateData;

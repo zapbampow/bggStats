@@ -4,11 +4,12 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
-- Months Card: Add years chart
 - Months Card: On year click, add filter for whole year. Navigate to months chart
 - Months Card: Add months chart to dates card
+  - On back button click, update filter for whole year
 - Months Card: On month click, update filter for only that month/year. Navigate to dates calendar
 - Months Card: Add dates calendar
+  - On back button click, update filter for month/year
 - Months Card: On date click, update filter for just that date. Allow multiselect for adding multiple dates.
 
 

@@ -14,18 +14,10 @@ import type { InteractionItem } from "chart.js";
 import { Card, CardTitle, CardSummary } from "./Card";
 import { ChartColors } from "./ChartColors";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
+import type { Data } from "./types";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Filler);
 
-type DataSet = {
-  label: string;
-  data: number[];
-};
-type Data = {
-  labels: string[];
-  datasets: DataSet[];
-  backgroundColor: string[];
-};
 const initialData: Data = {
   labels: [],
   datasets: [

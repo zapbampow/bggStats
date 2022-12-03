@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 // import DatePicker from "react-date-picker/dist/entry.nostyle";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/entry.nostyle";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
-import { useBggUser } from "~/hooks/bgg/useBggUser";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  Trash,
-} from "../icons";
-import type { FilterButtonData } from "../types";
+import { ChevronLeft, ChevronRight, Trash } from "../icons";
 import { baseStyles } from "~/components/bggStats/styles";
 import type { FilterType } from "~/services/queryService/types";
 
@@ -21,13 +13,27 @@ interface Props {
   filter: FilterType;
 }
 export default function DatePickerComponent({ filter }: Props) {
-  const user = useBggUser();
   const { state, dispatch } = usePlayFilterContext();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [value, setValue] = React.useState([new Date(), new Date()]);
+  const getInitialValues = (dates: string[]) => {
+    // I understand that an error gets throw because of how this date gets formatted, but this is the only way I was able to pass in a date that ignored time zone in the input
+    const initDates = dates.map((date) => {
+      let str = new Date(Date.parse(date)).toISOString();
+      // Remove the freaking time zone Z marker!
+      return str.slice(0, str.length - 1);
+    });
+    return initDates;
+  };
+
+  const [value, setValue] = useState(
+    typeof filter.arg !== "string" && filter?.arg
+      ? getInitialValues(filter.arg)
+      : [new Date(), new Date()]
+  );
 
   const handleChange = (value: any) => {
+    console.log("typeof value", typeof value);
     setValue(value);
 
     let sortedDates = [...value].sort((date1, date2) => {
@@ -38,6 +44,7 @@ export default function DatePickerComponent({ filter }: Props) {
       if (d1 < d2) return -1;
       return 0;
     });
+    console.log("sortedDates", sortedDates);
 
     dispatch({
       type: "upsert",
@@ -62,7 +69,7 @@ export default function DatePickerComponent({ filter }: Props) {
   return (
     <div
       onClick={() => setIsOpen(true)}
-      className={`text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
+      className={`relative text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
     >
       <div className="font-semibold">{filter.label}:</div>
       <DateRangePicker
@@ -75,7 +82,7 @@ export default function DatePickerComponent({ filter }: Props) {
         nextLabel={<ChevronRight width={16} />}
         prevLabel={<ChevronLeft width={16} />}
         format="yyyy-MM-dd"
-        autoFocus={true}
+        autoFocus={false}
         openCalendarOnFocus={true}
         isOpen={isOpen}
         onCalendarClose={() => setIsOpen(false)}

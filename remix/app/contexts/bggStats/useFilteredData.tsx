@@ -32,10 +32,10 @@ export default function useFilteredData() {
         item.filter === "listRecordedPlays" || item?.arg?.length
     );
 
-    console.log("filtersWithArgs", filtersWithArgs);
+    // console.log("filtersWithArgs", filtersWithArgs);
 
     const pipe = await filter(user.userId, filtersWithArgs);
-    console.log("pipe", pipe);
+    // console.log("pipe", pipe);
     // setFilteredResults(pipe);
     resultsDispatch({
       type: "setFilteredResults",
