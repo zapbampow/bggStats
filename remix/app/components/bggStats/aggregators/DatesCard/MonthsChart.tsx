@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import type { Dispatch, SetStateAction, Event } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,10 +10,9 @@ import {
 } from "chart.js";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import type { DateGroup } from "../types";
-import getYearChartData from "./utils/getYearChartData";
+import getMonthsChartDataByYear from "./utils/getMonthsChartDataByYear";
 import type { Screen } from "../types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
-import { useDatesCardContext } from "./DatesCardContext";
 
 ChartJS.register(
   CategoryScale,
@@ -29,8 +27,7 @@ export const options = {
   indexAxis: "y" as const,
   updateMode: "show",
   responsive: true,
-  // maintainAspectRatio: false,
-  aspectRatio: 0.8,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       display: false,
@@ -43,7 +40,7 @@ export const options = {
   },
 };
 
-const getDataFromEvent = (e: Event, chartRef, data) => {
+const getDataFromEvent = (e, chartRef, data) => {
   if (!chartRef?.current) return;
   const el = getElementAtEvent(chartRef.current, e);
 
@@ -56,48 +53,41 @@ const getDataFromEvent = (e: Event, chartRef, data) => {
 
 type Props = {
   data: DateGroup[];
+  setScreen: Dispatch<SetStateAction<Screen>>;
 };
-export default function YearChart({ data }: Props) {
+export default function MonthsChart({ data, setScreen }: Props) {
   const { state: filterState, dispatch } = usePlayFilterContext();
-  const {
-    state: datesCardState,
-    dispatch: datesCardDispatch,
-    setScreen,
-    setYear,
-    setFilterOrder,
-  } = useDatesCardContext();
   const chartRef = useRef();
-  const yearData = getYearChartData(data);
+  const monthsData = getMonthsChartDataByYear(data);
 
-  const handleClick = (e: Event) => {
-    const year = getDataFromEvent(e, chartRef, yearData);
-    console.log("year", year);
-    const dateFilterIndex = filterState.findIndex(
-      (item) => item.filter === "betweenDates"
-    );
-    const order = dateFilterIndex !== -1 ? dateFilterIndex : filterState.length;
-    setFilterOrder(order);
+  const handleClick = (e) => {
+    const month = getDataFromEvent(e, chartRef, monthsData);
+    console.log("month", month);
+    // const dateFilterIndex = filterState.findIndex(
+    //   (item) => item.filter === "betweenDates"
+    // );
+    // const order = dateFilterIndex !== -1 ? dateFilterIndex : filterState.length;
 
-    const startDate = `${year}-01-01`;
-    const endDate = `${year}-12-31`;
+    // const startDate = `${year}-01-01`;
+    // const endDate = `${year}-12-31`;
 
-    dispatch({
-      type: "upsert",
-      filter: {
-        order,
-        filter: "betweenDates",
-        label: "Between",
-        arg: [startDate, endDate],
-      },
-    });
+    // dispatch({
+    //   type: "upsert",
+    //   filter: {
+    //     order,
+    //     filter: "betweenDates",
+    //     label: "Between",
+    //     arg: [startDate, endDate],
+    //   },
+    // });
 
-    setScreen("months");
-    setYear(year);
+    // setScreen("months");
+    // setMonth(month)
   };
 
-  const handleMouseMove = (e: Event) => {
+  const handleMouseMove = (e) => {
     if (!chartRef?.current) return;
-    const label = getDataFromEvent(e, chartRef, yearData);
+    const label = getDataFromEvent(e, chartRef, monthsData);
 
     if (!label) {
       chartRef.current.canvas.style.cursor = "default";
@@ -106,13 +96,11 @@ export default function YearChart({ data }: Props) {
     }
   };
 
-  useEffect(() => {}, []);
-
   return (
     <div style={{ width: "100%" }}>
       <Bar
         ref={chartRef}
-        data={yearData}
+        data={monthsData}
         options={options}
         onClick={handleClick}
         onMouseMove={handleMouseMove}

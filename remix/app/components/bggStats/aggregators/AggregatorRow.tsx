@@ -12,11 +12,11 @@ type Props = {
 export default function AggregatorRow({ userId }: Props) {
   return (
     <Container className="mb-8">
-      <div className="flex gap-4">
-        <RecordedPlaysCard userId={userId} />
-        <LocationsCard />
-        <PlayersCard />
+      <div className="flex flex-wrap gap-4">
         <DatesCard userId={userId} />
+        <PlayersCard />
+        <LocationsCard />
+        <RecordedPlaysCard userId={userId} />
       </div>
     </Container>
   );

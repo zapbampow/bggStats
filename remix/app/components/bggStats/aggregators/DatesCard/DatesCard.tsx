@@ -3,9 +3,12 @@ import { Card, CardTitle } from "../Card";
 import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 import BackButton from "./BackButton";
 import type { Screen } from "../types";
-import YearChart from "./YearChart";
 import type { DateGroup } from "../types";
 import convertToDateData from "./utils/convertToDateData";
+import { DatesCardProvider, useDatesCardContext } from "./DatesCardContext";
+
+import YearChart from "./YearChart";
+import MonthsChart from "./MonthsChart";
 
 type Props = {
   userId: number;
@@ -13,8 +16,10 @@ type Props = {
 
 export default function DatesCard({ userId }: Props) {
   const { state } = usePlayResultsContext();
+  const {
+    state: { screen },
+  } = useDatesCardContext();
   const [dateData, setDateData] = useState<DateGroup[]>([]);
-  const [screen, setScreen] = useState<Screen>("year");
 
   useEffect(
     function getPlayDatesData() {
@@ -26,13 +31,17 @@ export default function DatesCard({ userId }: Props) {
   );
 
   return (
-    <Card>
-      <BackButton screen={screen} setScreen={setScreen} />
-      <CardTitle>Dates</CardTitle>
+    <DatesCardProvider>
+      <Card>
+        <div className="relative">
+          <BackButton screen={screen} />
+          <CardTitle>Days Played</CardTitle>
+        </div>
 
-      {screen === "year" && <YearChart data={dateData} />}
-      {screen === "months" && <YearChart data={dateData} />}
-      {screen === "month" && <YearChart data={dateData} />}
-    </Card>
+        {screen === "year" && <YearChart data={dateData} />}
+        {screen === "months" && <MonthsChart data={dateData} />}
+        {screen === "month" && <YearChart data={dateData} />}
+      </Card>
+    </DatesCardProvider>
   );
 }

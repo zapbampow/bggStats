@@ -4,6 +4,9 @@ Additional Aggregator Logic
 - It's possible that how many needs it's own seperate filter tree. I need to think through it a bit more.
 
 ## Next
+- Create DatesCardContext [DONE]
+- Figure out logic and data path of year/month/date for date card screens and components [DONE]
+- Update getMonthsChartDataByYear to form months data for chart
 - Months Card: On year click, add filter for whole year. Navigate to months chart
 - Months Card: Add months chart to dates card
   - On back button click, update filter for whole year

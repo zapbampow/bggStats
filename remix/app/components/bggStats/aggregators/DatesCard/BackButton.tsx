@@ -1,26 +1,56 @@
 import React from "react";
+import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { ChevronLeft } from "../../icons";
-import type { Screen } from "./DatesCard";
+import { useDatesCardContext } from "./DatesCardContext";
 
-type Props = {
-  screen: string;
-  setScreen: (screen: Screen) => void;
-};
+export default function BackButton() {
+  const {
+    state: { screen, filterOrder, year },
+    dispatch,
+    setScreen,
+    setYear,
+    setMonth,
+    setDays,
+  } = useDatesCardContext();
+  const {
+    state: filterState,
+    dispatch: filterDispatch,
+    removeFilter,
+  } = usePlayFilterContext();
 
-export default function BackButton({ screen, setScreen }: Props) {
   const handleClick = () => {
-    if (screen === "month") {
-      setScreen("year");
-    } else if (screen === "day") {
-      setScreen("month");
+    const filter = filterOrder && filterState[filterOrder];
+    if (!filter) return;
+
+    switch (screen) {
+      case "months":
+        setScreen("year");
+        setYear(null);
+        removeFilter(filter);
+        break;
+      case "month":
+        setScreen("months");
+        setMonth(null);
+        setDays([]);
+
+        const startDate = `${year}-01-01`;
+        const endDate = `${year}-12-31`;
+
+        filterDispatch({
+          type: "upsert",
+          filter: { ...filter, arg: [startDate, endDate] },
+        });
+        break;
+      default:
+        setScreen("year");
     }
   };
 
   if (screen === "year") return null;
 
   return (
-    <div onClick={handleClick}>
+    <button className="absolute -left-8 top-[2px]" onClick={handleClick}>
       <ChevronLeft />
-    </div>
+    </button>
   );
 }
