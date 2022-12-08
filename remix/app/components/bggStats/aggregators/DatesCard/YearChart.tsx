@@ -68,10 +68,12 @@ export default function YearChart({ data }: Props) {
   } = useDatesCardContext();
   const chartRef = useRef();
   const yearData = getYearChartData(data);
+  // console.log("yearData", yearData);
 
   const handleClick = (e: Event) => {
     const year = getDataFromEvent(e, chartRef, yearData);
-    console.log("year", year);
+    if (!year) return;
+
     const dateFilterIndex = filterState.findIndex(
       (item) => item.filter === "betweenDates"
     );
@@ -80,6 +82,9 @@ export default function YearChart({ data }: Props) {
 
     const startDate = `${year}-01-01`;
     const endDate = `${year}-12-31`;
+
+    setScreen("months");
+    setYear(year);
 
     dispatch({
       type: "upsert",
@@ -90,9 +95,6 @@ export default function YearChart({ data }: Props) {
         arg: [startDate, endDate],
       },
     });
-
-    setScreen("months");
-    setYear(year);
   };
 
   const handleMouseMove = (e: Event) => {
@@ -105,8 +107,6 @@ export default function YearChart({ data }: Props) {
       chartRef.current.canvas.style.cursor = "pointer";
     }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div style={{ width: "100%" }}>

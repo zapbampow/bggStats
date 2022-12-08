@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 // import DatePicker from "react-date-picker/dist/entry.nostyle";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/entry.nostyle";
@@ -12,16 +12,18 @@ const dateFormat = "YYYY-MM-DD";
 interface Props {
   filter: FilterType;
 }
-export default function DatePickerComponent({ filter }: Props) {
+export default function MultiDatePickerComponent({ filter }: Props) {
   const { state, dispatch } = usePlayFilterContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const getInitialValues = (dates: string[]) => {
     // I understand that an error gets throw because of how this date gets formatted, but this is the only way I was able to pass in a date that ignored time zone in the input
     const initDates = dates.map((date) => {
-      let str = new Date(Date.parse(date)).toISOString();
-      // Remove the freaking time zone Z marker!
-      return str.slice(0, str.length - 1);
+      let year = dayjs(date).year();
+      let month = dayjs(date).month();
+      let day = dayjs(date).date();
+
+      return new Date(year, month, day);
     });
     return initDates;
   };
@@ -65,6 +67,15 @@ export default function DatePickerComponent({ filter }: Props) {
       filter: filter,
     });
   };
+
+  useEffect(() => {
+    const newValue =
+      typeof filter.arg !== "string" && filter?.arg
+        ? getInitialValues(filter.arg)
+        : [new Date(), new Date()];
+
+    setValue(newValue);
+  }, [filter]);
 
   return (
     <div

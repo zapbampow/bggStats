@@ -140,7 +140,7 @@
 /* START DATERANGE PICKER STYLES */
 .react-daterange-picker {
   display: inline-flex;
-  /* position: relative; */
+  position: relative;
 }
 
 .react-daterange-picker,
@@ -429,5 +429,48 @@
   background-color: #e6e6e6;
 }
 
-
 /* START CALENDAR STYLES */
+
+/* START DASHBOARD CALENDAR */
+.dashboard_month_calendar.react-calendar .recorded-play-date,
+.dashboard_month_calendar.react-calendar .react-calendar__tile.recorded-play-date:active {
+  position: relative;
+  background-color: #00A6FBbb;
+  background-image: linear-gradient(to bottom right, #3f3a60, #583c6f, #763b78, #963679, #b62d72, #d22465, #e92550, #f83735, #ff5100);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.dashboard_month_calendar.react-calendar .recorded-play-date:before,
+.dashboard_month_calendar.react-calendar .react-calendar__tile.recorded-play-date:active:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gray;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+
+.dashboard_month_calendar.react-calendar .react-calendar__tile:not(.recorded-play-date) {
+  color: #757575;
+}
+
+.dashboard_month_calendar.react-calendar .react-calendar__tile:hover {
+  cursor: default;
+}
+
+.dashboard_month_calendar.react-calendar .react-calendar__tile:not(.recorded-play-date):hover {
+  background-color: inherit;
+}
+
+.dashboard_month_calendar.react-calendar .react-calendar__tile--active {
+  background-color: inherit;
+  color: inherit;
+}

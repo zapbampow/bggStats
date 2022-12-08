@@ -9,7 +9,7 @@ export default function getYearChartData(data: DateGroup[]): Data {
     labels: labels,
     datasets: [
       {
-        label: "Years",
+        label: "# of Dates",
         data: years,
         backgroundColor: Object.values(ChartColors),
       },

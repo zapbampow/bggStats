@@ -48,7 +48,7 @@ const DatesCardContext = React.createContext<
       setScreen: (screen: Screen) => void;
       setYear: (year: number | null) => void;
       setMonth: (month: number | null) => void;
-      setDays: (days: number[] | null) => void;
+      setDays: (days: number[]) => void;
       setFilterOrder: (filterOrder: number | null) => void;
     }
   | undefined

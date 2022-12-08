@@ -3,18 +3,19 @@ import { ChartColors } from "../../ChartColors";
 
 export default function getMonthsChartDataByYear(
   data: DateGroup[],
-  year: string
+  year: number
 ): Data {
-  //   TODO: get the months data from the year object
-  const labels = data.map((item) => item.year.toString());
-  const years = data.map((item) => item.count);
+  // console.log("data", data);
+  const months = data[0]?.months || [];
+  const labels = months.map((month) => month.month);
+  const amounts = months.map((month) => month.count);
 
   return {
     labels: labels,
     datasets: [
       {
-        label: "Years",
-        data: years,
+        label: "# of Dates",
+        data: amounts,
         backgroundColor: Object.values(ChartColors),
       },
     ],
