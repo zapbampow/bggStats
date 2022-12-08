@@ -80,10 +80,10 @@ export default function MonthsChart({ data }: Props) {
     );
     const order = dateFilterIndex !== -1 ? dateFilterIndex : filterState.length;
 
-    const date = dayjs(`${year}-${monthNum[month]}-01`);
-    const startOfMonth = date.startOf("month").date();
-    const endOfMonth = date.endOf("month").date();
-    const startDate = `${year}-${monthNum[month]}-${startOfMonth}`;
+    const endOfMonth = dayjs(`${year}-${monthNum[month]}-01`)
+      .endOf("month")
+      .date();
+    const startDate = `${year}-${monthNum[month]}-01`;
     const endDate = `${year}-${monthNum[month]}-${endOfMonth}`;
 
     dispatch({

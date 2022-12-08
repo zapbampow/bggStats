@@ -432,6 +432,10 @@
 /* START CALENDAR STYLES */
 
 /* START DASHBOARD CALENDAR */
+.dashboard_month_calendar.react-calendar {
+  background: none;
+}
+
 .dashboard_month_calendar.react-calendar .recorded-play-date,
 .dashboard_month_calendar.react-calendar .react-calendar__tile.recorded-play-date:active {
   position: relative;
@@ -474,3 +478,5 @@
   background-color: inherit;
   color: inherit;
 }
+
+/* END DASHBOARD CALENDAR */
