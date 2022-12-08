@@ -16,10 +16,10 @@ export default function PaginationRow({ table }: Props) {
   let pageCount = table.getPageCount();
   let currentPage = table.getState().pagination.pageIndex + 1;
 
-  if (pageCount === currentPage) return null;
+  if (pageCount <= 1) return null;
 
   return (
-    <div className="flex justify-between items-start gap-2">
+    <div className="flex items-start justify-between gap-2">
       {/* Previous page buttons */}
       <div>
         <button
@@ -46,7 +46,7 @@ export default function PaginationRow({ table }: Props) {
             {currentPage} of {pageCount}
           </strong>
         </span>
-        <div className="flex justify-center gap-4 flex-auto">
+        <div className="flex justify-center flex-auto gap-4">
           <span className="flex items-center gap-1">
             Go to page:
             <input
@@ -58,7 +58,7 @@ export default function PaginationRow({ table }: Props) {
                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
                 table.setPageIndex(page);
               }}
-              className="border p-1 rounded w-16"
+              className="w-16 p-1 border rounded"
             />
           </span>
           <select

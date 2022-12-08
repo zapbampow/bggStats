@@ -75,7 +75,7 @@ export default function RecordedPlays() {
     <>
       <Container className="overflow-x-scroll sm:overflow-visible">
         <table
-          className="w-full border-separate rounded-sm border shadow-lg shadow-slate-500"
+          className="w-full border border-separate rounded-sm"
           style={{ borderSpacing: 0 }}
         >
           <thead className="w-full border-b border-spacing-2">
