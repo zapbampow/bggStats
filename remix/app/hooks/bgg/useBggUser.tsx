@@ -19,7 +19,6 @@ export function useBggUser() {
       setUser(dbUserInfo);
     } else {
       const userInfo = await getUserInfo(username);
-      console.log("userInfo", userInfo);
 
       if (userInfo) {
         setUser(userInfo);

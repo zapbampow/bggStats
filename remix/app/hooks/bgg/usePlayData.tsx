@@ -23,10 +23,14 @@ import { useBggUser } from "./useBggUser";
  * 1. Return all the data
  */
 
-function usePlayData() {
+type Props = {
+  handleFiltering?: () => Promise<void>;
+};
+function usePlayData(props: Props) {
   const user = useBggUser();
   const [percentDone, setPercentDone] = useState(0);
   const [error, setError] = useState(null);
+  const [userFirstTime, setUserFirstTime] = useState(false);
 
   const handleFetching = async (user: UserInfo) => {
     try {
@@ -53,9 +57,13 @@ function usePlayData() {
           (play) => play.playId > latestPlayId
         );
         bulkAddPlays(unrecordedPlays);
+        if (props.handleFiltering) {
+          props.handleFiltering();
+        }
         setError(null);
       } else {
         console.log("hit");
+        setUserFirstTime(true);
         const initialData = await getInitialPlayData(user.username);
         const allPlayData = await getPlayDataWithExponentialBackingOff({
           username: user.username,
@@ -63,6 +71,9 @@ function usePlayData() {
           setPercentDone,
         });
         bulkAddPlays(allPlayData);
+        if (props.handleFiltering) {
+          props.handleFiltering();
+        }
         setError(null);
       }
     } catch (err) {
@@ -87,6 +98,7 @@ function usePlayData() {
     percentDone,
     manuallyUpdate: () => handleFetching(user),
     error,
+    userFirstTime,
   };
 }
 

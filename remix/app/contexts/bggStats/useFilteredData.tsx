@@ -14,6 +14,7 @@ export default function useFilteredData() {
 
   const handleFiltering = useCallback(async () => {
     if (!user?.userId) return;
+
     let filters = JSON.parse(JSON.stringify(state));
     // Update aggregator order value
     let index = filters.findIndex(
@@ -64,5 +65,5 @@ export default function useFilteredData() {
     },
     [handleFiltering]
   );
-  return null;
+  return { handleFiltering };
 }

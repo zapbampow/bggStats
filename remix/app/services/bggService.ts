@@ -89,7 +89,6 @@ export const getPlayDataWithExponentialBackingOff = async (options: {
 
     // Convert and flatten play data
     const convertedData = collectedXML?.map((page) => {
-      // TODO: update play data model in
       const converted = convertXmlToJsObject(page);
       const flattened = flattenBGGPlayData(converted);
       return flattened;
