@@ -1,4 +1,4 @@
-import Menu from "../icons/Menu";
+import NavMenu from "./NavMenu";
 import { HomeMeeple } from "../icons";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -20,9 +20,10 @@ export default function Navbar() {
       <div className="flex items-center text-xl font-medium text-slate-100">
         {username && `Play data for ${username}`}
       </div>
-      <a href="#menu">
-        <Menu />
-      </a>
+
+      <div className="relative">
+        <NavMenu />
+      </div>
     </nav>
   );
 }

@@ -14,6 +14,7 @@ import Meeple from "./Meeple";
 import Menu from "./Menu";
 import HomeMeeple from "./HomeMeeple";
 import Search from "./Search";
+import GithubIcon from "./GithubIcon";
 
 export {
   Backspace,
@@ -24,6 +25,7 @@ export {
   ChevronsLeft,
   ChevronsRight,
   ExternalLink,
+  GithubIcon,
   Home,
   HomeMeeple,
   Meeple,
