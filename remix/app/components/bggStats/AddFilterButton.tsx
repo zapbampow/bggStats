@@ -79,9 +79,9 @@ export default function AddFilterButton({ addFilterButton, display }: Props) {
         {({ open }) => (
           <>
             <Listbox.Button
-              className={`${baseStyles} font-semibold hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700  ${
+              className={`${baseStyles} font-semibold  ${
                 open ? openButtonStyles : "border-transparent"
-              }  hover:bg-slate-500/25 hover:shadow-lg hover:shadow-slate-500/10 transition duration-700`}
+              }  `}
             >
               Add Filter +
             </Listbox.Button>
