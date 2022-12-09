@@ -112,10 +112,10 @@ export default function UsernamePlays() {
   // };
 
   return (
-    <div className="min-h-screen worksans font-normal">
+    <div className="font-normal worksans">
       <div className="bg-slate-200">
         <Container>
-          <h1 className="text-6xl text-slate-700 font-extrabold mb-4  text-center">
+          <h1 className="mb-4 text-6xl font-extrabold text-center text-slate-700">
             Explore{" "}
             <span className="italic font-extralight">{user?.username}'s</span>{" "}
             Play Data
@@ -123,8 +123,8 @@ export default function UsernamePlays() {
           <div className="text-center">
             Updating: {percentDone === 100 ? "Complete" : `${percentDone}%`}
           </div>
-          <div className="mt-20 max-w-xl border border-slate-500 mx-auto">
-            <div className="filters flex flex-col justify-center md:flex-row flex-wrap gap-2 mb-8">
+          <div className="max-w-xl mx-auto mt-20 border border-slate-500">
+            <div className="flex flex-col flex-wrap justify-center gap-2 mb-8 filters md:flex-row">
               <Aggregator />
               {/* Filter components */}
               {state.slice(1).map((filter: FilterType) => {

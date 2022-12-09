@@ -7,6 +7,7 @@ Additional Aggregator Logic
 - Add username box at /bggStats
   - use the plays styles
   - submitting sends to /<username>/plays
+- add progress bar for downloading user data
 - Add a nav menu that slides in
   - About with history
   - Link to github

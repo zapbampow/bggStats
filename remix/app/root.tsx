@@ -5,13 +5,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "remix";
-import type { MetaFunction, LinksFunction } from "remix";
-import styles from "./styles/app.css"
+} from "@remix-run/react";
+import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import styles from "./styles/app.css";
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
-];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };

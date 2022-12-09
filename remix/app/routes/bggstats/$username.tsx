@@ -1,5 +1,5 @@
-import type { LoaderFunction, LinksFunction } from "remix";
-import { redirect } from "remix";
+import type { LoaderFunction, LinksFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import styles from "~/styles/bggStats/username.css";
 
 export const links: LinksFunction = () => {
