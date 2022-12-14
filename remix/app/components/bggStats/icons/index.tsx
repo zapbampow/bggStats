@@ -15,6 +15,7 @@ import Menu from "./Menu";
 import HomeMeeple from "./HomeMeeple";
 import Search from "./Search";
 import GithubIcon from "./GithubIcon";
+import Settings from "./Settings";
 
 export {
   Backspace,
@@ -32,6 +33,7 @@ export {
   Menu,
   Search,
   Selector,
+  Settings,
   Times,
   Trash,
 };

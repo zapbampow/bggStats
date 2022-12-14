@@ -1,13 +1,14 @@
 body {
+    --blue-orange-gradient: linear-gradient(to bottom right, #3f3a60, #583c6f, #763b78, #963679, #b62d72, #d22465, #e92550, #f83735, #ff5100);
     /* background: linear-gradient(240deg, hsla(20,50%,50%,.1), hsla(250,50%,50%,.1)) */
 }
 
 .bgg-gradient {
-    background: linear-gradient(to bottom right, #3f3a60, #583c6f, #763b78, #963679, #b62d72, #d22465, #e92550, #f83735, #ff5100);
+    background: var(--blue-orange-gradient);
 }
 
 .text-gradient {
-    background: linear-gradient(to bottom right, #3f3a60, #583c6f, #763b78, #963679, #b62d72, #d22465, #e92550, #f83735, #ff5100);
+    background: var(--blue-orange-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

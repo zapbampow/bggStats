@@ -1,0 +1,41 @@
+---
+meta:
+  title: About BGG Play Stats
+  description: All the details - what inspired me to create it, how I built it, and how to use it.
+---
+
+# About BGG Play Stats
+
+## Inspiration
+
+At the end of every year lots of board gamers think back over the year and ask all sorts of questions. I'm no different. Questions like, "How many games did I play? Which games did I play the most?"
+
+I've been recording the games I play since 2009. I started just recording the date and the game. Over time I added other information like the people I played with, the location, and the winner. With more data I asked more complex questions, like "How many games did I play with just my family and how many did each person win?"
+
+For a couple of years I downloaded my play data from [a tool I found on BGG](http://www.sheltonsonline.net/bggtools/getplays). I would download a csv file, open it in Excel, and build formulas to calculate what I wanted to know. But every year I had to relearn how to do that in Excel.
+
+Then I thought, "Clayton, you're a developer. Why don't you build something to get all that data and answer your questions with the tools you ARE familiar with?"
+
+The first idea was to create a system where the user could build a question using a set of selectors that created an question sentence. "How many games did I play between Jan 1, 2021 and Dec 31, 2021? Who did I play 7 Wonders with in Atlanta, GA? How many games did I win playing with only these 3 people?" I largely built it out, but it was pretty ugly and I couldn't come up with a design that looked even remotely good on mobile.
+
+Then I had a series of conversations with my wife that made me realize I could get all the same questions answered more easily, and it would look a lot better, if I took a dashboard style approach. The filtering code didn't change at all. It was just a matter of creating some chart components that allowed drilling down into the data by interacting with them. So I started down the path of redesigning and am pretty happy with the result.
+
+I created this primarily for myself. I wanted to get answers to my particular questions. I was interested in the technical challenges coding it would entail. I happened to have a little extra time in my life this year to work on something like this more regularly.
+
+But I'm making it available to the broader community to use too. You may hate it or love it. It may not answer the particular questions you want answered or in the way you want them. But I hope that some folks find it helpful.
+
+## Other BGG Data Tools
+
+There is other data that you can track in BGG that this app doesn't currently look at. Things like color played and scores. If you want more than this has to offer, then there are awesome people out there who have [their own projects](https://boardgamegeek.com/guild/1229) to let you see your play data in other ways. Some of the tools I've used in the past or know others love include the following.
+
+**[Christian Shelton's Plays Download Tool](http://www.sheltonsonline.net/bggtools/getplays)**
+
+Get raw play data. Download as an excel document. This is where I used to download all my data.
+
+**[Board Gamer Tools](http://www.boredgamertools.com/)**
+
+It has some nice pie charts based on your play data along with a bunch of other stuff. It also has some features around your collection, including a recommendation tool for games you may like.
+
+**[Board Game Stats App](https://www.bgstatsapp.com/)**
+
+This mobile app is definitely the most popular app for game related stats. People who use it love it (I've never used it). It probably even answers some of the same questions BGG Play Stats does, and it certainly does a lot more. The husband and wife who built it also built the official BGG app. So they clearly knows what they're doing.

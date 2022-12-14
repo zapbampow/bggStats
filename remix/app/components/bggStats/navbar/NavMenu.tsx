@@ -1,13 +1,29 @@
 import React, { Fragment } from "react";
 import { Menu } from "@headlessui/react";
-import { GithubIcon, Meeple, Menu as MenuIcon, Trash } from "../icons";
+import {
+  GithubIcon,
+  Meeple,
+  Menu as MenuIcon,
+  Settings,
+  Trash,
+} from "../icons";
 import { Link } from "@remix-run/react";
 
 const links = [
   { href: "/bggstats/about", label: "About", icon: <Meeple width={16} /> },
   {
+    href: "/bggstats/how-to-use",
+    label: "How to Use",
+    icon: <Meeple width={16} />,
+  },
+  {
+    href: "/bggstats/settings",
+    label: "Manage your data",
+    icon: <Settings width={16} />,
+  },
+  {
     href: "https://github.com/zapbampow/bggStats",
-    label: "GitHub",
+    label: "See the code",
     external: true,
     icon: <GithubIcon />,
   },
@@ -42,11 +58,6 @@ export default function NavMenu() {
             )}
           </Menu.Item>
         ))}
-
-        <Menu.Item as={"button"} className="flex items-center gap-2 basis-full">
-          <Trash width={16} />
-          Delete data saved in your browser
-        </Menu.Item>
       </Menu.Items>
     </Menu>
   );

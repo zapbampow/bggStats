@@ -1,0 +1,20 @@
+.markdown *+* {
+    margin-top: 1em;
+}
+
+.markdown h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.markdown h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.markdown a {
+    background-image: var(--blue-orange-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}

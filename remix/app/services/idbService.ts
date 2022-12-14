@@ -13,6 +13,23 @@ export const getLatestPlayData = async (userId: number) => {
   };
 };
 
+export const getUsers = async () => {
+  const users = await db.users.toArray();
+  return users;
+};
+
+export const deleteUserAndPlaysByUserId = async (userId: number) => {
+  const deleteCount = await db.plays
+    .where("recordingUserId")
+    .equals(userId)
+    .delete();
+  const userDeleteCount = await db.users
+    .where("userId")
+    .equals(userId)
+    .delete();
+  return { playsDeleted: deleteCount, usersDeleted: userDeleteCount };
+};
+
 // export const getPlaysFromDate = async (userId: number, date: string) => {
 //     const plays = await db.plays
 //         .where("recordingUserid")
