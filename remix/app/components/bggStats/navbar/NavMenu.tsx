@@ -32,10 +32,10 @@ const links = [
 export default function NavMenu() {
   return (
     <Menu>
-      <Menu.Button>
+      <Menu.Button className="text-slate-100">
         <MenuIcon />
       </Menu.Button>
-      <Menu.Items className="absolute right-0 flex flex-col gap-4 p-4 text-white rounded-md top-8 bg-slate-900 w-max">
+      <Menu.Items className="absolute right-0 z-10 flex flex-col gap-4 p-4 text-white rounded-md top-8 bg-slate-900 w-max">
         {links.map((link) => (
           <Menu.Item key={link.href} as={Fragment}>
             {link.external ? (
