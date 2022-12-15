@@ -26,7 +26,7 @@ export const links: LinksFunction = () => {
 
 export default function BggStats() {
   return (
-    <div className="relative flex flex-col min-h-screen bg-slate-200 bgg-gradient">
+    <div className="relative min-h-screen bg-slate-200 bgg-gradient">
       <Navbar />
 
       <Outlet />
