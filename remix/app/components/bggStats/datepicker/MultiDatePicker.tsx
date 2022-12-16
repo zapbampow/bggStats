@@ -99,7 +99,7 @@ export default function MultiDatePickerComponent({ filter }: Props) {
         onCalendarClose={() => setIsOpen(false)}
         rangeDivider="and"
       />
-      <div onClick={removeFilter}>
+      <div onClick={removeFilter} className=" hover:text-red-500">
         <Trash width={16} />
       </div>
     </div>

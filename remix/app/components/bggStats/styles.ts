@@ -1,9 +1,9 @@
 export const baseStyles = `
-  px-4 py-2 rounded-sm text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
+  px-4 py-2 rounded-md text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
 `;
 
 export const containerBase = `
-rounded-sm text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
+rounded-md text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
 `;
 
 // export const hoverStyles = `
@@ -40,7 +40,7 @@ export const itemHoverStyles = `
 `;
 
 export const comboContainerStyles = `
-  px-4 py-2 rounded-sm text-slate-700 transition border border-1 border-gray-500 bg-slate-100 focus-within:ring-2 focus-within:ring-cyan-500
+  px-4 py-2 rounded-md text-slate-700 transition border border-1 border-gray-500 bg-slate-100 focus-within:ring-2 focus-within:ring-cyan-500
 `;
 
 export const baseSelectItem = `mx-1 px-1 hover:cursor-pointer`;

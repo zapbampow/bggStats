@@ -19,7 +19,7 @@ export default function PaginationRow({ table }: Props) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="flex items-start justify-between gap-2">
+    <div className="flex items-center justify-between gap-2 bg-white rounded-br-md rounded-bl-md ">
       {/* Previous page buttons */}
       <div>
         <button
@@ -39,41 +39,35 @@ export default function PaginationRow({ table }: Props) {
       </div>
 
       {/* Pagination settings */}
-      <div className="flex flex-col items-center">
+      <div className="flex justify-center flex-auto gap-8 py-4">
         <span className="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {currentPage} of {pageCount}
-          </strong>
-        </span>
-        <div className="flex justify-center flex-auto gap-4">
-          <span className="flex items-center gap-1">
-            Go to page:
-            <input
-              type="number"
-              min={1}
-              max={table.getPageCount()}
-              defaultValue={table.getState().pagination.pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                table.setPageIndex(page);
-              }}
-              className="w-16 p-1 border rounded"
-            />
-          </span>
-          <select
-            value={table.getState().pagination.pageSize}
+          Go to page:
+          <input
+            type="number"
+            min={1}
+            max={table.getPageCount()}
+            defaultValue={table.getState().pagination.pageIndex + 1}
             onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              table.setPageIndex(page);
             }}
-          >
-            {[10, 25, 50, 100].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
+            className="w-16 px-1 border rounded "
+          />
+          of {pageCount}
+        </span>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value));
+          }}
+          className="border rounded"
+        >
+          {[10, 25, 50, 100].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Next page buttons */}

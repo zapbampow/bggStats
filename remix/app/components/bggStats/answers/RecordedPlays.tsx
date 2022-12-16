@@ -75,7 +75,7 @@ export default function RecordedPlays() {
     <>
       <Container className="overflow-x-scroll sm:overflow-visible">
         <table
-          className="w-full bg-white border border-separate rounded-sm"
+          className="w-full bg-white border border-separate rounded-tr-md rounded-tl-md"
           style={{ borderSpacing: 0 }}
         >
           <thead className="w-full border-b border-spacing-2">
@@ -157,7 +157,7 @@ export default function RecordedPlays() {
           </tbody>
         </table>
       </Container>
-      <div className="h-4"></div>
+
       <Container>
         <PaginationRow table={table} />
       </Container>
