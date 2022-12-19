@@ -77,6 +77,7 @@ function usePlayData(props: Props) {
         setError(null);
       }
     } catch (err) {
+      console.log(err);
       setPercentDone(0);
       setError(err.message);
       throw Error(err);

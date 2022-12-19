@@ -69,7 +69,7 @@ export const getPlayDataWithExponentialBackingOff = async (options: {
 
     // Create array of promises to get page data
     const allPages: any[] = pageArray
-      .map((page) => {
+      ?.map((page) => {
         const xmlData = fetchXmlPlayData({ username, page, startdate });
         return xmlData;
       })
@@ -105,9 +105,16 @@ export const getPlayDataWithExponentialBackingOff = async (options: {
 // Converts the data that has come in from BGG into a format that will be a lot easier to work with
 export default function flattenBGGPlayData(data: BGGData) {
   const userid = parseInt(data.plays._attributes.userid);
+  const playIsArray = Array.isArray(data.plays.play);
+
+  if (!playIsArray) {
+    return [flattenSinglePlay(data.plays.play, userid)];
+  }
+
   const flattenedPlays: PlayDataModel[] = data.plays.play.map((item) =>
     flattenSinglePlay(item, userid)
   );
+
   return flattenedPlays;
 }
 
@@ -116,7 +123,12 @@ function flattenSinglePlay(data: BGGPlay, userid: number): PlayDataModel {
   const { id, date, quantity, length, incomplete, nowinstats, location } =
     data._attributes;
   const { name, objectid } = data.item._attributes;
-  const comments = data?.comments?._text || "";
+  const underscoreText = data?.comments?._text;
+  const comments = underscoreText
+    ? underscoreText
+    : data.comments && data.comments["#text"]
+    ? data.comments["#text"]
+    : "";
 
   const players = convertPlayers(data?.players?.player);
 
@@ -144,7 +156,7 @@ function convertPlayers(
   const dataIsArray = Array.isArray(data);
 
   if (dataIsArray) {
-    const players: PlayerModel[] = data.map(({ _attributes }) => {
+    const players: PlayerModel[] = data?.map(({ _attributes }) => {
       return {
         username: _attributes.username || null,
         userId: parseInt(_attributes.userid) || null,
