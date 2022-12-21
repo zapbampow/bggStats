@@ -39,6 +39,13 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   const [visible, setVisible] = useState(false);
   const [selectionText, setSelectionText] = useState("");
 
+  const labelSelectionText = `${filter.label}: ${selectionText}`;
+
+  const buttonText =
+    labelSelectionText.length > 40
+      ? `${labelSelectionText.slice(0, 40)}...`
+      : labelSelectionText;
+
   const debouncedQuery = useDebounce(query, 350);
 
   useEffect(
@@ -64,7 +71,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
         });
 
   const handleChange = (selections: SelectionType[]) => {
-    console.log("handleChange", selections);
+    // console.log("handleChange", selections);
     setSelections(selections);
 
     dispatch({
@@ -135,7 +142,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   return (
     <div className={`relative ${comboContainerStyles} hover:cursor-pointer`}>
       <Measurer
-        value={`${filter.label}: ${selectionText}`}
+        value={buttonText}
         visible={visible}
         setVisible={setVisible}
         impactedRef={filterBtnRef}
@@ -143,10 +150,10 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
       />
       <div
         ref={filterBtnRef}
-        className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+        className="flex items-center w-full gap-4 overflow-hidden font-semibold text-left transition-all whitespace-nowrap sm:max-w-sm"
         onClick={clickButton}
       >
-        {filter.label}: {selectionText}
+        {buttonText}
         {selectionText ? (
           <button
             className="text-slate-400 hover:text-red-500"
@@ -234,9 +241,9 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 const getSelectionText = (selections: SelectionType[]) => {
   const selectionString = selections.map((item) => item.label).join(", ");
 
-  if (selectionString.length > 20) {
-    return `${selectionString.slice(0, 20)}...`;
-  }
+  // if (selectionString.length > 20) {
+  //   return `${selectionString.slice(0, 20)}...`;
+  // }
 
   return selectionString;
 };
