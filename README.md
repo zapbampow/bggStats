@@ -1,4 +1,8 @@
 ## Next
+- figure out deploying to fly.io
+
+
+## Next for BGG Stats
 - add 'this year' and 'last year' as date range options
 - Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)

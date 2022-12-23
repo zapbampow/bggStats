@@ -1,0 +1,145 @@
+/**/
+/* For Testing Purposes */
+/**/
+.outline-red {
+    border: 1px red dashed;
+}
+
+
+/**/
+/* Actual CSS */
+/**/
+
+/* Main */
+body {
+    font-family: raleway, sans-serif;
+    font-weight: 600;
+}
+
+/* Navbar */
+.bg-dark {
+    background-color: rgba(5, 5, 5, 1) !important;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+#navbar-logo {
+    height: 1em;
+    margin-right: .5rem;
+}
+
+/*Splash screen*/
+.splash {
+    background-image: url("/images/claytoningalls.com-old/background.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin-top: -56px;
+    ;
+}
+
+#title {
+    margin-top: 25%;
+    vertical-align: middle;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+#title h1 {
+    font-family: 'Raleway', arial, sans-serif;
+    font-size: 5em;
+    font-weight: 700;
+}
+
+#title h4 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+#title hr {
+    border: none;
+    background-color: #fff;
+    color: #fff;
+    height: 1px;
+    width: 40%;
+    box-shadow: 1px 1px 5px rgba(20, 20, 20, 0.5);
+}
+
+.vertical-line {
+    border: 1px white solid;
+    height: 30%;
+    margin-bottom: 2em;
+}
+
+/* About */
+.content-section {
+    padding: 3em 0 4em 0;
+}
+
+.section-title {
+    margin: 0 0 1em 0;
+}
+
+.section-title h1 {
+    font-size: 4em;
+    text-decoration: underline;
+}
+
+/* Skills */
+#skills,
+#contact {
+    background-color: #adadad;
+}
+
+.devi-size {
+    line-height: normal;
+    font-size: 8em;
+}
+
+/* Work */
+.project {}
+
+.project-title {
+    font-size: 2em;
+    margin-bottom: 1em;
+    color: #212529;
+}
+
+.project-title a,
+.other-project-title a,
+.contact-method a,
+.footer a {
+    color: #212529;
+}
+
+
+hr {
+    background-color: #adadad;
+    height: 2px;
+    box-shadow: 1px 1px 3px rgba(#3e3e3e, 0.6)
+}
+
+.social-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.footer {
+    padding: 1em 0 0 0;
+    font-size: .75em;
+    color: rgba(255, 255, 255, .5);
+}
+
+.other-project-title {
+    margin: 0 0 1em 0;
+}
+
+.footer .footer-link {
+    color: rgba(255, 255, 255, .5);
+}
