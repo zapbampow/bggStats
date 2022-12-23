@@ -62,6 +62,7 @@ body {
 }
 
 #title hr {
+    display: inline-block;
     border: none;
     background-color: #fff;
     color: #fff;
