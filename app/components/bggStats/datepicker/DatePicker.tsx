@@ -79,7 +79,6 @@ export default function DatePickerComponent({ filter }: Props) {
           onChange={handleChange}
           onCalendarClose={() => setIsOpen(false)}
           calendarIcon={null}
-          clearIcon={null}
           showLeadingZeros={true}
           locale="en-US"
           nextLabel={<ChevronRight width={16} />}
