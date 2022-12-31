@@ -1,4 +1,4 @@
-# fly.toml file generated for bgg-stats on 2022-12-28T08:03:16-05:00
+# fly.toml file generated for bgg-stats on 2022-12-30T10:52:46-05:00
 
 app = "bgg-stats"
 kill_signal = "SIGINT"
