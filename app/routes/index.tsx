@@ -27,6 +27,17 @@ export const links: LinksFunction = () => {
       rel: "stylesheet",
       href: styles,
     },
+    {
+      rel: "icon",
+      type: "image/x-con",
+      href: "/images/claytoningalls.com-old/favicon-dark.png",
+    },
+    {
+      rel: "icon",
+      type: "image/x-con",
+      href: "/images/claytoningalls.com-old/favicon.png",
+      media: "(prefers-color-scheme: dark)",
+    },
   ];
 };
 
