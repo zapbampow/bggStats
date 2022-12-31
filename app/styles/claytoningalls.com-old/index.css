@@ -144,3 +144,9 @@ hr {
 .footer .footer-link {
     color: rgba(255, 255, 255, .5);
 }
+
+
+#work hr {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
