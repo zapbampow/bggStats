@@ -6,7 +6,7 @@ import { Form } from "@remix-run/react";
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
   const username = body.get("username");
-  return redirect(`bggStats/${username}`);
+  return redirect(`${username}`);
 }
 
 export default function BGGStatsHome() {
