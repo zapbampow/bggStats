@@ -25,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   indexAxis: "y" as const,
   updateMode: "show",
   responsive: true,
@@ -43,7 +43,7 @@ export const options = {
   },
 };
 
-const getDataFromEvent = (e: Event, chartRef, data) => {
+const getDataFromEvent = (e: UIEvent, chartRef, data) => {
   if (!chartRef?.current) return;
   const el = getElementAtEvent(chartRef.current, e);
 

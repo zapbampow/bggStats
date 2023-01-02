@@ -26,7 +26,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   indexAxis: "y" as const,
   updateMode: "show",
   responsive: true,

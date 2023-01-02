@@ -1,4 +1,4 @@
-export type DataSet = {
+type DataSet = {
   label: string;
   data: number[];
   backgroundColor?: string[];
