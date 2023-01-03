@@ -160,7 +160,7 @@ function convertPlayers(
       return {
         username: _attributes.username || null,
         userId: parseInt(_attributes.userid) || null,
-        name: _attributes.name || "",
+        name: getName(_attributes),
         score: parseInt(_attributes.username) || null,
         win: _attributes?.win === "1",
         new: _attributes.username === "1",
@@ -176,7 +176,7 @@ function convertPlayers(
       {
         username: data._attributes.username || null,
         userId: parseInt(data._attributes.userid) || null,
-        name: data._attributes.name || "",
+        name: getName(data._attributes),
         score: parseInt(data._attributes.username) || null,
         win: data._attributes.win === "1",
         new: data._attributes.username === "1",
@@ -232,3 +232,16 @@ export async function getLatestPlaysInfo(username: string, date: string) {
     throw new Error(err);
   }
 }
+
+const getName = (attributes: any) => {
+  const hasUsername = attributes.username;
+  const hasName = attributes.name;
+
+  if (!hasUsername && !hasName) return "";
+
+  if (!hasName) return attributes.username;
+
+  if (!hasUsername) return attributes.name;
+
+  return `${attributes.name} (${attributes.username})`;
+};
