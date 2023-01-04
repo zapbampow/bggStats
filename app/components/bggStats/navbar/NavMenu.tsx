@@ -1,12 +1,6 @@
 import React, { Fragment } from "react";
 import { Menu } from "@headlessui/react";
-import {
-  GithubIcon,
-  Meeple,
-  Menu as MenuIcon,
-  Settings,
-  Trash,
-} from "../icons";
+import { GithubIcon, Meeple, Menu as MenuIcon, Settings, Send } from "../icons";
 import { Link } from "@remix-run/react";
 
 const links = [
@@ -20,6 +14,11 @@ const links = [
     href: "/bggstats/settings",
     label: "Manage your data",
     icon: <Settings width={16} />,
+  },
+  {
+    href: "/bggstats/feedback",
+    label: "Feedback",
+    icon: <Send width={16} />,
   },
   {
     href: "https://github.com/zapbampow/bggStats",

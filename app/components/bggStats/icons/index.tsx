@@ -14,6 +14,7 @@ import Meeple from "./Meeple";
 import Menu from "./Menu";
 import HomeMeeple from "./HomeMeeple";
 import Search from "./Search";
+import Send from "./Send";
 import GithubIcon from "./GithubIcon";
 import Settings from "./Settings";
 
@@ -33,6 +34,7 @@ export {
   Menu,
   Search,
   Selector,
+  Send,
   Settings,
   Times,
   Trash,
