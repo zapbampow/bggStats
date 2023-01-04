@@ -56,14 +56,43 @@ export default function about() {
           stored for your user and reload the page to trigger it to download
           your entire history again.
         </p>
-        <h2>The download process stalls</h2>
+        <h2>What to do when the download process stalls</h2>
         <p>
           BoardGameGeek is amazingly generous to make so much of their data
           available for tools like this. In order to prevent abuse of their
           generosity, they limit the number of requests that can be made from
-          apps like this. If you try to look at a bunch of users in quick
-          succession, then your computer will be temporarily blocked and the
-          download process will appear to be stalled.
+          apps like this. If you have tons of play records, like 8,000+, you may
+          be temporarily blocked from downloading all your records and it will
+          appear to stall. The first thing to do is nothing. Just wait a minute.
+          BGG doesn't block forever, so when there is an issue, this app slows
+          down how frequently it tries to retrieve data. If a full minute passes
+          without any change, then you can refresh or just wait a couple of more
+          minutes before refreshing again.
+        </p>
+        <p>
+          If you try to look at a bunch of users in quick succession, then your
+          computer will be temporarily blocked and the download process will
+          appear to be stalled. Wait a few minutes and try again.
+        </p>
+
+        <h2>My data doesn't look right</h2>
+        <p>There are a variety of reasons your data may not look right.</p>
+        <p>
+          <strong>Name issues: </strong>Whatever name you enter into the name
+          field at the time you recorded a game is what is recorded for that
+          game, even if you later change your name in your profile. My profile
+          used to just have my first name. Then I added my last name. That's
+          just messy data. I had to go update my name on about 70 records to
+          have the data the way I wanted it.
+        </p>
+        <p>
+          <strong>Recent updates: </strong>If you update some records, for
+          example because of a name related issue from above, then you need to
+          clear you data in the app and start over to download the new updates.
+          Sometimes BGG seems to serve data from a cache and it may take a bit
+          before the correct updated data will download. There isn't anything I
+          can do about that other than to tell you to wait and try again later
+          if that is happening.
         </p>
       </div>
     </div>

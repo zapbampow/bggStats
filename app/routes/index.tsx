@@ -305,9 +305,9 @@ export default function Index() {
                 </p>
                 <p>
                   It uses React with Tailwind and Headless UI on the front end.
-                  BGG has an API to retrieve data. I use tenacious-fetch to
-                  manage an exponential backoff retry strategy in order to not
-                  be blocked by the BGG API. Then the data is stored in the
+                  BGG has an API to retrieve data. I use fetch-retry to manage
+                  an exponential backoff retry strategy in order to not be
+                  blocked by the BGG API. Then the data is stored in the
                   browser's IndexedDB to make filtering the data very fast.
                 </p>
                 <p>
