@@ -1,6 +1,4 @@
-// import convert from "xml-js";
 import { convertXmlToJsObject } from "../utils/conversion/xmlToJson";
-// import tenaciousFetch from "tenacious-fetch";
 import fetchRetry from "fetch-retry";
 import type {
   BGGData,
@@ -26,7 +24,8 @@ export async function fetchXmlPlayData(options: FetchOptions) {
     const res = await fetch(query, {
       retries: 7,
       retryDelay: function (attempt, error, response) {
-        return Math.pow(8, attempt) * 1000; // 1000, 2000, 4000
+        if (error) console.error("fetch retry error", error);
+        return Math.pow(8, attempt) * 1000; // 1000, 8000, 64000
       },
     });
     const xmlData = await res.text();
