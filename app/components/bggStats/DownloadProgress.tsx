@@ -16,6 +16,9 @@ export default function DownloadProgress({
   const verb = userFirstTime ? "Downloading" : "Updating";
   const percent = parseFloat(percentDone.toFixed(2));
 
+  const [updatePropTime, setUpdatePropTime] = useState<number>();
+  const [showSlowDownloadMessage, setShowSlowDownloadMessage] = useState(false);
+
   useEffect(() => {
     if (percentDone < 100 && !error) {
       setShow(true);
@@ -44,6 +47,35 @@ export default function DownloadProgress({
     return () => clearTimeout(timeout);
   }, [percentDone, error, verb]);
 
+  useEffect(
+    function manageDisplayingSlowDownloadMessage() {
+      // clear everything when percentDone is 100
+      if (percentDone === 100) {
+        setUpdatePropTime(undefined);
+        setShowSlowDownloadMessage(false);
+        return;
+      }
+
+      // get current time
+      let currentTime = performance.now();
+
+      // set initial time
+      if (!updatePropTime) {
+        setUpdatePropTime(currentTime);
+        return;
+      }
+
+      // if time has passed 1 second show the slow download message
+      if (currentTime - updatePropTime > 1000) {
+        setShowSlowDownloadMessage(true);
+        return;
+      }
+
+      setShowSlowDownloadMessage(false);
+    },
+    [percentDone, error, updatePropTime]
+  );
+
   return (
     <Transition
       show={show}
@@ -55,12 +87,19 @@ export default function DownloadProgress({
       leaveFrom="translate-y-0"
       leaveTo="-translate-y-32"
       className={
-        "absolute flex items-center justify-center p-4 text-white -translate-x-1/2 bg-black rounded-md bg-opacity-70 top-4 left-1/2 w-content"
+        "absolute flex flex-col items-center justify-center p-4 text-white -translate-x-1/2 bg-black rounded-md bg-opacity-80 top-4 left-1/2 w-content z-10"
       }
     >
       {errorMessage
         ? errorMessage
         : `${verb} your play data. ${percent}% done.`}
+
+      {showSlowDownloadMessage ? (
+        <div className="mt-4 text-center">
+          Don't worry. We're still downloading. <br />
+          Large collections can take a couple of minutes.
+        </div>
+      ) : null}
     </Transition>
   );
 }
