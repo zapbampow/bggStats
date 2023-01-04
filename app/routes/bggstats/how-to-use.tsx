@@ -66,8 +66,8 @@ export default function about() {
           appear to stall. The first thing to do is nothing. Just wait a minute.
           BGG doesn't block forever, so when there is an issue, this app slows
           down how frequently it tries to retrieve data. If a full minute passes
-          without any change, then you can refresh or just wait a couple of more
-          minutes before refreshing again.
+          without any change, then you may just wait a couple of minutes and
+          refresh.
         </p>
         <p>
           If you try to look at a bunch of users in quick succession, then your
