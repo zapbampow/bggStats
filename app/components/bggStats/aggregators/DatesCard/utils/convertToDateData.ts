@@ -40,6 +40,8 @@ const convertToDateData = (data: PlayDataModel[]) => {
         monthNum: curMonthNum,
         dates: [cur.date],
       });
+
+      acc[curYearIndex].count += 1;
       return acc;
     }
 
