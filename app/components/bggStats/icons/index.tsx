@@ -17,6 +17,7 @@ import Search from "./Search";
 import Send from "./Send";
 import GithubIcon from "./GithubIcon";
 import Settings from "./Settings";
+import Dots from "./Dots";
 
 export {
   Backspace,
@@ -26,6 +27,7 @@ export {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Dots,
   ExternalLink,
   GithubIcon,
   Home,

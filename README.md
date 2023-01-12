@@ -21,4 +21,14 @@ After entering a username, the app will download the user's play data. By intera
 - Feat: no filters for color, new, rating, score, startposition. You could add them.
 - Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
+- Feat: add modal with instructions - only show if there is no record in localStorage that this person has visited before
+  - 1. Drill down your data by interacting with the graphs
+  - 2. Use filters to be more specific
+  - 3. Customize which dashboard cards are displayed
 
+### Top Priorities
+1. \# Games Played Card
+2. New Games Card 
+   - a new game is one marked as new or the first time it was recorded by this user
+   - include a "?" with popover menu which explains how we calculate "new"
+3. First time instruction modal
