@@ -27,7 +27,7 @@ After entering a username, the app will download the user's play data. By intera
   - 3. Customize which dashboard cards are displayed
 
 ### Top Priorities
-1. \# Games Played Card
+1. CURRENTLY BUILDING: \# Games Played Card
 2. New Games Card 
    - a new game is one marked as new or the first time it was recorded by this user
    - include a "?" with popover menu which explains how we calculate "new"
