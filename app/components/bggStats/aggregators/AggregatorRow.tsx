@@ -17,8 +17,6 @@ export default function AggregatorRow({ userId }: Props) {
     "players",
     "locations",
     "recordedPlays",
-    "recordedPlays",
-    "recordedPlays",
   ]);
 
   return (
