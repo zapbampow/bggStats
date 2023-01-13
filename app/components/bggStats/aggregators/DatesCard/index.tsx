@@ -1,8 +1,6 @@
 import DatesCard from "./DatesCard";
 import { DatesCardProvider, useDatesCardContext } from "./DatesCardContext";
 
-import React from "react";
-
 type Props = {
   userId: number;
 };
