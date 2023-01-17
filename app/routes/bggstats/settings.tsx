@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container } from "~/components/bggStats/pages/layout";
 import useManageData from "~/hooks/bgg/useManageData";
 import { Transition } from "@headlessui/react";
+import { Link } from "@remix-run/react";
 
 export default function Settings() {
   const { users, deleteUserData, processing, error } = useManageData();
@@ -24,7 +25,7 @@ export default function Settings() {
 
         <ErrorMessage error={error} />
 
-        <ul className="grid grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {users?.map((user, i) => (
             <li
               key={user.userId}
@@ -32,13 +33,21 @@ export default function Settings() {
             >
               <div>{user.name}</div>
               <div className="mb-4">({user.username})</div>
-              <button
-                className="px-4 py-2 font-semibold rounded-md bg-slate-200 hover:bg-slate-300 text-slate-800"
-                onClick={() => deleteUserData(user.userId)}
-                disabled={processing}
-              >
-                {processing ? "Deleting..." : "Delete"}
-              </button>
+              <div className="flex justify-between gap-4">
+                <Link
+                  to={`/bggstats/${user.username}`}
+                  className="px-4 py-2 font-semibold rounded-md bg-slate-200 hover:bg-slate-300 text-slate-800"
+                >
+                  View
+                </Link>
+                <button
+                  className="px-4 py-2 font-semibold rounded-md bg-slate-200 hover:bg-slate-300 text-slate-800"
+                  onClick={() => deleteUserData(user.userId)}
+                  disabled={processing}
+                >
+                  {processing ? "Deleting..." : "Delete"}
+                </button>
+              </div>
             </li>
           ))}
         </ul>
