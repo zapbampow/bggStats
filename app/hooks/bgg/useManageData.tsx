@@ -10,21 +10,21 @@ type User = {
 export default function useManageData() {
   const [users, setUsers] = useState<User[]>();
   const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState(false);
+  const [processing, setProcessing] = useState<number>();
 
   const deleteUserData = async (id: number) => {
-    setProcessing(true);
+    setProcessing(id);
     try {
       const deleted = await deleteUserAndPlaysByUserId(id);
 
       const updatedUsers = users?.filter((user) => user.userId !== id);
 
       setUsers(updatedUsers);
-      setProcessing(false);
+      setProcessing(undefined);
       return `Deleted ${deleted.playsDeleted} plays`;
     } catch (err) {
       setError(err);
-      setProcessing(false);
+      setProcessing(undefined);
       throw new Error(err);
     }
   };

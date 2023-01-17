@@ -43,9 +43,9 @@ export default function Settings() {
                 <button
                   className="px-4 py-2 font-semibold rounded-md bg-slate-200 hover:bg-slate-300 text-slate-800"
                   onClick={() => deleteUserData(user.userId)}
-                  disabled={processing}
+                  disabled={processing === user.userId}
                 >
-                  {processing ? "Deleting..." : "Delete"}
+                  {processing === user.userId ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </li>
