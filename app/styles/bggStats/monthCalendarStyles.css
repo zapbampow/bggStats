@@ -1,0 +1,4 @@
+.dateData:hover .dateData-child {
+    display: block;
+    visibility: visible;
+}

@@ -6,6 +6,8 @@ import RecordedPlaysCard from "./RecordedPlaysCard";
 import DatesCard from "./DatesCard";
 import { useLocalStorage } from "~/hooks/useLocalStorage";
 import AggregatorMenu from "./AggregatorMenu/AggregatorMenu";
+import PlayCountCard from "./PlayCountCard";
+import { CalendarScreenProvider } from "./CalendarScreenContext";
 
 type Props = {
   userId: number;
@@ -17,22 +19,25 @@ export default function AggregatorRow({ userId }: Props) {
     "players",
     "locations",
     "recordedPlays",
+    "playCount",
   ]);
 
   return (
-    <Container className="relative mb-8">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {getAggregators(settings, userId)}
-        <div className="absolute left-2 -bottom-7">
-          <AggregatorMenu settings={settings} setSettings={setSettings} />
+    <CalendarScreenProvider>
+      <Container className="relative mb-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {getAggregators(settings, userId)}
+          <div className="absolute left-2 -bottom-7">
+            <AggregatorMenu settings={settings} setSettings={setSettings} />
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </CalendarScreenProvider>
   );
 }
 
 const getAggregators = (settings: string[], userId: number) => {
-  console.log({ settings });
+  // console.log({ settings });
 
   return settings.map((setting: string) => {
     switch (setting) {
@@ -44,6 +49,8 @@ const getAggregators = (settings: string[], userId: number) => {
         return <LocationsCard key={setting} />;
       case "recordedPlays":
         return <RecordedPlaysCard key={setting} userId={userId} />;
+      case "playCount":
+        return <PlayCountCard key={setting} userId={userId} />;
       default:
         return null;
     }

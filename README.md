@@ -25,9 +25,17 @@ After entering a username, the app will download the user's play data. By intera
   - 1. Drill down your data by interacting with the graphs
   - 2. Use filters to be more specific
   - 3. Customize which dashboard cards are displayed
+- Feat: add drag and drop to the cards
+- Refactor: for the dropdown filters related to games, players, and location - only display those things for the currently filtered plays instead of for all possible plays
 
 ### Top Priorities
 1. CURRENTLY BUILDING: \# Games Played Card
+   - fix hover on calendar date
+     - use headless popover with popperjs. In calendar return <TileContent> as popover if the date is the a play date
+   - move back button to absolute position
+   - getMonthsChartDataByYear doesn't actually use the year. It just returns the month data from the data arg. Refactor the name and args of this function
+   - CALENDER CARD: Clicking date sets that date to start and end
+   - CALENDAR CARD: Clicking Month/Year Header sets the filter to the start and end date of that month
 2. New Games Card 
    - a new game is one marked as new or the first time it was recorded by this user
    - include a "?" with popover menu which explains how we calculate "new"

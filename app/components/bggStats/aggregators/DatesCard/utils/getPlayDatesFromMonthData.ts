@@ -1,8 +1,8 @@
-import type { Data, DateGroup } from "../../types";
+import type { Data, DateGroup, PlayCountDateGroup } from "../../types";
 import { ChartColors } from "../../ChartColors";
 
 type Args = {
-  data: DateGroup;
+  data: DateGroup | PlayCountDateGroup;
   year: number | null;
   month: string | null;
 };

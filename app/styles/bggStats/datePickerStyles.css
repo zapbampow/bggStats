@@ -446,6 +446,7 @@
   color: transparent !important;
   font-weight: 600;
   z-index: 1;
+  overflow: visible !important;
 }
 
 .dashboard_month_calendar.react-calendar .recorded-play-date:before,

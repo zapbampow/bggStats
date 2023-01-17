@@ -16,7 +16,7 @@ export default function Dots({
       width={width}
       height={width}
       viewBox="0 0 24 24"
-      stroke-width={strokeWidth}
+      strokeWidth={strokeWidth}
       stroke="currentColor"
       fill="none"
       strokeLinecap="round"

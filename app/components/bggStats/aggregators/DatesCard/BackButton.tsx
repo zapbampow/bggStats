@@ -1,17 +1,16 @@
 import React from "react";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { ChevronLeft } from "../../icons";
-import { useDatesCardContext } from "./DatesCardContext";
+import { useCalendarScreenContext } from "../CalendarScreenContext";
 
 export default function BackButton() {
   const {
     state: { screen, filterOrder, year },
-    dispatch,
     setScreen,
     setYear,
     setMonth,
     setDays,
-  } = useDatesCardContext();
+  } = useCalendarScreenContext();
   const {
     state: filterState,
     dispatch: filterDispatch,
@@ -49,7 +48,7 @@ export default function BackButton() {
   if (screen === "year") return null;
 
   return (
-    <button className="absolute -left-8 top-[2px]" onClick={handleClick}>
+    <button className="absolute left-0 top-[1.15rem]" onClick={handleClick}>
       <ChevronLeft />
     </button>
   );

@@ -21,3 +21,17 @@ export type DateGroup = {
     dates: string[];
   }[];
 };
+
+export type PlayCountDateGroup = {
+  year: string;
+  count: number;
+  months: {
+    monthNum: number;
+    month: string;
+    count: number;
+    dates: {
+      day: string;
+      count: number;
+    }[];
+  }[];
+};

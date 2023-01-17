@@ -1,5 +1,5 @@
 import DatesCard from "./DatesCard";
-import { DatesCardProvider, useDatesCardContext } from "./DatesCardContext";
+import { DatesCardProvider } from "./DatesCardContext";
 
 type Props = {
   userId: number;

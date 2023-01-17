@@ -9,13 +9,13 @@ import {
   Legend,
 } from "chart.js";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
-import type { DateGroup } from "../types";
-import getMonthsChartDataByYear from "./utils/getMonthsChartDataByYear";
-import type { Screen } from "../types";
+import type { DateGroup } from "../../types";
+import getMonthsChartDataByYear from "../../DatesCard/utils/getMonthsChartDataByYear";
+import type { Screen } from "../../types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
-import { useDatesCardContext } from "./DatesCardContext";
-import monthNum from "./utils/monthNum";
+import monthNum from "../../DatesCard/utils/monthNum";
 import dayjs from "dayjs";
+import { useCalendarScreenContext } from "../../CalendarScreenContext";
 
 ChartJS.register(
   CategoryScale,
@@ -60,12 +60,29 @@ type Props = {
 };
 export default function MonthsChart({ data }: Props) {
   const { state: filterState, dispatch } = usePlayFilterContext();
+
   const {
     state: { year },
-    setScreen,
     setMonth,
-  } = useDatesCardContext();
+    setYear,
+    setScreen,
+  } = useCalendarScreenContext();
   const chartRef = useRef();
+
+  // if (!year) {
+  //   let item = filterState.find((item) => {
+  //     return (
+  //       item.filter === "betweenDates" ||
+  //       item.filter === "onDate" ||
+  //       item.filter === "afterDate" ||
+  //       item.filter === "beforeDate"
+  //     );
+  //   });
+  //   if (!item?.arg) return dayjs().year();
+
+  //   let year = dayjs(item.arg[0]).year();
+  //   setYear(year);
+  // }
   const monthsData = getMonthsChartDataByYear(data, year);
 
   const handleClick = (e) => {

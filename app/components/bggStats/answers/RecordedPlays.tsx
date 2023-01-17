@@ -1,3 +1,4 @@
+import React from "react";
 import { Container } from "~/components/bggStats/pages/layout";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { cellStyle } from "./tableStyles";
@@ -16,6 +17,9 @@ import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 
 export default function RecordedPlays() {
   const { state: data } = usePlayResultsContext();
+  React.useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   const columnHelper = createColumnHelper<PlayDataModel>();
   const columns = [

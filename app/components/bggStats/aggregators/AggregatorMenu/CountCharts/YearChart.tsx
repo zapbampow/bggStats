@@ -10,11 +10,11 @@ import {
   Legend,
 } from "chart.js";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
-import type { DateGroup } from "../types";
-import getYearChartData from "./utils/getYearChartData";
-import type { Screen } from "../types";
+import type { DateGroup } from "../../types";
+import getYearChartData from "../../DatesCard/utils/getYearChartData";
+import type { Screen } from "../../types";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
-import { useDatesCardContext } from "./DatesCardContext";
+import { useCalendarScreenContext } from "../../CalendarScreenContext";
 
 ChartJS.register(
   CategoryScale,
@@ -56,16 +56,12 @@ const getDataFromEvent = (e: UIEvent, chartRef, data) => {
 
 type Props = {
   data: DateGroup[];
+  setYear: (year: number | null) => void;
+  setFilterOrder: (filterOrder: number | null) => void;
 };
-export default function YearChart({ data }: Props) {
+export default function YearChart({ data, setYear, setFilterOrder }: Props) {
   const { state: filterState, dispatch } = usePlayFilterContext();
-  const {
-    state: datesCardState,
-    dispatch: datesCardDispatch,
-    setScreen,
-    setYear,
-    setFilterOrder,
-  } = useDatesCardContext();
+  const { setScreen } = useCalendarScreenContext();
   const chartRef = useRef();
   const yearData = getYearChartData(data);
   // console.log("yearData", yearData);

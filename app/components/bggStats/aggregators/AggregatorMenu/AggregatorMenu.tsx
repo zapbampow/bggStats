@@ -15,6 +15,7 @@ export default function AggregatorMenu({ settings, setSettings }: Props) {
     { value: "players", label: "Players" },
     { value: "locations", label: "Locations" },
     { value: "recordedPlays", label: "Total Plays" },
+    { value: "playCount", label: "# Plays By Date" },
   ];
 
   const handleChange = (option: string, value: boolean) => {

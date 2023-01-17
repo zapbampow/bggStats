@@ -17,6 +17,7 @@
     "deploy": "fly deploy --remote-only"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.17.0",
     "@headlessui/react": "^1.7.3",
     "@remix-run/node": "^1.8.2",
     "@remix-run/react": "^1.8.2",

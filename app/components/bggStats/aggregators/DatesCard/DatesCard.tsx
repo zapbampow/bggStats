@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardTitle } from "../Card";
 import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 import BackButton from "./BackButton";
-import type { Screen } from "../types";
 import type { DateGroup } from "../types";
 import convertToDateData from "./utils/convertToDateData";
-import { DatesCardProvider, useDatesCardContext } from "./DatesCardContext";
 
-import YearChart from "./YearChart";
-import MonthsChart from "./MonthsChart";
+import YearChart from "../AggregatorMenu/CountCharts/YearChart";
+import MonthsChart from "../AggregatorMenu/CountCharts/MonthsChart";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import MonthCalendar from "./MonthCalendar";
+import { useCalendarScreenContext } from "../CalendarScreenContext";
+import dayjs from "dayjs";
 
 type Props = {
   userId: number;
@@ -21,10 +21,16 @@ export default function DatesCard({ userId }: Props) {
   const { state } = usePlayResultsContext();
   const { state: filterState, dispatch } = usePlayFilterContext();
 
-  const { state: dateCardState, setScreen } = useDatesCardContext();
+  const {
+    state: dateCardState,
+    setYear,
+    setMonth,
+    setFilterOrder,
+    setScreen,
+  } = useCalendarScreenContext();
   const [dateData, setDateData] = useState<DateGroup[]>([]);
 
-  const { screen, year, month } = dateCardState;
+  const { year, month, screen } = dateCardState;
 
   useEffect(
     function getPlayDatesData() {
@@ -47,28 +53,41 @@ export default function DatesCard({ userId }: Props) {
           filter.filter === "betweenDates"
       );
       if (!hasDateFilter) {
+        console.log("typeof setScreen", typeof setScreen);
         setScreen("year");
       }
     },
     [filterState, setScreen, screen]
   );
 
+  const shortYear = (year) => {
+    return `'${year.toString().slice(2)}`;
+  };
+
   const title =
     screen === "year"
       ? "# Days Played"
       : screen === "months"
-      ? `# Days in ${year}`
-      : `${month} ${year}`;
+      ? `# Days ${year}`
+      : `# Days ${month} ${year}`;
 
   return (
     <Card>
-      <div className="relative">
+      <div>
         <BackButton />
         <CardTitle>{title}</CardTitle>
       </div>
 
-      {screen === "year" && <YearChart data={dateData} />}
-      {screen === "months" && <MonthsChart data={dateData} />}
+      {screen === "year" && (
+        <YearChart
+          data={dateData}
+          setYear={setYear}
+          setFilterOrder={setFilterOrder}
+        />
+      )}
+      {screen === "months" && (
+        <MonthsChart data={dateData} setMonth={setMonth} />
+      )}
       {screen === "month" && <MonthCalendar data={dateData} />}
     </Card>
   );

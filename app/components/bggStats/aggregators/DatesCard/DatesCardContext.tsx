@@ -97,6 +97,8 @@ const DatesCardProvider = ({ children }: DatesCardProviderProps) => {
   );
 };
 
+type DatesCardContextType = React.ContextType<typeof DatesCardContext>;
+
 function useDatesCardContext() {
   const context = React.useContext(DatesCardContext);
   if (context === undefined) {
@@ -108,3 +110,4 @@ function useDatesCardContext() {
 }
 
 export { DatesCardProvider, useDatesCardContext };
+export type { DatesCardContextType };
