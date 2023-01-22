@@ -1,4 +1,3 @@
-import React from "react";
 import type { Table } from "@tanstack/react-table";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import {
@@ -47,6 +46,7 @@ export default function PaginationRow({ table }: Props) {
             min={1}
             max={table.getPageCount()}
             defaultValue={table.getState().pagination.pageIndex + 1}
+            value={currentPage}
             onChange={(e) => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
