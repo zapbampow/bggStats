@@ -1,6 +1,4 @@
 import React from "react";
-import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
-import { Container } from "../pages/layout";
 import {
   createColumnHelper,
   flexRender,
@@ -10,19 +8,11 @@ import {
   sortingFns,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import type { ColumnHelper } from "@tanstack/react-table";
-import { ExternalLink } from "../icons";
+import { ExternalLink } from "~/components/bggStats/icons";
+import type { FirstRecordRow } from "~/utils/conversion/getFirstPlayDateFromPlays";
 
-import TableWithPagination from "../table/TableWithPagination";
-import type { PlayDataModel } from "~/models/bgg/gameDataModels";
-
-export default function RecordedPlays() {
-  const { state: data } = usePlayResultsContext();
-  React.useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-
-  const columnHelper = createColumnHelper<PlayDataModel>();
+export default function useFirstPlaysTable(filteredPlays: FirstRecordRow[]) {
+  const columnHelper = createColumnHelper<FirstRecordRow>();
   const columns = [
     columnHelper.accessor("playId", {
       cell: (data) => {
@@ -50,35 +40,31 @@ export default function RecordedPlays() {
       header: () => "Game",
       sortingFn: sortingFns.basic,
     }),
-    columnHelper.accessor("location", {
-      cell: (data) => data.getValue(),
-      header: () => "Location",
-      sortingFn: sortingFns.basic,
-    }),
-    columnHelper.accessor("players", {
-      cell: (data) => {
-        let names = data
-          .getValue()
-          .map((pdata) => pdata.name)
-          .join(", ");
-        return names;
-      },
-      header: () => "Players",
-      enableSorting: false,
-    }),
+    // columnHelper.accessor("location", {
+    //   cell: (data) => data.getValue(),
+    //   header: () => "Location",
+    //   sortingFn: sortingFns.basic,
+    // }),
+    // columnHelper.accessor("players", {
+    //   cell: (data) => {
+    //     let names = data
+    //       .getValue()
+    //       .map((pdata) => pdata.name)
+    //       .join(", ");
+    //     return names;
+    //   },
+    //   header: () => "Players",
+    //   enableSorting: false,
+    // }),
   ];
 
   const table = useReactTable({
-    data,
+    data: filteredPlays,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
-  return (
-    <Container>
-      <TableWithPagination table={table} />
-    </Container>
-  );
+  return table;
 }

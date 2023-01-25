@@ -42,6 +42,7 @@ function usePlayData(props: Props) {
         user.userId
       );
 
+      // some play data already exists
       if (latestPlayDate && latestPlayId) {
         const latestPlaysInfo = await getLatestPlaysInfo(
           user.username,
@@ -62,7 +63,7 @@ function usePlayData(props: Props) {
         }
         setError(null);
       } else {
-        console.log("hit");
+        // this is the first time downloading play data
         setUserFirstTime(true);
         const initialData = await getInitialPlayData(user.username);
         const allPlayData = await getPlayDataWithExponentialBackingOff({
