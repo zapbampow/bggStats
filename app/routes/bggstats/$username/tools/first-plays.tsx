@@ -60,7 +60,9 @@ export default function FirstPlays() {
 
       <div className="flex gap-4 mt-8 mb-4">
         <FirstPlayGameNameFilter
-          plays={plays}
+          plays={plays.sort((a, b) => {
+            return a.gameName.localeCompare(b.gameName);
+          })}
           setFilteredPlays={setFilteredPlays}
         />
         <FirstPlayDateRangeFilter

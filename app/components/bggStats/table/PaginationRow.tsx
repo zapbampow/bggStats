@@ -1,5 +1,6 @@
 import type { Table } from "@tanstack/react-table";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
+import type { FirstRecordRow } from "~/utils/conversion/getFirstPlayDateFromPlays";
 import {
   ChevronLeft,
   ChevronRight,
@@ -8,7 +9,7 @@ import {
 } from "../icons";
 
 type Props = {
-  table: Table<PlayDataModel>;
+  table: Table<PlayDataModel | FirstRecordRow>;
 };
 
 export default function PaginationRow({ table }: Props) {
@@ -45,7 +46,6 @@ export default function PaginationRow({ table }: Props) {
             type="number"
             min={1}
             max={table.getPageCount()}
-            defaultValue={table.getState().pagination.pageIndex + 1}
             value={currentPage}
             onChange={(e) => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
