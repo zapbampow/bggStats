@@ -38,7 +38,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   let filterBtnRef = useRef<HTMLDivElement>(null);
 
   const [options, setOptions] = useState<SelectionType[]>([]);
-  const [selection, setSelection] = useState<SelectionType | undefined>();
+  const [selection, setSelection] = useState<SelectionType>({});
   const [query, setQuery] = useState("");
   const [selectionText, setSelectionText] = useState("");
 
@@ -136,7 +136,7 @@ export default function ComboBoxFilter({ filter }: Props) {
       />
       <div
         ref={filterBtnRef}
-        className="flex items-center gap-4 whitespace-nowrap transition-all font-semibold overflow-hidden w-full text-left sm:max-w-sm"
+        className="flex items-center w-full gap-4 overflow-hidden font-semibold text-left transition-all whitespace-nowrap sm:max-w-sm"
         onClick={clickButton}
       >
         {filter.label}: {selectionText}
@@ -171,7 +171,7 @@ export default function ComboBoxFilter({ filter }: Props) {
                     placeholder="search"
                     className={`flex-1 px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
                   />
-                  <Search className="text-slate-500 cursor-default" />
+                  <Search className="cursor-default text-slate-500" />
                   <Combobox.Button
                     ref={btnRef}
                     className="display-none"

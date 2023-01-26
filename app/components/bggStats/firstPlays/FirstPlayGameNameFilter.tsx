@@ -24,7 +24,7 @@ export default function FirstPlayGameNameFilter({
   plays,
   setFilteredPlays,
 }: Props) {
-  const [selection, setSelection] = useState<string | undefined>();
+  const [selection, setSelection] = useState<string>("");
   const [query, setQuery] = useState("");
   const [selectionText, setSelectionText] = useState("");
   const [visible, setVisible] = useState(false);
@@ -93,7 +93,7 @@ export default function FirstPlayGameNameFilter({
         ) : null}
       </div>
       <div className="grid auto-rows-min">
-        <Combobox value={selection} onChange={handleChange} nullable={true}>
+        <Combobox value={selection} onChange={handleChange} nullable>
           {({ open }) => (
             <div className={`${!open ? "hidden" : ""}`}>
               <div
@@ -107,9 +107,7 @@ export default function FirstPlayGameNameFilter({
                     onChange={(e: React.FormEvent<HTMLInputElement>) =>
                       setQuery(e.currentTarget.value)
                     }
-                    onClick={(e: React.MouseEvent) => {
-                      e.preventDefault();
-                    }}
+                    value={query}
                     autoFocus
                     placeholder="search"
                     className={`flex-1 px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
