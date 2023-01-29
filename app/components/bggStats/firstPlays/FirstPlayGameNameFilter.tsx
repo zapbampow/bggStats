@@ -11,22 +11,21 @@ import {
 } from "../styles";
 import Measurer from "../Measurer";
 import { Combobox } from "@headlessui/react";
-import type { SelectionType } from "../types";
-import { Search, Check, Trash, Times } from "../icons";
+import { Search, Check, Times } from "../icons";
 import useDebounce from "~/hooks/useDebounce";
 
 type Props = {
   plays: FirstRecordRow[];
-  setFilteredPlays: (plays: FirstRecordRow[]) => void;
+  selection: string;
+  setSelection: (selection: string) => void;
 };
 
 export default function FirstPlayGameNameFilter({
   plays,
-  setFilteredPlays,
+  selection,
+  setSelection,
 }: Props) {
-  const [selection, setSelection] = useState<string>("");
   const [query, setQuery] = useState("");
-  const [selectionText, setSelectionText] = useState("");
   const [visible, setVisible] = useState(false);
   const filterBtnRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -40,16 +39,17 @@ export default function FirstPlayGameNameFilter({
 
   const handleChange = (gameName: string) => {
     setSelection(gameName);
-    setSelectionText(getSelectionText(gameName));
 
     if (!selection) return;
   };
 
   const filteredPlays =
-    debouncedQuery === ""
+    debouncedQuery === "" || !debouncedQuery
       ? plays
       : plays?.filter((play: FirstRecordRow) => {
-          return play.gameName.toLowerCase().includes(query.toLowerCase());
+          return play.gameName
+            .toLowerCase()
+            .includes(debouncedQuery?.toLowerCase());
         });
 
   const clickButton = () => {
@@ -59,19 +59,16 @@ export default function FirstPlayGameNameFilter({
 
   const clearSelection = () => {
     setSelection("");
-    setSelectionText("");
   };
 
-  // TODO: don't remove filter. we aren't using filters
-  // TODO: handle button click
-  // TODO: handle change
+  const selectionText = getSelectionText(selection);
 
   return (
     <div
       className={`relative flex items-center ${comboContainerStyles} hover:cursor-pointer`}
     >
       <Measurer
-        value={`Game: ${selectionText}`}
+        value={`Game${selectionText && ": "}${selectionText}`}
         visible={visible}
         setVisible={setVisible}
         impactedRef={filterBtnRef}
@@ -82,7 +79,7 @@ export default function FirstPlayGameNameFilter({
         className="flex items-center w-full gap-4 overflow-hidden font-semibold text-left transition-all whitespace-nowrap sm:max-w-sm"
         onClick={clickButton}
       >
-        Game: {selectionText}
+        Game{selectionText && ":"} {selectionText}
         {selection ? (
           <button
             className="text-slate-400 hover:text-red-500"

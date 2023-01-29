@@ -20,8 +20,8 @@ After entering a username, the app will download the user's play data. By intera
      - move "tools" to under $username so that it knows that it already has plays for that user
      - use the above function to get all the plays
      - display them, including whether they are actually recorded as 'new'
-2. Name/location dropdowns based on filteredPlays instead of all plays
-3. Change menu dropdown based on current location.
+1. Name/location dropdowns based on filteredPlays instead of all plays
+2. Change menu dropdown based on current location.
    - if on dashboard, include Tools
    - if in Tools, include Dashboard
 
@@ -56,3 +56,4 @@ After entering a username, the app will download the user's play data. By intera
 - Feat: Force get new data
 - Feat:only get new data if it hasn't updated in a certain amount of time: save last update time in localStorage and reference when deciding whether to run the get bgg data stuff
 - Feat: no filters for color, new, rating, score, startposition. You could add them.
+- Make data downloadable

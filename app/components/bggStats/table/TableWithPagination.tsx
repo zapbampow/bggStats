@@ -85,7 +85,7 @@ export default function TableWithPagination({ table }: Props) {
                             cell?.column?.id === "date"
                               ? "w-32"
                               : cell?.column?.id === "playId"
-                              ? "w-4 px-2 pl-4"
+                              ? "w-4 px-2"
                               : cell?.column?.id === "gameName"
                               ? "min-w-[9rem] max-w-max"
                               : "max-w-fit"

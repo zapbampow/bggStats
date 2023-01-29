@@ -162,7 +162,7 @@
   flex-grow: 1;
   flex-shrink: 0;
   align-items: center;
-  gap: 1rem;
+  gap: .75rem;
   /* border: 2px solid gray; */
   /* border-radius: 0.5rem; */
   /* padding: .5rem 1rem; */
@@ -481,3 +481,6 @@
 }
 
 /* END DASHBOARD CALENDAR */
+
+/* START TOOL MULTIDATEPICKER STYLES */
+/* END TOOL MULTIDATEPICKER STYLES */
