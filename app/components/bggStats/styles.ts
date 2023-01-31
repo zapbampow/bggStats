@@ -1,5 +1,5 @@
 export const baseStyles = `
-  px-4 py-2 rounded-md text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
+  px-4 py-1 rounded-md text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500
 `;
 
 export const smallBaseStyles = `px-1 text-[.75rem] rounded-md text-slate-700 transition border border-slate-500 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500`;

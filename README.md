@@ -6,20 +6,6 @@ After entering a username, the app will download the user's play data. By intera
 
 ## TODO
 ### Top Priorities
-1. New Games Card
-  - pass table into TableWithPagination, which means including all the react table stuff in RecordedPlays too
-  - new table columns for first-plays table (date, game, location, username, name)
-  - update function to give all first records -> must match all fields
-
-   - Create a filter for the "new" key in play.player record
-     - So it is really a First time played for player with a player dropdown
-   - Add to filter dropdown
-   - Add new games card
-   - First Play Finder Tool: Add tool that lets a user find the first time they've played a game without using the 'new' checkbox
-     - ~/utils/conversion/getFirstPlayDateFromPlays.ts
-     - move "tools" to under $username so that it knows that it already has plays for that user
-     - use the above function to get all the plays
-     - display them, including whether they are actually recorded as 'new'
 1. Name/location dropdowns based on filteredPlays instead of all plays
 2. Change menu dropdown based on current location.
    - if on dashboard, include Tools
@@ -57,3 +43,23 @@ After entering a username, the app will download the user's play data. By intera
 - Feat:only get new data if it hasn't updated in a certain amount of time: save last update time in localStorage and reference when deciding whether to run the get bgg data stuff
 - Feat: no filters for color, new, rating, score, startposition. You could add them.
 - Make data downloadable
+
+
+## Adding a filter
+### What happens when you select a filter in the main dashboard UI (how does it work)?
+1. The filter data is added or updated in the PlayFilterContext
+2. The useFilteredData hook sees the change and responds
+   - It orders them by their order
+   - It passed the information to the queryService filter function
+3. Using functional programming pipe method, it runs through all the filter options, reducing all the plays down to only the ones that match all the filter options 
+   - it knows what to do with each option because of the argFunctionPairs variable
+4. useFilteredData saves the filtered plays in the PlayResultsContext
+5. RecordedPlays component then displays the filtered plays
+
+### Steps to add a filter
+1. Add filter function to an appropriate filterBy file in `services/queryService`  and export it
+2. In `services/queryService/queryService` import the filter function and add to argFunctionPairs
+3. Add to `app/utils/filterTree` in the listRecordedPlays object, which is used in AddFilterButton to display what filters are add-able
+4. Add an option to `components/bggStats/FilterToComponent` which is used to display proper selector (Combobox, date selector, etc).
+5. If using a combobox, update `components/bggStats/filters/getOptions` to get whatever values you need to display if necessary
+   - also add whatever you need to actually get that data

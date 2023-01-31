@@ -34,6 +34,8 @@ export default function FilterToComponent({ filter }: Props) {
       return <ComboBoxFilterMultiple key={filter.order} filter={filter} />;
     case "wherePlayerNamesWon":
       return <ComboBoxFilterMultiple key={filter.order} filter={filter} />;
+    case "newForPlayerName":
+      return <ComboBoxFilter key={filter.order} filter={filter} />;
     case "onDate":
       return <Datepicker key={filter.order} filter={filter} />;
     case "afterDate":

@@ -137,6 +137,7 @@ const filterTree = {
       { value: "withAnyPlayerNames", label: "With any" },
       { value: "whereSinglePlayerNameWon", label: "Where the winner was" },
       { value: "wherePlayerNamesWon", label: "Where the winners were" },
+      { value: "newForPlayerName", label: "First time played for player" },
       // "of", // game name
       // "at", // location
       // "with", // players

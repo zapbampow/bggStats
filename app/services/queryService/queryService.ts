@@ -13,6 +13,7 @@ import {
   withAllPlayerNames,
   withAnyPlayerNames,
   withPlayerName,
+  newForPlayerName,
 } from "./filterByPlayerName";
 import {
   whereSinglePlayerNameWon,
@@ -85,6 +86,7 @@ type FilterName =
   | "withAllPlayerNames"
   | "withAnyPlayerNames"
   | "whereSinglePlayerNameWon"
+  | "newForPlayerName"
   | "wherePlayerNamesWon"
   | "onDate"
   | "beforeDate"
@@ -119,6 +121,7 @@ const argFunctionPairs = {
   withAnyPlayerNames: withAnyPlayerNames,
   wherePlayerNamesWon: wherePlayerNamesWon,
   whereSinglePlayerNameWon: whereSinglePlayerNameWon,
+  newForPlayerName: newForPlayerName,
   onDate: onDate,
   beforeDate: beforeDate,
   afterDate: afterDate,

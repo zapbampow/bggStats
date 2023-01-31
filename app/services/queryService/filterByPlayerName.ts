@@ -38,3 +38,13 @@ export function withPlayerName(name: string) {
       return players.length > 0;
     });
 }
+
+export function newForPlayerName(name: string) {
+  return (plays: Plays) =>
+    plays.filter((play) => {
+      let players = play.players.filter((player) => {
+        return name === player.name && player.new;
+      });
+      return players.length > 0;
+    });
+}

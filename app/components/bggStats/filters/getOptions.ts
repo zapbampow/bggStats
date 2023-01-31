@@ -36,6 +36,8 @@ export default async function getOptions({ filter, user }: Args) {
         return await getAllPlayerNames(user?.userId || 0);
       case "wherePlayerNamesWon":
         return await getAllPlayerNames(user?.userId || 0);
+      case "newForPlayerName":
+        return await getAllPlayerNames(user?.userId || 0);
 
       default:
         return [];
