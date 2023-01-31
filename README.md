@@ -6,8 +6,9 @@ After entering a username, the app will download the user's play data. By intera
 
 ## TODO
 ### Top Priorities
-1. Name/location dropdowns based on filteredPlays instead of all plays
-2. Change menu dropdown based on current location.
+1. Mobile styling of table on dashboard + mobile styling of bgg gradient on mobile with few results
+2. Name/location dropdowns based on filteredPlays instead of all plays
+3. Change menu dropdown based on current location.
    - if on dashboard, include Tools
    - if in Tools, include Dashboard
 
