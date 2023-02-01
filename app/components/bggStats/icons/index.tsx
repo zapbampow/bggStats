@@ -18,6 +18,8 @@ import Send from "./Send";
 import GithubIcon from "./GithubIcon";
 import Settings from "./Settings";
 import Dots from "./Dots";
+import Info from "./Info";
+import SignRight from "./SignRight";
 
 export {
   Backspace,
@@ -32,12 +34,14 @@ export {
   GithubIcon,
   Home,
   HomeMeeple,
+  Info,
   Meeple,
   Menu,
   Search,
   Selector,
   Send,
   Settings,
+  SignRight,
   Times,
   Trash,
 };
