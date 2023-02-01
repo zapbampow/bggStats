@@ -7,10 +7,6 @@ import { Link } from "@remix-run/react";
 export default function Settings() {
   const { users, deleteUserData, processing, error } = useManageData();
 
-  useEffect(() => {
-    console.log("users", users);
-  }, [users]);
-
   return (
     <div className="w-full lg:w-[764px] px-2 mx-auto">
       <div className="p-8 mb-16 rounded-md markdown bg-slate-100">

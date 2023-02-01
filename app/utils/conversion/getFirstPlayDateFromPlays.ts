@@ -18,7 +18,7 @@ export type RowData = {
 export async function getAllFirstGamePlaysFromPlays(username: string) {
   if (!username) return [];
   const user = await db.users.get({ username: username });
-  console.log("user", user);
+  // console.log("user", user);
   const plays = await db.plays
     .where({ recordingUserId: user?.userId })
     .toArray();
@@ -68,7 +68,7 @@ export type FirstRecordRow = {
 export const getFirstRecordPerGameForUsername = async (username: string) => {
   if (!username) return [];
   const user = await db.users.get({ username: username });
-  console.log("user", user);
+
   const plays = await db.plays
     .where({ recordingUserId: user?.userId })
     .toArray();

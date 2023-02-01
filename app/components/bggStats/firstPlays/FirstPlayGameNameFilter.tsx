@@ -33,10 +33,6 @@ export default function FirstPlayGameNameFilter({
 
   const debouncedQuery = useDebounce(query, 350);
 
-  useEffect(() => {
-    console.log("selection", selection);
-  }, [selection]);
-
   const handleChange = (gameName: string) => {
     setSelection(gameName);
 
