@@ -20,7 +20,7 @@ interface Props {
 }
 export default function DatePickerComponent({ filter }: Props) {
   const user = useBggUser();
-  const { state, dispatch } = usePlayFilterContext();
+  const { dispatch } = usePlayFilterContext();
 
   const [value, setValue] = React.useState(new Date());
   const [isOpen, setIsOpen] = useState(false);

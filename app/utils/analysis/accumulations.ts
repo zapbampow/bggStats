@@ -1,12 +1,35 @@
-import { db } from "../../services/db";
 import type { SelectionType } from "~/components/bggStats/types";
+import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
+import { PlayDataModel } from "~/models/bgg/gameDataModels";
 
-// All these must filter by recordingUserId too
-export const getAllPlayerNames = async (recordingUserId: number) => {
-  const names: SelectionType[] = [];
-  await db.plays
+export function getAllGames(
+  filteredPlays: PlayDataModel[],
+  recordingUserId: number
+) {
+  if (!recordingUserId) return [];
+
+  const games: SelectionType[] = [];
+  filteredPlays
     .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
+    .forEach((play) => {
+      const game: SelectionType = {
+        value: play?.gameId.toString(),
+        label: play?.gameName,
+      };
+      game?.value && game?.label && games.push(game);
+    });
+
+  return getUniqueSortedSelections(games);
+}
+
+export const getAllPlayerNames = (
+  filteredPlays: PlayDataModel[],
+  recordingUserId: number
+) => {
+  const names: SelectionType[] = [];
+  filteredPlays
+    .filter((play) => play.recordingUserId === recordingUserId)
+    .forEach((play) => {
       play.players.forEach((player) => {
         let playerSelection = {
           value: player.name,
@@ -19,11 +42,14 @@ export const getAllPlayerNames = async (recordingUserId: number) => {
   return getUniqueSortedSelections(names);
 };
 
-export const getAllUserNames = async (recordingUserId: number) => {
+export const getAllUserNames = (
+  filteredPlays: PlayDataModel[],
+  recordingUserId: number
+) => {
   const usernames: string[] = [];
-  await db.plays
+  filteredPlays
     .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
+    .forEach((play) => {
       play.players.forEach(
         (player) => player?.username && usernames.push(player.username)
       );
@@ -34,11 +60,14 @@ export const getAllUserNames = async (recordingUserId: number) => {
   return uniqueUsernames;
 };
 
-export const getAllPlayedColors = async (recordingUserId: number) => {
+export const getAllPlayedColors = (
+  filteredPlays: PlayDataModel[],
+  recordingUserId: number
+) => {
   const colors: string[] = [];
-  await db.plays
+  filteredPlays
     .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
+    .forEach((play) => {
       play.players.forEach(
         (player) => player?.color && colors.push(player.color)
       );
@@ -49,13 +78,16 @@ export const getAllPlayedColors = async (recordingUserId: number) => {
   return uniqueColors;
 };
 
-export const getAllLocations = async (recordingUserId: number) => {
+export const getAllLocations = (
+  filteredPlays: PlayDataModel[],
+  recordingUserId: number
+) => {
   if (!recordingUserId) return [];
 
   const locations: SelectionType[] = [];
-  await db.plays
+  filteredPlays
     .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
+    .forEach((play) => {
       const location = {
         value: play.location?.replace(/\s+/g, ""),
         label: play.location,
@@ -65,39 +97,6 @@ export const getAllLocations = async (recordingUserId: number) => {
 
   return getUniqueSortedSelections(locations);
 };
-
-export const getAllGames = async (recordingUserId: number) => {
-  if (!recordingUserId) return [];
-
-  const games: SelectionType[] = [];
-  await db.plays
-    .filter((play) => play.recordingUserId === recordingUserId)
-    .each((play) => {
-      const game: SelectionType = {
-        value: play?.gameId.toString(),
-        label: play?.gameName,
-      };
-      game?.value && game?.label && games.push(game);
-    });
-
-  return getUniqueSortedSelections(games);
-};
-
-// export const getAllGameNames = async (recordingUserId: number) => {
-//   if (!recordingUserId) return [];
-
-//   const gameNames: string[] = [];
-//   await db.plays
-//     .filter((play) => play.recordingUserId === recordingUserId)
-//     .each((play) => {
-//       play?.gameName && gameNames.push(play.gameName);
-//     });
-
-//   const uniqueGameNames = [...new Set(gameNames)];
-//   const sortedGames = sortGameNames(uniqueGameNames);
-
-//   return sortedGames;
-// };
 
 const getUniqueSortedSelections = (selections: SelectionType[] = []) => {
   if (selections.length === 0) return [];

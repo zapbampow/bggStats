@@ -5,13 +5,15 @@ import {
 } from "~/utils/analysis/accumulations";
 import type { UserInfo } from "~/models/bgg/userInfo";
 import type { FilterType } from "~/services/queryService/types";
+import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 
 type Args = {
   filter: FilterType;
   user: UserInfo;
+  filteredPlays: PlayDataModel[];
 };
 
-export default async function getOptions({ filter, user }: Args) {
+export default function getOptions({ filteredPlays, filter, user }: Args) {
   if (!filter || !user) return [];
 
   try {
@@ -19,25 +21,25 @@ export default async function getOptions({ filter, user }: Args) {
 
     switch (filterVal) {
       case "gameName":
-        return await getAllGames(user?.userId || 0);
+        return getAllGames(filteredPlays, user?.userId || 0);
       case "gameNames":
-        return await getAllGames(user?.userId || 0);
+        return getAllGames(filteredPlays, user?.userId || 0);
       case "location":
-        return await getAllLocations(user?.userId || 0);
+        return getAllLocations(filteredPlays, user?.userId || 0);
       case "withPlayerName":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "whereSinglePlayerNameWon":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "withAllPlayerNames":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "withOnlyPlayerNames":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "withAnyPlayerNames":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "wherePlayerNamesWon":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
       case "newForPlayerName":
-        return await getAllPlayerNames(user?.userId || 0);
+        return getAllPlayerNames(filteredPlays, user?.userId || 0);
 
       default:
         return [];

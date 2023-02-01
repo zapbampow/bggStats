@@ -25,12 +25,14 @@ import RemoveFilter from "./RemoveFilter";
 import ClearFilter from "./ClearFilter";
 import { Check, Search, Trash } from "../icons";
 import useDebounce from "~/hooks/useDebounce";
+import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 
 type Props = {
   filter: FilterType;
 };
 export default function ComboBoxFilter({ filter }: Props) {
   const { dispatch, removeFilter } = usePlayFilterContext();
+  const { state } = usePlayResultsContext();
   const user = useBggUser();
   let comboboxId = `combobox-${filter.order}`;
   let inputRef = useRef<HTMLInputElement | null>(null);
@@ -82,11 +84,11 @@ export default function ComboBoxFilter({ filter }: Props) {
     []
   );
 
-  const getSetOptions = useCallback(async () => {
+  const getSetOptions = useCallback(() => {
     if (!user) return;
 
     try {
-      const options = await getOptions({ filter, user });
+      const options = getOptions({ filteredPlays: state, filter, user });
       if (options) {
         setOptions(options);
         setInitialSelection(options, filter);
@@ -94,7 +96,7 @@ export default function ComboBoxFilter({ filter }: Props) {
     } catch (err) {
       console.log(err);
     }
-  }, [user, filter, setInitialSelection]);
+  }, [user, filter, setInitialSelection, state]);
 
   useEffect(
     function openOptionsOnFirstRender() {

@@ -19,6 +19,7 @@ import ClearFilter from "./ClearFilter";
 import RemoveFilter from "./RemoveFilter";
 import Measurer from "~/components/bggStats/Measurer";
 import useDebounce from "~/hooks/useDebounce";
+import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
 
 type Props = {
   filter: FilterType;
@@ -26,6 +27,7 @@ type Props = {
 
 export default function ComboBoxFilterMultiple({ filter }: Props) {
   const { dispatch, removeFilter } = usePlayFilterContext();
+  const { state } = usePlayResultsContext();
   const user = useBggUser();
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
@@ -85,11 +87,11 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     });
   };
 
-  const getInitialOptions = useCallback(async () => {
+  const getInitialOptions = useCallback(() => {
     if (!user || allOptions.length) return;
 
     try {
-      const options = await getOptions({ filter, user });
+      const options = getOptions({ filteredPlays: state, filter, user });
       if (options) {
         setAllOptions(options);
         setOptions(options);
@@ -97,7 +99,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
     } catch (err) {
       console.log(err);
     }
-  }, [user, filter, allOptions]);
+  }, [user, filter, allOptions, state]);
 
   useEffect(
     function setupOptions() {
