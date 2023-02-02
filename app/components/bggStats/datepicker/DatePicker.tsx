@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
-import { useBggUser } from "~/hooks/bgg/useBggUser";
 import {
   ChevronLeft,
   ChevronRight,
@@ -19,7 +18,6 @@ interface Props {
   filter: FilterType;
 }
 export default function DatePickerComponent({ filter }: Props) {
-  const user = useBggUser();
   const { dispatch } = usePlayFilterContext();
 
   const [value, setValue] = React.useState(new Date());

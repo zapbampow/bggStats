@@ -28,7 +28,7 @@ type Props = {
 export default function ComboBoxFilterMultiple({ filter }: Props) {
   const { dispatch, removeFilter } = usePlayFilterContext();
   const { state } = usePlayResultsContext();
-  const user = useBggUser();
+  const { user } = useBggUser();
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
   let filterBtnRef = useRef<HTMLDivElement>(null);

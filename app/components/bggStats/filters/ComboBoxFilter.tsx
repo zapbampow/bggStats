@@ -33,7 +33,7 @@ type Props = {
 export default function ComboBoxFilter({ filter }: Props) {
   const { dispatch, removeFilter } = usePlayFilterContext();
   const { state } = usePlayResultsContext();
-  const user = useBggUser();
+  const { user } = useBggUser();
   let comboboxId = `combobox-${filter.order}`;
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);

@@ -20,6 +20,7 @@ import Settings from "./Settings";
 import Dots from "./Dots";
 import Info from "./Info";
 import SignRight from "./SignRight";
+import ExclamationCircle from "./ExclamationCircle";
 
 export {
   Backspace,
@@ -30,6 +31,7 @@ export {
   ChevronsLeft,
   ChevronsRight,
   Dots,
+  ExclamationCircle,
   ExternalLink,
   GithubIcon,
   Home,

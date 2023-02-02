@@ -27,7 +27,7 @@ interface Props {
 }
 
 export default function SingleSelect({ filter }: Props) {
-  const user = useBggUser();
+  const { user } = useBggUser();
   const { state, dispatch } = usePlayFilterContext();
   const [options, setOptions] = useState<SelectionType[]>();
 

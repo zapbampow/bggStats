@@ -27,7 +27,7 @@ type Props = {
   handleFiltering?: () => Promise<void>;
 };
 function usePlayData(props: Props) {
-  const user = useBggUser();
+  const { user } = useBggUser();
   const [percentDone, setPercentDone] = useState(0);
   const [error, setError] = useState(null);
   const [userFirstTime, setUserFirstTime] = useState(false);

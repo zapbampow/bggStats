@@ -6,18 +6,17 @@ After entering a username, the app will download the user's play data. By intera
 
 ## TODO
 ### Top Priorities
-1. Mobile styling of table on dashboard + mobile styling of bgg gradient on mobile with few results
+1. Finish Testable User Data
+   - add multiple years worth of data for acciopatronus
+   - add information to claytoningalls.com section about this app OR just include the information in the url
+2. Mobile styling of table on dashboard + mobile styling of bgg gradient on mobile with few results
+3. Feat(display winners AND new in table): add a trophy-filled next to the winners' names and star-filled next to new
+4. Add database to track who is using the app
 
 ### Other Tasks
-- Bug: Needs error handling if the username entered is not a bgg username
-- Bug: When clicking the arrows to navigate the paginated data, it doesn't update the page number
-- Bug: When deleting data of one user, all the buttons display "deleting" instead of just the one
-
-- Refactor: for the dropdown filters related to games, players, and location - only display those things for the currently filtered plays instead of for all possible plays
 - Refactor: Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns
   - [Example](https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/sorting?from-embed=&file=/src/main.tsx:2926-2975)
 
-- Feat(display winners in table): add a trophy next to the winners' names
 - Feat(this year filter): add 'this year' and 'last year' as date range options
 - Feat(exclude player filter): Add a Without Player filter
 - Feat(instructions modal): add modal with instructions - only show if there is no record in localStorage that this person has visited before

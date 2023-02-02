@@ -8,7 +8,7 @@ import { useBggUser } from "~/hooks/bgg/useBggUser";
 import filter from "~/services/queryService";
 
 export default function useFilteredData() {
-  const user = useBggUser();
+  const { user } = useBggUser();
   const { state, dispatch } = usePlayFilterContext();
   const { dispatch: resultsDispatch } = usePlayResultsContext();
 

@@ -7,8 +7,11 @@ import { db } from "../../services/db";
 export function useBggUser() {
   const { username } = useParams();
   const [user, setUser] = useState<UserInfo | undefined>();
+  const [error, setError] = useState<string | undefined>();
 
   const handleUserName = async (username: string) => {
+    setError(undefined);
+
     const dbUserInfo = await db.users
       .where("username")
       .equals(username)
@@ -19,6 +22,14 @@ export function useBggUser() {
       setUser(dbUserInfo);
     } else {
       const userInfo = await getUserInfo(username);
+
+      let isARealUser = isValidUser(userInfo);
+
+      if (!isARealUser) {
+        setError(
+          `"${username}" doesn't seem to be a valid user. Please check your spelling and try again.`
+        );
+      }
 
       if (userInfo) {
         setUser(userInfo);
@@ -35,7 +46,7 @@ export function useBggUser() {
     }
   }, [username]);
 
-  return user;
+  return { user, error };
 }
 
 const addUserToIndexDB = async (userInfo: UserInfo) => {
@@ -44,4 +55,30 @@ const addUserToIndexDB = async (userInfo: UserInfo) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const isValidUser = (userInfo: UserInfo) => {
+  console.log("userInfo", userInfo);
+  const {
+    avatarLink,
+    country,
+    name,
+    stateOrProvince,
+    userId,
+    username,
+    yearRegistered,
+  } = userInfo;
+  const isValidStringVal = (item: string) =>
+    item !== "N/A" && item.trim().length > 0;
+  const isValidNumVal = (item: number) => !isNaN(item);
+
+  return (
+    isValidStringVal(avatarLink) ||
+    isValidStringVal(country) ||
+    isValidStringVal(name) ||
+    isValidStringVal(stateOrProvince) ||
+    isValidNumVal(userId) ||
+    isValidStringVal(username) ||
+    isValidNumVal(yearRegistered)
+  );
 };
