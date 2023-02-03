@@ -278,16 +278,16 @@ export default function Index() {
             {/* <!-- BGG STATS --> */}
             <div className="row project">
               <div className="col-12 project-title">
-                <Link to="/bggstats">BBG Play Stats</Link>
+                <Link to="/bggstats/acciopatronus/plays">BBG Play Stats</Link>
               </div>
               <div className="col-md-4 col-sm-12">
-                <a href="/bggstats">
+                <Link to="/bggstats/acciopatronus/plays">
                   <img
                     src="/images/claytoningalls.com-old/bggstats.png"
                     alt="gatsby-blog.png"
                     className="img-fluid"
                   />
-                </a>
+                </Link>
               </div>
               <div className="col-md-8 col-sm-12">
                 <p>
@@ -297,7 +297,8 @@ export default function Index() {
                   questions about the games we played over the last year. There
                   were no tools that answered the exact questions I wanted to
                   answer. Things like "How many games did I play with just my
-                  wife and kids? How many games did each of us win?"
+                  wife and kids? How many games did each of us win?" (My wife
+                  wins the most. <span>👩‍❤️👨</span>)
                 </p>
                 <p>
                   So in my free time I built this app to let me easily drill
