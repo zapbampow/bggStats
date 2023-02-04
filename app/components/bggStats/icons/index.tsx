@@ -21,6 +21,10 @@ import Dots from "./Dots";
 import Info from "./Info";
 import SignRight from "./SignRight";
 import ExclamationCircle from "./ExclamationCircle";
+import TrophyFilled from "./TrophyFilled";
+import Dice1 from "./Dice1";
+import NewBadge from "./NewBadge";
+import Trophy from "./Trophy";
 
 export {
   Backspace,
@@ -30,6 +34,7 @@ export {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Dice1,
   Dots,
   ExclamationCircle,
   ExternalLink,
@@ -39,6 +44,7 @@ export {
   Info,
   Meeple,
   Menu,
+  NewBadge,
   Search,
   Selector,
   Send,
@@ -46,4 +52,6 @@ export {
   SignRight,
   Times,
   Trash,
+  Trophy,
+  TrophyFilled,
 };

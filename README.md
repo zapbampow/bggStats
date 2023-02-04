@@ -6,12 +6,8 @@ After entering a username, the app will download the user's play data. By intera
 
 ## TODO
 ### Top Priorities
-1. Finish Testable User Data
-   - add multiple years worth of data for acciopatronus
-   - add information to claytoningalls.com section about this app OR just include the information in the url
-2. Mobile styling of table on dashboard + mobile styling of bgg gradient on mobile with few results
-3. Feat(display winners AND new in table): add a trophy-filled next to the winners' names and star-filled next to new
-4. Add database to track who is using the app
+1. Bug: Mobile styling of table on dashboard + mobile styling of bgg gradient on mobile with few resultsq
+2. Add database to track who is using the app
 
 ### Other Tasks
 - Refactor: Add icon for sorting in the th tags and add cursor pointer on hover of the sortable columns

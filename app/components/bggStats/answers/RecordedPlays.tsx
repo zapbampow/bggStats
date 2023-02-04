@@ -11,10 +11,12 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import type { ColumnHelper } from "@tanstack/react-table";
-import { ExternalLink } from "../icons";
+import { ExternalLink, NewBadge } from "../icons";
 
 import TableWithPagination from "../table/TableWithPagination";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
+import { TrophyFilled, Trophy, Dice1 } from "../icons";
+import IconLegend from "./IconLegend";
 
 export default function RecordedPlays() {
   const { state: data } = usePlayResultsContext();
@@ -57,10 +59,33 @@ export default function RecordedPlays() {
     }),
     columnHelper.accessor("players", {
       cell: (data) => {
-        let names = data
-          .getValue()
-          .map((pdata) => pdata.name)
-          .join(", ");
+        // console.log("players data", data.getValue());
+        // const sortedData = data.getValue().sort((a, b) => {
+        //   if (a.win && !b.win) {
+        //     return -1;
+        //   }
+        //   if (!a.win && b.win) {
+        //     return 1;
+        //   }
+        //   return 0;
+        // });
+
+        let names = data.getValue().map((pdata, i, arr) => {
+          let length = arr.length;
+          let { userId, name, win, new: firstPlay } = pdata;
+          return (
+            <span className="inline-flex items-center" key={`${name}${userId}`}>
+              {win ? (
+                <TrophyFilled width={14} className="inline text-yellow-500" />
+              ) : (
+                ""
+              )}
+              {name}
+              {/* {firstPlay ? <NewBadge width={16} strokeWidth={1} /> : ""} */}
+              {i === length - 1 ? "" : ",\u00A0"}
+            </span>
+          );
+        });
         return names;
       },
       header: () => "Players",
@@ -79,6 +104,7 @@ export default function RecordedPlays() {
   return (
     <Container>
       <TableWithPagination table={table} />
+      <IconLegend />
     </Container>
   );
 }
