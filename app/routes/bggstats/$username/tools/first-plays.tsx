@@ -3,15 +3,29 @@ import { useParams } from "@remix-run/react";
 import { getFirstRecordPerGameForUsername } from "~/utils/conversion/getFirstPlayDateFromPlays";
 import type { FirstRecordRow } from "~/utils/conversion/getFirstPlayDateFromPlays";
 import TableWithPagination from "~/components/bggStats/table/TableWithPagination";
-
+import invariant from "tiny-invariant";
 import useFirstPlaysTable from "~/hooks/bgg/useFirstPlaysTable";
 import {
   FirstPlayGameNameFilter,
   FirstPlayDateRangeFilter,
 } from "~/components/bggStats/firstPlays";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import datePickerStyles from "~/styles/bggStats/datePickerStyles.css";
 import dayjs from "dayjs";
+import { addUsageData } from "~/services/prismaService/bggStats";
+
+export const loader: LoaderFunction = ({ params }) => {
+  let username = params.username;
+  invariant(username, "Expects a username");
+
+  console.log(username);
+
+  if (username) {
+    addUsageData({ username: username as string, page: "first-plays" });
+  }
+
+  return username;
+};
 
 type State = {
   selectedGameName: string;

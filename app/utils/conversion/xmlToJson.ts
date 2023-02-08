@@ -24,7 +24,7 @@ export function xmlToJson(xml) {
   }
 
   // do children
-  if (xml.hasChildNodes()) {
+  if (xml.hasChildNodes && xml.hasChildNodes()) {
     for (var i = 0; i < xml.childNodes.length; i++) {
       var item = xml.childNodes.item(i);
       var nodeName = item.nodeName;
@@ -43,7 +43,7 @@ export function xmlToJson(xml) {
   return obj;
 }
 
-export function convertXmlToJsObject(xmlData) {
+export function convertXmlToJsObject(xmlData: string): any {
   const parser = new DOMParser();
   const doc = parser.parseFromString(xmlData, "application/xml");
 

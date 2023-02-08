@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BggUser {
+  id                   Int                    @unique
+  username             String                 @unique
+  createdAt            DateTime               @default(now())
+  BggStatsUsageHistory BggStatsUsageHistory[]
+}
+
+model BggStatsUsageHistory {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime @default(now())
+  page      String
+  user      BggUser  @relation(fields: [userId], references: [id])
+}

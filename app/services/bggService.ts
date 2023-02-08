@@ -187,7 +187,9 @@ function convertPlayers(
   }
 }
 
-export async function getUserInfo(username: string): UserInfo {
+export async function getUserInfo(
+  username: string
+): Promise<UserInfo | undefined> {
   if (username) {
     const query = `https://boardgamegeek.com/xmlapi2/user?name=${username}`;
     const originalFetch = window.fetch;
