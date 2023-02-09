@@ -27,8 +27,8 @@ jobs:
 
       - name: 🚀 Deploy Dev Environment
         if: ${{ github.ref == 'refs/heads/dev' }}
-        run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
+        run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev
 
       - name: 🚀 Deploy Production Environment
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
+        run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}
