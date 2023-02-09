@@ -16,11 +16,18 @@ jobs:
       - name: ⬇️ Checkout Repo
         uses: actions/checkout@v3
 
+      - name: 👀 Read app name
+        uses: SebRollen/toml-action@v1.0.2
+        id: app_name
+        with:
+          file: "fly.toml"
+          field: "app"
+
       - name: 🚀 Deploy Dev Environment
         if: ${{ github.ref == 'refs/heads/dev' }}
         uses: superfly/flyctl-actions/setup-flyctl@master
         with:
-          version: "deploy --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
+          args: "flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -28,8 +35,6 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: superfly/flyctl-actions/setup-flyctl@master
         with:
-          version: "deploy --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
+          args: "flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-
-      - run: flyctl deploy --remote-only
