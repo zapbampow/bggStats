@@ -23,16 +23,12 @@ jobs:
           file: "fly.toml"
           field: "app"
 
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
       - name: 🚀 Deploy Dev Environment
         if: ${{ github.ref == 'refs/heads/dev' }}
-        uses: superfly/flyctl-actions/setup-flyctl@master
         run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: 🚀 Deploy Production Environment
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: superfly/flyctl-actions/setup-flyctl@master
         run: flyctl deploy --remote-only --app ${{ steps.app_name.outputs.value }}-dev --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
