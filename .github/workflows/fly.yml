@@ -3,13 +3,33 @@ on:
   push:
     branches:
       - main
+      - dev
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
+    # only build/deploy main branch on pushes
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: 🚀 Deploy Dev Environment
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        with:
+          args: "deploy --app ${{ steps.app_name.outputs.value }}-staging --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: 🚀 Deploy Production Environment
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        with:
+          args: "deploy --app ${{ steps.app_name.outputs.value }}-staging --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - run: flyctl deploy --remote-only
