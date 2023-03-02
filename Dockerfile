@@ -59,8 +59,8 @@ COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
-COPY --from=build /myapp/start_with_migrations.sh /myapp/start_with_migrations.sh
-COPY --from=build /myapp/prisma /myapp/prisma
+COPY --from=build /myapp/start_with_migrations.sh /app/start_with_migrations.sh
+COPY --from=build /myapp/prisma /app/prisma
 ADD . .
 
 CMD ["npm", "run", "start"]
