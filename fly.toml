@@ -8,6 +8,10 @@ processes = []
 [env]
   PORT = "8080"
 
+[mounts]
+  source = "data"
+  destination = "/data"
+
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
