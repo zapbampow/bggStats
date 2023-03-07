@@ -6,7 +6,7 @@ kill_timeout = 5
 processes = []
 
 [env]
-  PORT = "8080"
+  PORT = "8080" 
 
 [mounts]
   source = "data"
@@ -15,6 +15,8 @@ processes = []
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+  cmd = "start_with_migrations.sh"
+  entrypoint = "sh"
 
 [[services]]
   http_checks = []
