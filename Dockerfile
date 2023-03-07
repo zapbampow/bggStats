@@ -44,8 +44,8 @@ RUN npm run build
 # Finally, build the production image with minimal footprint
 FROM base
 
-ENV NODE_ENV=production
 ENV DATABASE_URL=file:/data/sqlite.db
+ENV NODE_ENV=production
 
 # add shortcut for connecting to database CLI
 RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
@@ -60,8 +60,11 @@ COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
+COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/start_with_migrations.sh /app/start_with_migrations.sh
 COPY --from=build /app/prisma /app/prisma
 ADD . .
 
-CMD ["npm", "run", "start"]
+ENTRYPOINT [
+    "./start_with_migrations.sh"
+]
