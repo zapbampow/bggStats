@@ -65,6 +65,4 @@ COPY --from=build /app/start_with_migrations.sh /app/start_with_migrations.sh
 COPY --from=build /app/prisma /app/prisma
 ADD . .
 
-ENTRYPOINT [
-    "./start_with_migrations.sh"
-]
+ENTRYPOINT [ "./start_with_migrations.sh" ]
