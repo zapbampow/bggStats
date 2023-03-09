@@ -4,11 +4,10 @@ FROM node:16-bullseye-slim as base
 # set for base and all layer that inherit from it
 ENV NODE_ENV production
 
-# Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl
-
-# Install sqlite3 for Prisma
-Run apt-get install -y sqlite3
+# Install openssl and sqlite3 for Prisma
+RUN apt-get update 
+RUN install -y sqlite3
+RUN apt-get install -y openssl
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
