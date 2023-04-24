@@ -7,7 +7,7 @@ import {
   getInitialPlayData,
   getPlayDataWithExponentialBackingOff,
   getLatestPlaysInfo,
-} from "../../services/bggService";
+} from "~/services/bggService";
 import { useBggUser } from "./useBggUser";
 
 /**

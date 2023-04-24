@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { baseStyles } from "~/components/bggStats/styles";
-import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/entry.nostyle";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { ChevronLeft, ChevronRight, Trash } from "../icons";
 
 const dateFormat = "YYYY-MM-DD";
