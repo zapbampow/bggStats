@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-// import DatePicker from "react-date-picker/dist/entry.nostyle";
-import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/entry.nostyle";
+import DatePicker from "react-date-picker";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import { ChevronLeft, ChevronRight, Trash } from "../icons";
 import { baseStyles } from "~/components/bggStats/styles";
@@ -80,7 +80,7 @@ export default function MultiDatePickerComponent({ filter }: Props) {
   return (
     <div
       onClick={() => setIsOpen(true)}
-      className={`relative text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
+      className={`relative flex items-center gap-4 text-slate-700 ${baseStyles} hover:cursor-pointer`}
     >
       <div className="font-semibold">{filter.label}:</div>
       <DateRangePicker

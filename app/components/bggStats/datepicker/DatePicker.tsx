@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
+import DatePicker from "react-date-picker";
 import { usePlayFilterContext } from "~/contexts/bggStats/playFilterContext";
 import {
   ChevronLeft,
@@ -20,7 +20,7 @@ interface Props {
 export default function DatePickerComponent({ filter }: Props) {
   const { dispatch } = usePlayFilterContext();
 
-  const [value, setValue] = React.useState(new Date());
+  const [value, setValue] = React.useState();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (value: any) => {
@@ -65,7 +65,7 @@ export default function DatePickerComponent({ filter }: Props) {
 
   return (
     <div
-      className={`relative text-slate-700 flex items-center gap-4 ${baseStyles} hover:cursor-pointer`}
+      className={`relative flex items-center gap-4 text-slate-700 ${baseStyles} hover:cursor-pointer`}
       onClick={() => {
         setIsOpen(true);
       }}

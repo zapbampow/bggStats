@@ -1,15 +1,16 @@
 import { Outlet } from "@remix-run/react";
 import type {
   LinksFunction,
-  MetaFunction,
+  V2_MetaFunction,
   LoaderFunction,
 } from "@remix-run/node";
 import styles from "~/styles/bggStats/username.css";
 
 import Navbar from "~/components/bggStats/navbar";
+import { Suspense } from "react";
 
-export const meta: MetaFunction = () => {
-  return { title: "BGG Play Data Stats" };
+export const meta: V2_MetaFunction = (args) => {
+  return [{ title: "BGG Play Data Stats" }];
 };
 
 export const links: LinksFunction = () => {
@@ -45,10 +46,13 @@ export default function BggStats() {
   }
 
   return (
-    <div className="relative min-h-screen bg-slate-200 bgg-gradient">
-      <Navbar />
-
-      <Outlet />
-    </div>
+    <Suspense fallback={<Fallback />}>
+      <div className="bgg-gradient relative min-h-screen bg-slate-200">
+        <Navbar />
+        <Outlet />
+      </div>
+    </Suspense>
   );
 }
+
+const Fallback = () => <div />;
