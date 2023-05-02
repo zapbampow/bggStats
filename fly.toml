@@ -1,4 +1,4 @@
-app = "upgrade-9459"
+app = "bgg-stats"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = [ ]
