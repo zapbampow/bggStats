@@ -199,7 +199,7 @@ export default function Index() {
               <h1>Skills</h1>
             </div>
             <div className="row">
-              <div className="col-12 text-center">
+              <div className="col-12 flex flex-wrap text-center">
                 <span
                   className="devicon-html5-plain devi-size"
                   data-toggle="tooltip"
@@ -233,7 +233,7 @@ export default function Index() {
               </div>
             </div>
             <div className="row">
-              <div className="col-12 text-center">
+              <div className="col-12 flex flex-wrap text-center">
                 <span
                   className="devicon-github-plain devi-size"
                   data-toggle="tooltip"
