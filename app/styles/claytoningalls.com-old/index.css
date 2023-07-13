@@ -88,7 +88,8 @@ body {
 
 .section-title h1 {
     font-size: 4em;
-    text-decoration: underline;
+    display: inline-block;
+    border-bottom: 4px solid black;
 }
 
 /* Skills */
@@ -149,4 +150,9 @@ hr {
 #work hr {
     margin-top: 4rem;
     margin-bottom: 4rem;
+}
+
+.project-list {
+    list-style: disc outside none;
+    margin-left: 1rem;
 }

@@ -4,8 +4,6 @@ import styles from "~/styles/claytoningalls.com-old/index.css";
 import profilePicture from "~/images/profile-picture.jpg";
 import { Link } from "@remix-run/react";
 
-console.log("styles", styles);
-
 export const links: LinksFunction = () => {
   return [
     {
@@ -18,7 +16,7 @@ export const links: LinksFunction = () => {
     },
     {
       rel: "stylesheet",
-      href: "https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css",
+      href: "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css",
     },
     {
       rel: "stylesheet",
@@ -65,7 +63,8 @@ export default function Index() {
         "a priest",
         "a weirdo",
         "a 9 on the Enneagram",
-        "an INTJ",
+        "a gardener",
+        "a disc golfer",
       ];
 
       if (i < arr.length - 1) {
@@ -183,8 +182,8 @@ export default function Index() {
 
                 <p>
                   In additon to coding, I'm a Nashville native, but live just
-                  outside of Atlanta. And I'm{" "}
-                  <span id="about-me">{aboutMeText}</span>.
+                  outside of Atlanta. <br />
+                  And I'm <span id="about-me">{aboutMeText}</span>.
                 </p>
               </div>
             </div>
@@ -196,10 +195,13 @@ export default function Index() {
         <div className="row content-section" id="skills">
           <div className="container">
             <div className="col-12 section-title text-center">
-              <h1>Skills</h1>
+              <h1>Stuff I've Work With</h1>
             </div>
             <div className="row">
-              <div className="col-12 text-center">
+              <div
+                className="col-12 mx-auto flex flex-wrap justify-center text-center"
+                style={{ maxWidth: "700px" }}
+              >
                 <span
                   className="devicon-html5-plain devi-size"
                   data-toggle="tooltip"
@@ -213,49 +215,57 @@ export default function Index() {
                   data-placement="top"
                 ></span>
                 <span
+                  className="devicon-bootstrap-plain devi-size"
+                  data-toggle="tooltip"
+                  title="Bootstrap"
+                  data-placement="top"
+                ></span>
+                <span
+                  className="devicon-tailwindcss-plain devi-size"
+                  data-toggle="tooltip"
+                  title="Tailwind"
+                  data-placement="top"
+                ></span>
+                <span
+                  className="devicon-git-plain devi-size"
+                  data-toggle="tooltip"
+                  title="Git and GitHub"
+                  data-placement="top"
+                ></span>
+                <span
                   className="devicon-javascript-plain devi-size"
                   data-toggle="tooltip"
                   title="JavaScript"
                   data-placement="top"
                 ></span>
                 <span
-                  className="devicon-jquery-plain devi-size"
+                  className="devicon-typescript-plain devi-size"
                   data-toggle="tooltip"
-                  title="jQuery"
+                  title="Typescript"
                   data-placement="top"
                 ></span>
                 <span
-                  className="devicon-bootstrap-plain devi-size"
-                  data-toggle="tooltip"
-                  title="Bootstrap"
-                  data-placement="top"
-                ></span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12 text-center">
-                <span
-                  className="devicon-github-plain devi-size"
-                  data-toggle="tooltip"
-                  title="Git and GitHub"
-                  data-placement="top"
-                ></span>
-                <span
-                  className="devicon-react-original-wordmark devi-size"
+                  className="devicon-react-original devi-size"
                   data-toggle="tooltip"
                   title="React"
+                  data-placement="top"
+                ></span>
+                <span
+                  className="devicon-nextjs-original devi-size"
+                  data-toggle="tooltip"
+                  title="NextJS"
+                  data-placement="top"
+                ></span>
+                <span
+                  className="devicon-svelte-plain devi-size"
+                  data-toggle="tooltip"
+                  title="Svelte"
                   data-placement="top"
                 ></span>
                 <span
                   className="devicon-nodejs-plain devi-size"
                   data-toggle="tooltip"
                   title="NodeJS"
-                  data-placement="top"
-                ></span>
-                <span
-                  className="devicon-mongodb-plain devi-size"
-                  data-toggle="tooltip"
-                  title="MongoDB"
                   data-placement="top"
                 ></span>
                 <span
@@ -349,13 +359,23 @@ export default function Index() {
                   React, in partnership with sprint teams, and help maintain the
                   existing codebase.
                 </p>
+                <ul className="project-list">
+                  <li>
+                    I completed a mission critical new frontend for our login
+                    flow.
+                  </li>{" "}
+                  <li>
+                    I built out the UI for recurring payments features as well
+                    as adding payments UI to various features throught the app.
+                  </li>{" "}
+                  <li>
+                    I was trusted with completing a key new registration feature
+                    with strategic implications.
+                  </li>
+                </ul>
                 <p>
-                  I'm particularly proud of completing a mission critical new
-                  frontend for our login flow and adding a UI for recurring
-                  payments to our payments and donation features. I also fixed a
-                  persnickety bug that was caused when React interacted with our
-                  legacy app, which has made the smoothness and stability of our
-                  overall app much better.
+                  I'm often leaned on to finish out projects that have been
+                  struggling to get across the finish line.
                 </p>
               </div>
             </div>
@@ -384,9 +404,10 @@ export default function Index() {
                 </p>
 
                 <p>
-                  I built proof of concept apps in Next and Remix to help the
-                  organization explore moving their core application to
-                  serverside React with a Salesforce backend.
+                  <strong>The Role: </strong>I built proof of concept apps in
+                  Next and Remix to help the organization explore moving their
+                  core application to serverside React with a Salesforce
+                  backend.
                 </p>
                 <p>
                   I massively improved the developer experience by refactoring
@@ -423,9 +444,9 @@ export default function Index() {
                   <strong>Sep 2018 - Sep 2021</strong>
                 </p>
                 <p>
-                  <strong>The Role: </strong> I build new product features with
-                  React, in partnership with sprint teams, and help maintain the
-                  existing codebase.
+                  <strong>The Role: </strong> I built new product features with
+                  React, in partnership with sprint teams, and helped maintain
+                  the existing codebase.
                 </p>
                 <p>
                   I replaced a legacy application with React and Material UI to
@@ -435,16 +456,16 @@ export default function Index() {
                 <p>
                   I designed and built an internal staff site for the sharing
                   and requesting of resources with React, Form.io, and custom
-                  CSS..
+                  CSS.
                 </p>
                 <p>
                   I led the implementation of notifications and universal links
                   in our React Native app
                 </p>
                 <p>
-                  I partnered with coworker to develop the table structures and
-                  API endpoints for a contact management feature in our mobile
-                  app using React and Knex.
+                  I partnered with a co-worker to develop the table structures
+                  and API endpoints for a contact management feature in our
+                  mobile app using React and Knex.
                 </p>
                 <p>
                   I worked with a client to develop an executable Node
