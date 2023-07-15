@@ -1,49 +1,50 @@
 import type { PlayDataModel } from "~/models/bgg/gameDataModels.js";
 import { TrophyFilled, ExternalLink } from "../icons";
 import dayjs from "dayjs";
+import PaginationRow from "./PaginationRow.js";
+import type { Table as TableType } from "@tanstack/table-core";
+import type { FirstRecordRow } from "~/utils/conversion/getFirstPlayDateFromPlays";
 
-export default function RecordCards({ rows }: { rows: Row[] }) {
+type Props = {
+  table: TableType<PlayDataModel | FirstRecordRow>;
+};
+export default function RecordCards({ table }: Props) {
   return (
-    <div className="grid gap-4">
-      {rows.map((row) => (
-        <Card key={row.id} data={row.original} />
-      ))}
+    <div className="grid gap-8">
+      <div className="grid gap-4">
+        {table.getRowModel().rows.map((row) => (
+          <Card key={row.id} data={row.original} />
+        ))}
+      </div>
+      <PaginationRow table={table} />
     </div>
   );
 }
 
 function Card({ data }: { data: PlayDataModel }) {
   return (
-    <div className="grid gap-2 rounded border bg-white p-2">
-      <div>
-        <div className="flex justify-between">
-          <div className="font-medium">{data.gameName}</div>
-          <a
-            className="mt-[3px]"
-            href={`https://www.boardgamegeek.com/play/details/${data.playId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ExternalLink width={16} />
-          </a>
+    <a
+      className="mt-[3px] text-slate-600"
+      href={`https://www.boardgamegeek.com/play/details/${data.playId}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div className="grid gap-6 rounded border bg-white p-2">
+        <div className="grid">
+          <div className="text-2xl font-semibold">{data.gameName}</div>
+          {data.players.length > 0 && (
+            <div className="flex flex-wrap items-center">
+              <Names players={data.players} />
+            </div>
+          )}
         </div>
-        <div className="flex items-center justify-between text-xs text-slate-600">
+
+        <div className="flex items-center justify-between text-sm text-slate-500">
           <div>{dayjs(data.date).format("MMM DD, YYYY")}</div>
           <div>{data.location}</div>
         </div>
       </div>
-
-      {data.players.length > 0 && (
-        <div className="flex flex-wrap items-center text-sm">
-          {/* <img
-            src="/images/icons/users.svg"
-            alt="Players"
-            className="mr-1 inline h-4 w-4"
-          /> */}
-          <Names players={data.players} />
-        </div>
-      )}
-    </div>
+    </a>
   );
 }
 
