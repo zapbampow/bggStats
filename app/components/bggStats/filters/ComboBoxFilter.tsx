@@ -26,6 +26,8 @@ import ClearFilter from "./ClearFilter";
 import { Check, Search, Trash } from "../icons";
 import useDebounce from "~/hooks/useDebounce";
 import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
+import { useIsMobile } from "~/hooks/useIsMobile";
+import { useWindowSize } from "~/hooks/useWindowSize";
 
 type Props = {
   filter: FilterType;
@@ -38,6 +40,7 @@ export default function ComboBoxFilter({ filter }: Props) {
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
   let filterBtnRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const [options, setOptions] = useState<SelectionType[]>([]);
   const [selection, setSelection] = useState<SelectionType>({});
@@ -54,6 +57,28 @@ export default function ComboBoxFilter({ filter }: Props) {
       : options?.filter((option: SelectionType) => {
           return option.label.toLowerCase().includes(query.toLowerCase());
         });
+
+  let { width } = useWindowSize();
+
+  const getSelectionText = (selection: SelectionType | undefined) => {
+    if (!selection) return "";
+
+    if (isMobile) {
+      let ch = width / 11;
+
+      if (selection.label.length < ch) {
+        return selection.label;
+      } else {
+        return `${selection.label.slice(0, ch - 5)}...`;
+      }
+    }
+
+    if (selection.label.length > 20) {
+      return `${selection.label.slice(0, 20)}...`;
+    }
+
+    return selection.label;
+  };
 
   const handleChange = (selection: SelectionType) => {
     setSelection(selection);
@@ -129,19 +154,24 @@ export default function ComboBoxFilter({ filter }: Props) {
     <div
       className={`relative flex items-center ${comboContainerStyles} hover:cursor-pointer`}
     >
-      <Measurer
-        value={`${filter.label}: ${selectionText}`}
-        visible={visible}
-        setVisible={setVisible}
-        impactedRef={filterBtnRef}
-        addedWidth={selectionText ? 40 : 0}
-      />
+      {!isMobile && (
+        <Measurer
+          value={`${filter.label}: ${selectionText}`}
+          visible={visible}
+          setVisible={setVisible}
+          impactedRef={filterBtnRef}
+          addedWidth={selectionText ? 40 : 0}
+        />
+      )}
+
       <div
         ref={filterBtnRef}
-        className="flex items-center w-full gap-4 overflow-hidden font-semibold text-left transition-all whitespace-nowrap sm:max-w-sm"
+        className="flex w-full items-center justify-between gap-4 overflow-hidden whitespace-nowrap text-left font-semibold transition-all sm:max-w-sm"
         onClick={clickButton}
       >
-        {filter.label}: {selectionText}
+        <span>
+          {filter.label}: {selectionText}
+        </span>
         {selectionText ? (
           <button
             className="text-slate-400 hover:text-red-500"
@@ -171,7 +201,7 @@ export default function ComboBoxFilter({ filter }: Props) {
                     }}
                     autoFocus
                     placeholder="search"
-                    className={`flex-1 px-2 bg-transparent font-semibold transition transition-all ease-in-out duration-500 ${hoverStyles} focus:outline-0`}
+                    className={`flex-1 bg-transparent px-2 font-semibold transition transition-all duration-500 ease-in-out ${hoverStyles} focus:outline-0`}
                   />
                   <Search className="cursor-default text-slate-500" />
                   <Combobox.Button
@@ -233,13 +263,3 @@ export default function ComboBoxFilter({ filter }: Props) {
     </div>
   );
 }
-
-const getSelectionText = (selection: SelectionType | undefined) => {
-  if (!selection) return "";
-
-  if (selection.label.length > 20) {
-    return `${selection.label.slice(0, 20)}...`;
-  }
-
-  return selection.label;
-};

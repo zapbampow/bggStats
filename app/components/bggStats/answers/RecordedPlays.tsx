@@ -17,13 +17,12 @@ import TableWithPagination from "../table/TableWithPagination";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
 import { TrophyFilled } from "../icons";
 import IconLegend from "./IconLegend";
-import { useWindowSize } from "~/hooks/useWindowSize";
+import { useIsMobile } from "~/hooks/useIsMobile";
 import RecordCards from "../table/RecordCards";
 
 export default function RecordedPlays() {
   const { state: data } = usePlayResultsContext();
-  const { width } = useWindowSize();
-  const isMobile = width < 640;
+  const isMobile = useIsMobile();
   // React.useEffect(() => {
   //   console.log("data", data);
   // }, [data]);

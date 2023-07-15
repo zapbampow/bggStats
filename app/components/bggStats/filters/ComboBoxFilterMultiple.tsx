@@ -20,6 +20,8 @@ import RemoveFilter from "./RemoveFilter";
 import Measurer from "~/components/bggStats/Measurer";
 import useDebounce from "~/hooks/useDebounce";
 import { usePlayResultsContext } from "~/contexts/bggStats/playResultsContext";
+import { useIsMobile } from "~/hooks/useIsMobile";
+import { useWindowSize } from "~/hooks/useWindowSize";
 
 type Props = {
   filter: FilterType;
@@ -32,6 +34,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
   let inputRef = useRef<HTMLInputElement | null>(null);
   let btnRef = useRef<HTMLButtonElement>(null);
   let filterBtnRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const [selections, setSelections] = useState<SelectionType[]>([]); // selected options
   const [allOptions, setAllOptions] = useState<SelectionType[]>([]);
@@ -43,10 +46,24 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   const labelSelectionText = `${filter.label}: ${selectionText}`;
 
-  const buttonText =
-    labelSelectionText.length > 40
+  const getButtonText = () => {
+    if (isMobile) {
+      let { width } = useWindowSize();
+      let ch = width / 10;
+
+      if (labelSelectionText.length < ch) {
+        return labelSelectionText;
+      } else {
+        return `${labelSelectionText.slice(0, ch - 5)}...`;
+      }
+    }
+
+    return labelSelectionText.length > 40
       ? `${labelSelectionText.slice(0, 40)}...`
       : labelSelectionText;
+  };
+
+  const buttonText = getButtonText();
 
   const debouncedQuery = useDebounce(query, 350);
 
@@ -143,16 +160,18 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
 
   return (
     <div className={`relative ${comboContainerStyles} hover:cursor-pointer`}>
-      <Measurer
-        value={buttonText}
-        visible={visible}
-        setVisible={setVisible}
-        impactedRef={filterBtnRef}
-        addedWidth={selectionText ? 40 : 2}
-      />
+      {!isMobile && (
+        <Measurer
+          value={buttonText}
+          visible={visible}
+          setVisible={setVisible}
+          impactedRef={filterBtnRef}
+          addedWidth={selectionText ? 40 : 2}
+        />
+      )}
       <div
         ref={filterBtnRef}
-        className="flex items-center w-full gap-4 overflow-hidden font-semibold text-left transition-all whitespace-nowrap sm:max-w-sm"
+        className="flex w-full items-center justify-between gap-4 overflow-hidden whitespace-nowrap text-left font-semibold transition-all sm:max-w-sm"
         onClick={clickButton}
       >
         {buttonText}
@@ -181,7 +200,7 @@ export default function ComboBoxFilterMultiple({ filter }: Props) {
                     onChange={(e: React.FormEvent<HTMLInputElement>) => {
                       setQuery(e.currentTarget.value);
                     }}
-                    className={`flex-1 bg-transparent font-semibold transition transition-all ease-in-out duration-500 focus:outline-0 placeholder:font-normal`}
+                    className={`flex-1 bg-transparent font-semibold transition transition-all duration-500 ease-in-out placeholder:font-normal focus:outline-0`}
                     placeholder="search"
                   />
                   <Combobox.Button ref={btnRef} className="display-none">
