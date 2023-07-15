@@ -19,7 +19,7 @@ export default function PaginationRow({ table }: Props) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="flex items-center justify-between gap-2 bg-white rounded-br-md rounded-bl-md ">
+    <div className="flex items-center justify-between gap-2 rounded bg-white sm:rounded-tl-none sm:rounded-tr-none ">
       {/* Previous page buttons */}
       <div>
         <button
@@ -39,9 +39,9 @@ export default function PaginationRow({ table }: Props) {
       </div>
 
       {/* Pagination settings */}
-      <div className="flex justify-center flex-auto gap-8 py-4">
-        <span className="flex items-center gap-1">
-          Go to page:
+      <div className="flex flex-auto items-center justify-center gap-8 py-4">
+        <span className="flex flex-col items-center gap-1 xs:flex-row">
+          <span className="hidden sm:inline">Go to page:</span>
           <input
             type="number"
             min={1}
@@ -51,16 +51,16 @@ export default function PaginationRow({ table }: Props) {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className="w-16 px-1 border rounded "
+            className="w-16 rounded border px-1 text-center sm:text-left"
           />
-          of {pageCount}
+          <span>of {pageCount}</span>
         </span>
         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
             table.setPageSize(Number(e.target.value));
           }}
-          className="border rounded"
+          className="rounded border"
         >
           {[10, 25, 50, 100].map((pageSize) => (
             <option key={pageSize} value={pageSize}>

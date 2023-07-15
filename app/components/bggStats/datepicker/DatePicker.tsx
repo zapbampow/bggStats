@@ -89,7 +89,7 @@ export default function DatePickerComponent({ filter }: Props) {
           clearAriaLabel="Clear date"
         />
       </div>
-      <div onClick={removeFilter} className=" hover:text-red-500">
+      <div onClick={removeFilter} className="ml-auto hover:text-red-500">
         <Trash width={16} />
       </div>
     </div>

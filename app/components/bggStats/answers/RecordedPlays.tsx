@@ -11,18 +11,21 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import type { ColumnHelper } from "@tanstack/react-table";
-import { ExternalLink, NewBadge } from "../icons";
+import { ExternalLink } from "../icons";
 
 import TableWithPagination from "../table/TableWithPagination";
 import type { PlayDataModel } from "~/models/bgg/gameDataModels";
-import { TrophyFilled, Trophy, Dice1 } from "../icons";
+import { TrophyFilled } from "../icons";
 import IconLegend from "./IconLegend";
+import { useIsMobile } from "~/hooks/useIsMobile";
+import RecordCards from "../table/RecordCards";
 
 export default function RecordedPlays() {
   const { state: data } = usePlayResultsContext();
-  React.useEffect(() => {
-    console.log("data", data);
-  }, [data]);
+  const isMobile = useIsMobile();
+  // React.useEffect(() => {
+  //   console.log("data", data);
+  // }, [data]);
 
   const columnHelper = createColumnHelper<PlayDataModel>();
   const columns = [
@@ -103,7 +106,11 @@ export default function RecordedPlays() {
 
   return (
     <Container>
-      <TableWithPagination table={table} />
+      {isMobile ? (
+        <RecordCards table={table} />
+      ) : (
+        <TableWithPagination table={table} />
+      )}
       <IconLegend />
     </Container>
   );

@@ -24,17 +24,17 @@ export default function TableWithPagination({ table }: Props) {
   return (
     <>
       <table
-        className="w-full bg-white border border-separate rounded-tr-md rounded-tl-md"
+        className="w-full border-separate rounded-tl-md rounded-tr-md border bg-white"
         style={{ borderSpacing: 0 }}
       >
-        <thead className="w-full border-b border-spacing-2">
+        <thead className="w-full border-spacing-2 border-b">
           {
             // Loop over the header rows
             table.getHeaderGroups().map((headerGroup) => (
               // Apply the header row props
               <tr
                 key={headerGroup.id}
-                className="w-full text-left rounded"
+                className="w-full rounded text-left"
                 style={{ borderSpacing: "1 !important" }}
               >
                 {

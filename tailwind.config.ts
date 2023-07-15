@@ -8,6 +8,10 @@ export default {
       fontFamily: {
         sans: ["Work Sans", ...defaultTheme.fontFamily.sans],
       },
+      screens: {
+        xs: "425px",
+        ...defaultTheme.screens,
+      },
     },
   },
   plugins: [],

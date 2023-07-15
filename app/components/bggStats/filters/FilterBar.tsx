@@ -36,7 +36,7 @@ export default function FilterBar() {
 
   return (
     <Container>
-      <div className="flex flex-wrap gap-2 mb-8 filters">
+      <div className="filters mb-8 flex flex-col flex-wrap gap-2 sm:flex-row">
         {/* Filter components */}
         {state.slice(1).map((filter: FilterType) => {
           return <FilterToComponent key={filter.order} filter={filter} />;

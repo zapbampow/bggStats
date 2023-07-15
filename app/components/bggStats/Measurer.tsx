@@ -41,7 +41,7 @@ export default function Measurer({
   if (!visible) return null;
 
   return (
-    <div ref={measurerRef} className="absolute invisible w-max">
+    <div ref={measurerRef} className="invisible absolute w-max">
       {value}
     </div>
   );
